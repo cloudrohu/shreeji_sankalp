@@ -5,3 +5,8 @@ from django.shortcuts import render,redirect
 def about(request):
   
     return render(request, 'home/about.html',)
+
+def FAQs(request):
+  
+    return render(request, 'home/faqs.html',)
+
