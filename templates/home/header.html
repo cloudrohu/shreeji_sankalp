@@ -78,9 +78,16 @@
 
             <div class="h-[68px] lg:h-[76px] flex items-center justify-between gap-8">
 
-                <a href="#home"  class="relative w-[80px] h-[76px] lg:w-[100px] lg:h-[84px] shrink-0 flex items-center justify-center overflow-visible">
+                <a href="/"  class="relative w-[80px] h-[76px] lg:w-[100px] lg:h-[84px] shrink-0 flex items-center justify-center overflow-visible">
+                 {% if settings_obj.logo  %}
+                    <img src="{{settings_obj.logo.url}}" alt="{{settings_obj.site_name}}" class="w-full h-full object-contain">
+                {% else %}
+                    <img src="" alt="{{settings_obj.site_name}}" class="w-full h-full object-contain">
 
-                    <img src="https://vinayaklandmark.com/settings/2-removebg-preview.png" alt="Logo" class="w-full h-full object-contain">
+                {% endif %}
+
+                
+                
                 </a>
 
             <nav class="hidden xl:flex items-center justify-center gap-8 2xl:gap-10 flex-1">
@@ -125,7 +132,7 @@
 
             <div class="hidden md:flex items-center gap-3 shrink-0">
 
-                <a href="tel:+919999999999" class="hidden lg:flex items-center gap-2 px-5 py-3 text-[12px] font-medium tracking-wider uppercase text-neutral-800 border border-black/10 hover:border-[#a8874b] hover:text-[#9b793f] transition-all duration-300">
+                <a href="tel:+91{{settings_obj.phone}}" class="hidden lg:flex items-center gap-2 px-5 py-3 text-[12px] font-medium tracking-wider uppercase text-neutral-800 border border-black/10 hover:border-[#a8874b] hover:text-[#9b793f] transition-all duration-300">
 
                     <i class="fa-solid fa-phone text-[10px]"></i>
 
@@ -153,7 +160,7 @@
 
             <nav class="py-5">
 
-                <a href="#home"
+                <a href="/"
                    class="mobile-link flex items-center justify-between py-3.5 text-sm font-medium border-b border-black/[0.06]">
                     <span>Home</span>
                     <span class="text-[#a8874b]">01</span>
