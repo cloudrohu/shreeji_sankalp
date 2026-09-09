@@ -42,8 +42,6 @@ class SliderInline(BaseSettingInline):
     fields = (
         "title1",
         "title2",
-        "title3",
-        "subtitle",
         "badge_title",
         "descriptions",
         "image",

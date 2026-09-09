@@ -83,10 +83,7 @@
                     <img src="{{settings_obj.logo.url}}" alt="{{settings_obj.site_name}}" class="w-full h-full object-contain">
                 {% else %}
                     <img src="" alt="{{settings_obj.site_name}}" class="w-full h-full object-contain">
-
                 {% endif %}
-
-                
                 
                 </a>
 
@@ -108,23 +105,23 @@
                     Project Details
                 </a>
 
-                <a href="#amenities" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800">
+                <a href="{% url "amenities" %}" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800">
                     Amenities
                 </a>
 
-                <a href="#location" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800">
+                <a href="{% url "location" %}" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800">
                     Location
                 </a>
 
-                <a href="#gallery" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800">
+                <a href="{% url "gallery" %}" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800">
                     Gallery
                 </a>
 
-                <a href="#floor-plans" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800">
+                <a href="{% url "floor_plans" %}" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800">
                     Floor Plans
                 </a>
 
-                <a href="#contact" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800">
+                <a href="{% url "contact" %}" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800">
                     Contact
                 </a>
 
@@ -211,12 +208,12 @@
                 <a href="#contact"
                    class="mobile-link flex items-center justify-between py-3.5 text-sm font-medium">
                     <span>Contact</span>
-                    <span class="text-[#a8874b]">09</span>
+                    <span class="text-[#a8874b]">{{settings_obj.phone}}</span>
                 </a>
 
                 <div class="pt-5 grid grid-cols-2 gap-3">
 
-                    <a href="tel:+919999999999" class="flex items-center justify-center gap-2 border border-black/10 py-3.5 text-[11px] uppercase tracking-wider">
+                    <a href="tel:+91{{settings_obj.phone}}" class="flex items-center justify-center gap-2 border border-black/10 py-3.5 text-[11px] uppercase tracking-wider">
                         <i class="fa-solid fa-phone text-[10px]"></i>
                         Call Us
                     </a>

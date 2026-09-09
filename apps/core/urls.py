@@ -6,5 +6,12 @@ urlpatterns = [
     # Accessing http://127.0.0 triggers the view
     path('about/', views.about, name='about'),
     path('faqs/', views.FAQs, name='faqs'),
-
+    path('privacy-policy/', views.Privacy_Policy, name='privacy_policy'),
+    path('disclaimer/', views.Disclaimer, name='disclaimer'),
+    path('amenities/', views.Amenities, name='amenities'),
+    path('location/', views.Location, name='location'),
+    path('gallery/', views.Gallery, name='gallery'),
+    path('contact/', views.Contact, name='contact'),
+    path('floor_plan/', views.Contact, name='floor_plans'),
+    
 ]

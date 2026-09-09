@@ -8,39 +8,26 @@
 
             <!-- Copyright -->
             <p class="text-[11px] sm:text-xs text-white/45 text-center sm:text-left">
-                © 2026 Vinayak Sapphire II. All Rights Reserved.
+                © {{settings_obj.copy_right}}. All Rights Reserved.
             </p>
 
 
             <!-- Links -->
             <div class="flex items-center gap-4 sm:gap-6">
 
-                <a
-                    href="#privacy"
-                    class="text-[11px] sm:text-xs text-white/45 hover:text-white transition-colors"
-                >
+                <a href="{% url "privacy_policy" %}" class="text-[11px] sm:text-xs text-white/45 hover:text-white transition-colors">
                     Privacy Policy
                 </a>
 
                 <span class="w-px h-3 bg-white/10"></span>
 
-                <a
-                    href="#disclaimer"
-                    class="text-[11px] sm:text-xs text-white/45 hover:text-white transition-colors"
-                >
+                <a href="{% url "disclaimer" %}" class="text-[11px] sm:text-xs text-white/45 hover:text-white transition-colors">
                     Disclaimer
                 </a>
 
             </div>
 
 
-            <!-- Developer -->
-            <p class="text-[11px] sm:text-xs text-white/45">
-                Developed by
-                <span class="text-white/70 font-medium">
-                    Vinayak Group
-                </span>
-            </p>
 
         </div>
 
