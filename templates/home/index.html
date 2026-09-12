@@ -709,6 +709,7 @@
 
 </section>
 
+
 <section id="location" class="bg-white py-20 sm:py-24 lg:py-28">
     <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
 
@@ -728,10 +729,11 @@
 
         <div class="mt-12 lg:mt-16 grid lg:grid-cols-5 gap-6 lg:gap-8">
 
-            <div class="lg:col-span-3 overflow-hidden rounded-3xl border border-neutral-200 bg-neutral-100 min-h-[400px] lg:min-h-[520px]">
-                <iframe src="https://www.google.com/maps?q=Kudasan,Gandhinagar,Gujarat&output=embed" class="w-full h-full min-h-[400px] lg:min-h-[520px] border-0" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
+         
+            <div class="relative lg:col-span-3 overflow-hidden rounded-3xl border border-neutral-200 bg-neutral-100 min-h-[400px] lg:min-h-[520px] [&>iframe]:absolute [&>iframe]:inset-0 [&>iframe]:w-full [&>iframe]:h-full [&>iframe]:border-0">
+                {{ settings_obj.google_map|safe }}
             </div>
+
 
             <div class="lg:col-span-2 flex flex-col justify-center">
 
@@ -739,66 +741,26 @@
                     <span class="text-xs uppercase tracking-[0.2em] text-[#a27a22]">
                         Address
                     </span>
-
-                    <h3 class="mt-3 text-xl sm:text-2xl font-semibold text-neutral-900">
-                        Shreeji Sankalp
-                    </h3>
-
-                    <p class="mt-2 text-sm sm:text-base leading-7 text-neutral-500">
-                        Kudasan, Gandhinagar, Gujarat
-                    </p>
                 </div>
 
-                <div class="mt-7 max-h-[360px] overflow-y-auto pr-3 space-y-5
-                            scrollbar-thin scrollbar-thumb-[#c89b2c] scrollbar-track-neutral-100">
+                <div class="mt-7 max-h-[360px] overflow-y-auto pr-3 space-y-5 scrollbar-thin scrollbar-thumb-[#c89b2c] scrollbar-track-neutral-100">
+
+                 {% for conn in project_obj.connectivity.all %}
 
                     <div class="flex items-center justify-between gap-4 pb-5 border-b border-neutral-100">
-                        <div>
-                            <p class="text-sm font-medium text-neutral-900">Gandhinagar</p>
-                            <p class="text-xs text-neutral-500 mt-1">City Centre</p>
-                        </div>
-                        <span class="text-sm font-semibold text-[#a27a22]">Nearby</span>
-                    </div>
 
-                    <div class="flex items-center justify-between gap-4 pb-5 border-b border-neutral-100">
                         <div>
-                            <p class="text-sm font-medium text-neutral-900">Sargasan</p>
-                            <p class="text-xs text-neutral-500 mt-1">Residential & Commercial Hub</p>
+                            <p class="text-sm font-medium text-neutral-900">
+                                {{ conn.title }}
+                            </p>
                         </div>
-                        <span class="text-sm font-semibold text-[#a27a22]">Nearby</span>
-                    </div>
 
-                    <div class="flex items-center justify-between gap-4 pb-5 border-b border-neutral-100">
-                        <div>
-                            <p class="text-sm font-medium text-neutral-900">Gift City</p>
-                            <p class="text-xs text-neutral-500 mt-1">Business District</p>
-                        </div>
-                        <span class="text-sm font-semibold text-[#a27a22]">Nearby</span>
-                    </div>
+                        <span class="text-sm font-semibold text-[#a27a22]">
+                            {{ conn.km }}
+                        </span>
 
-                    <div class="flex items-center justify-between gap-4 pb-5 border-b border-neutral-100">
-                        <div>
-                            <p class="text-sm font-medium text-neutral-900">SG Highway</p>
-                            <p class="text-xs text-neutral-500 mt-1">Major Connectivity</p>
-                        </div>
-                        <span class="text-sm font-semibold text-[#a27a22]">Nearby</span>
                     </div>
-
-                    <div class="flex items-center justify-between gap-4 pb-5 border-b border-neutral-100">
-                        <div>
-                            <p class="text-sm font-medium text-neutral-900">Ahmedabad</p>
-                            <p class="text-xs text-neutral-500 mt-1">Major City Connectivity</p>
-                        </div>
-                        <span class="text-sm font-semibold text-[#a27a22]">Nearby</span>
-                    </div>
-
-                    <div class="flex items-center justify-between gap-4 pb-5 border-b border-neutral-100">
-                        <div>
-                            <p class="text-sm font-medium text-neutral-900">Airport</p>
-                            <p class="text-xs text-neutral-500 mt-1">Air Connectivity</p>
-                        </div>
-                        <span class="text-sm font-semibold text-[#a27a22]">Nearby</span>
-                    </div>
+                {% endfor %}
 
                 </div>
 
@@ -1040,12 +1002,7 @@
                 class="relative min-h-[430px] sm:min-h-[520px] lg:min-h-[650px] overflow-hidden bg-neutral-900">
 
                 <!-- Background Image -->
-                <img
-                    src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=2000&q=85"
-                    alt="Virtual Tour"
-                    class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000"
-                    id="tourPreviewImage"
-                >
+                <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=2000&q=85" alt="Virtual Tour" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000" id="tourPreviewImage">
 
                 <!-- Overlay -->
                 <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-black/20 to-black/70"></div>
@@ -1056,12 +1013,7 @@
 
                     <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/90 backdrop-blur-md border border-white/50 shadow-lg">
 
-                        <svg
-                            class="w-4 h-4 text-[#a27a4d]"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="1.8"
+                        <svg class="w-4 h-4 text-[#a27a4d]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
                         >
                             <path d="M12 3v18M3 12h18"/>
                             <circle cx="12" cy="12" r="8"/>
@@ -2003,42 +1955,59 @@
 
 <script>
     const galleryImages = [
-        "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1400&q=90",
-        "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1400&q=90",
-        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=90",
-        "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=1400&q=90",
-        "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1400&q=90",
-        "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1400&q=90",
-        "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1400&q=90"
+        {% for item in project_obj.gallery.all %}
+            "{{ item.image.url }}"{% if not forloop.last %},{% endif %}
+        {% endfor %}
     ];
 
     let galleryIndex = 0;
 
+    const galleryModal = document.getElementById("galleryModal");
+    const galleryImage = document.getElementById("galleryImage");
+
     function openGallery(index) {
+
+        if (!galleryImages.length) return;
+
         galleryIndex = index;
-        galleryImage.src = galleryImages[index];
+
+        galleryImage.src = galleryImages[galleryIndex];
+
         galleryModal.classList.remove("hidden");
         galleryModal.classList.add("flex");
+
         document.body.classList.add("overflow-hidden");
     }
 
     function closeGallery() {
+
         galleryModal.classList.add("hidden");
         galleryModal.classList.remove("flex");
+
         document.body.classList.remove("overflow-hidden");
     }
 
     function galleryNext() {
-        galleryIndex = (galleryIndex + 1) % galleryImages.length;
+
+        if (!galleryImages.length) return;
+
+        galleryIndex =
+            (galleryIndex + 1) % galleryImages.length;
+
         galleryImage.src = galleryImages[galleryIndex];
     }
 
     function galleryPrev() {
-        galleryIndex = (galleryIndex - 1 + galleryImages.length) % galleryImages.length;
+
+        if (!galleryImages.length) return;
+
+        galleryIndex =
+            (galleryIndex - 1 + galleryImages.length)
+            % galleryImages.length;
+
         galleryImage.src = galleryImages[galleryIndex];
     }
 </script>
-
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {

@@ -1168,8 +1168,10 @@ class Configuration(BaseModel):
         # Configuration ke instances ko Project aur BHK type ke hisaab se arrange karein
         ordering = ['bhk_type']
 class Connectivity(BaseModel):
-    Project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="configs")
-    title = models.CharField(max_length=50)
+    Project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="connectivity")
+    title = models.CharField(max_length=100)
+    km = models.CharField(max_length=50, blank=True, null=True      )
+
 
 
     def __str__(self):
