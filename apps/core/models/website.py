@@ -223,6 +223,17 @@ class Why_Choose(BaseModel):
         return self.title or ""
 
 
+class USP(BaseModel):
+    setting = models.ForeignKey(Setting, on_delete=models.CASCADE, related_name="usp_item", blank=True, null=True)
+    icons = models.CharField(max_length=100, blank=True, null=True, help_text="Example: fa-solid fa-star")
+    title = models.CharField(max_length=200, blank=True, null=True)
+    subtitle = models.CharField(max_length=300, blank=True, null=True)
+    order = models.PositiveIntegerField(default=0, blank=True, null=True)
+
+    def __str__(self):
+        return self.title or ""
+
+
 class FAQ(BaseModel):
     setting = models.ForeignKey(Setting, on_delete=models.CASCADE, related_name="faqs", blank=True, null=True)
     question = models.CharField(max_length=300, blank=True, null=True)
@@ -294,3 +305,4 @@ class Enquiry(BaseModel):
 
     def __str__(self):
         return f"{self.name or 'Unknown'} - {self.phone or 'No Phone'}"
+

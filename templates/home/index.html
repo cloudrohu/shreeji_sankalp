@@ -107,7 +107,7 @@
                 <div>
 
                     <h2 class="text-2xl sm:text-3xl font-semibold text-neutral-900 leading-tight">
-                        Shreeji Sankalp | Vastral | 2,3 BHK
+                       {{project_obj.project_name}}
                     </h2>
 
                     <div class="inline-flex items-center gap-2 mt-3 px-4 py-2 bg-[#faf4eb]">
@@ -115,7 +115,7 @@
                         <i class="fa-solid fa-location-dot text-[#a8874b] text-sm"></i>
 
                         <span class="text-xs sm:text-sm text-[#a8874b]">
-                            Kudasan, Gandhinagar
+                            {{project_obj.locality.name}} / {{project_obj.city.name}}
                         </span>
 
                     </div>
@@ -133,7 +133,7 @@
                                 <i class="fa-solid fa-user-tie text-[#a8874b] text-sm"></i>
 
                                 <span class="text-sm font-medium text-neutral-900">
-                                    Shreeji Sankalp
+                                    {{project_obj.developer}}
                                 </span>
 
                             </div>
@@ -151,7 +151,7 @@
                                 <i class="fa-solid fa-chart-area text-[#a8874b] text-sm"></i>
 
                                 <span class="text-sm font-medium text-neutral-900">
-                                    Premium Development
+                                    {{project_obj.land_parcel}}
                                 </span>
 
                             </div>
@@ -187,7 +187,7 @@
                                 <i class="fa-solid fa-bed text-[#a8874b] text-sm"></i>
 
                                 <span class="text-sm font-medium text-neutral-900">
-                                    3 BHK
+                                    {{project_obj.bhk_type}}
                                 </span>
 
                             </div>
@@ -241,7 +241,7 @@
 
             <div class="relative min-h-[420px] lg:min-h-[560px]">
 
-                <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1400&q=90" alt="Shreeji Sankalp" class="absolute inset-0 w-full h-full object-cover">
+                <img src="{{project_obj.image.url}}" alt="{{project_obj.project_name}}" class="absolute inset-0 w-full h-full object-cover">
 
                 <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
 
@@ -263,25 +263,7 @@
 
                 <div class="relative h-[430px] sm:h-[520px] lg:h-[620px] overflow-hidden">
 
-                    <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1400&q=85"
-                         alt="Luxury Project"
-                         class="w-full h-full object-cover">
-
-                </div>
-
-                <div class="absolute -bottom-7 right-5 sm:right-8 lg:-right-8 bg-white px-7 sm:px-9 py-6 shadow-[0_15px_50px_rgba(0,0,0,0.10)]">
-
-                    <div class="flex items-end gap-2">
-
-                        <span class="luxury-font text-4xl sm:text-5xl text-neutral-900">
-                            25+
-                        </span>
-
-                        <span class="text-[10px] uppercase tracking-[0.18em] text-neutral-500 pb-1">
-                            Years of<br>Excellence
-                        </span>
-
-                    </div>
+                    <img src="{{project_obj.image.url}}" alt="{{project_obj.project_name}}" class="w-full h-full object-cover">
 
                 </div>
 
@@ -294,80 +276,27 @@
                     <span class="w-9 h-px bg-[#a8874b]"></span>
 
                     <span class="text-[11px] font-medium tracking-[0.28em] uppercase text-[#a8874b]">
-                        About The Project
+                        About Us
                     </span>
 
                 </div>
 
                 <h2 class="luxury-font text-4xl sm:text-5xl lg:text-6xl leading-[1.08] text-neutral-900">
-                    Designed For
-                    <br>
                     <span class="italic font-normal text-neutral-500">
-                        A Life Well Lived
+                        {{about_obj.title}}
                     </span>
                 </h2>
 
                 <p class="mt-7 text-[15px] leading-7 text-neutral-600 max-w-xl">
-                    Experience a thoughtfully crafted residential destination where
-                    contemporary architecture meets timeless elegance. Every detail
-                    has been designed to create a refined, comfortable and inspiring
-                    lifestyle for you and your family.
+                  {{about_obj.content|safe}}
                 </p>
 
                 <p class="mt-4 text-[15px] leading-7 text-neutral-600 max-w-xl">
-                    From spacious residences and premium amenities to seamless
-                    connectivity and beautifully planned surroundings, this is more
-                    than a home — it is a place designed around the way you want to live.
+                    {{about_obj.read_legacy|safe}}
                 </p>
-
-                <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4 gap-y-7 gap-x-5 mt-10 pt-8 border-t border-black/10">
-
-                    <div>
-                        <h3 class="luxury-font text-3xl text-neutral-900">
-                            3
-                        </h3>
-
-                        <p class="mt-1 text-[10px] uppercase tracking-[0.14em] text-neutral-500">
-                            Bedrooms
-                        </p>
-                    </div>
-
-                    <div>
-                        <h3 class="luxury-font text-3xl text-neutral-900">
-                            24×7
-                        </h3>
-
-                        <p class="mt-1 text-[10px] uppercase tracking-[0.14em] text-neutral-500">
-                            Security
-                        </p>
-                    </div>
-
-                    <div>
-                        <h3 class="luxury-font text-3xl text-neutral-900">
-                            3-Side
-                        </h3>
-
-                        <p class="mt-1 text-[10px] uppercase tracking-[0.14em] text-neutral-500">
-                            Open Homes
-                        </p>
-                    </div>
-
-                    <div>
-                        <h3 class="luxury-font text-3xl text-neutral-900">
-                            Premium
-                        </h3>
-
-                        <p class="mt-1 text-[10px] uppercase tracking-[0.14em] text-neutral-500">
-                            Lifestyle
-                        </p>
-                    </div>
-
-                </div>
-
                 <div class="mt-10 flex flex-wrap items-center gap-5">
 
-                    <a href="#project-details"
-                       class="inline-flex items-center gap-4 bg-neutral-900 text-white px-7 py-4 text-[11px] font-medium tracking-[0.16em] uppercase hover:bg-[#a8874b] transition-all duration-300">
+                    <a href="{% url "about" %}" class="inline-flex items-center gap-4 bg-neutral-900 text-white px-7 py-4 text-[11px] font-medium tracking-[0.16em] uppercase hover:bg-[#a8874b] transition-all duration-300">
 
                         Discover More
 
@@ -375,8 +304,7 @@
 
                     </a>
 
-                    <a href="#contact"
-                       class="text-[11px] font-medium tracking-[0.16em] uppercase text-neutral-700 hover:text-[#a8874b] transition-colors duration-300">
+                    <a href="{% url "contact" %}" class="text-[11px] font-medium tracking-[0.16em] uppercase text-neutral-700 hover:text-[#a8874b] transition-colors duration-300">
                         Schedule A Visit
                     </a>
 
@@ -391,7 +319,8 @@
 </section>
 
 
-<section id="usp" class="relative bg-[#f8f7f4] py-20 sm:py-24 lg:py-28 overflow-hidden">
+{% if why_choose %}
+<section id="why-choose" class="relative bg-[#f8f7f4] py-20 sm:py-24 lg:py-28 overflow-hidden">
 
     <div class="max-w-[1500px] mx-auto px-5 sm:px-7 lg:px-10">
 
@@ -419,155 +348,31 @@
 
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-black/10 border border-black/10">
 
+            {% for rs in why_choose %}
             <div class="group bg-white p-7 sm:p-9 lg:p-10 hover:bg-neutral-900 transition-all duration-500">
 
                 <div class="flex items-start justify-between">
 
                     <div class="w-12 h-12 flex items-center justify-center border border-black/10 group-hover:border-white/20 transition-all duration-500">
-                        <i class="fa-solid fa-location-dot text-[#a8874b] text-sm"></i>
+                        <i class="{{rs.icons}} text-[#a8874b] text-sm"></i>
                     </div>
 
                     <span class="text-[10px] tracking-[0.2em] text-neutral-400 group-hover:text-white/30">
-                        01
+                        {{ forloop.counter|stringformat:"02d" }}
                     </span>
 
                 </div>
 
                 <h3 class="luxury-font text-2xl mt-9 text-neutral-900 group-hover:text-white transition-colors duration-500">
-                    Prime Location
+                    {{rs.title}}
                 </h3>
 
                 <p class="mt-4 text-sm leading-6 text-neutral-500 group-hover:text-white/60 transition-colors duration-500">
-                    Strategically positioned in a well-connected neighbourhood,
-                    keeping everyday essentials and key destinations within easy reach.
+                    {{rs.subtitle}}
                 </p>
 
             </div>
-
-            <div class="group bg-white p-7 sm:p-9 lg:p-10 hover:bg-neutral-900 transition-all duration-500">
-
-                <div class="flex items-start justify-between">
-
-                    <div class="w-12 h-12 flex items-center justify-center border border-black/10 group-hover:border-white/20 transition-all duration-500">
-                        <i class="fa-solid fa-house-chimney text-[#a8874b] text-sm"></i>
-                    </div>
-
-                    <span class="text-[10px] tracking-[0.2em] text-neutral-400 group-hover:text-white/30">
-                        02
-                    </span>
-
-                </div>
-
-                <h3 class="luxury-font text-2xl mt-9 text-neutral-900 group-hover:text-white transition-colors duration-500">
-                    Spacious Residences
-                </h3>
-
-                <p class="mt-4 text-sm leading-6 text-neutral-500 group-hover:text-white/60 transition-colors duration-500">
-                    Thoughtfully planned layouts with generous spaces, natural light
-                    and comfortable interiors designed for modern families.
-                </p>
-
-            </div>
-
-            <div class="group bg-white p-7 sm:p-9 lg:p-10 hover:bg-neutral-900 transition-all duration-500">
-
-                <div class="flex items-start justify-between">
-
-                    <div class="w-12 h-12 flex items-center justify-center border border-black/10 group-hover:border-white/20 transition-all duration-500">
-                        <i class="fa-solid fa-sun text-[#a8874b] text-sm"></i>
-                    </div>
-
-                    <span class="text-[10px] tracking-[0.2em] text-neutral-400 group-hover:text-white/30">
-                        03
-                    </span>
-
-                </div>
-
-                <h3 class="luxury-font text-2xl mt-9 text-neutral-900 group-hover:text-white transition-colors duration-500">
-                    Three-Side Open
-                </h3>
-
-                <p class="mt-4 text-sm leading-6 text-neutral-500 group-hover:text-white/60 transition-colors duration-500">
-                    Enjoy enhanced ventilation, natural sunlight and a more open
-                    living experience with thoughtfully designed residences.
-                </p>
-
-            </div>
-
-            <div class="group bg-white p-7 sm:p-9 lg:p-10 hover:bg-neutral-900 transition-all duration-500">
-
-                <div class="flex items-start justify-between">
-
-                    <div class="w-12 h-12 flex items-center justify-center border border-black/10 group-hover:border-white/20 transition-all duration-500">
-                        <i class="fa-solid fa-building-shield text-[#a8874b] text-sm"></i>
-                    </div>
-
-                    <span class="text-[10px] tracking-[0.2em] text-neutral-400 group-hover:text-white/30">
-                        04
-                    </span>
-
-                </div>
-
-                <h3 class="luxury-font text-2xl mt-9 text-neutral-900 group-hover:text-white transition-colors duration-500">
-                    Secure Community
-                </h3>
-
-                <p class="mt-4 text-sm leading-6 text-neutral-500 group-hover:text-white/60 transition-colors duration-500">
-                    A secure gated environment with 24×7 security designed to give
-                    residents complete peace of mind.
-                </p>
-
-            </div>
-
-            <div class="group bg-white p-7 sm:p-9 lg:p-10 hover:bg-neutral-900 transition-all duration-500">
-
-                <div class="flex items-start justify-between">
-
-                    <div class="w-12 h-12 flex items-center justify-center border border-black/10 group-hover:border-white/20 transition-all duration-500">
-                        <i class="fa-solid fa-tree-city text-[#a8874b] text-sm"></i>
-                    </div>
-
-                    <span class="text-[10px] tracking-[0.2em] text-neutral-400 group-hover:text-white/30">
-                        05
-                    </span>
-
-                </div>
-
-                <h3 class="luxury-font text-2xl mt-9 text-neutral-900 group-hover:text-white transition-colors duration-500">
-                    Premium Amenities
-                </h3>
-
-                <p class="mt-4 text-sm leading-6 text-neutral-500 group-hover:text-white/60 transition-colors duration-500">
-                    Carefully curated lifestyle amenities create spaces for wellness,
-                    recreation, relaxation and meaningful moments.
-                </p>
-
-            </div>
-
-            <div class="group bg-white p-7 sm:p-9 lg:p-10 hover:bg-neutral-900 transition-all duration-500">
-
-                <div class="flex items-start justify-between">
-
-                    <div class="w-12 h-12 flex items-center justify-center border border-black/10 group-hover:border-white/20 transition-all duration-500">
-                        <i class="fa-solid fa-car text-[#a8874b] text-sm"></i>
-                    </div>
-
-                    <span class="text-[10px] tracking-[0.2em] text-neutral-400 group-hover:text-white/30">
-                        06
-                    </span>
-
-                </div>
-
-                <h3 class="luxury-font text-2xl mt-9 text-neutral-900 group-hover:text-white transition-colors duration-500">
-                    Ample Parking
-                </h3>
-
-                <p class="mt-4 text-sm leading-6 text-neutral-500 group-hover:text-white/60 transition-colors duration-500">
-                    Convenient parking provisions offer effortless accessibility
-                    for residents and their guests.
-                </p>
-
-            </div>
+            {% endfor %}
 
         </div>
 
@@ -589,9 +394,9 @@
     </div>
 
 </section>
+{% endif %}
 
-
-<section id="why-choose" class="relative bg-[#f5f3ef] py-14 sm:py-16 lg:py-20 overflow-hidden">
+<section id="usp" class="relative bg-[#f5f3ef] py-14 sm:py-16 lg:py-20 overflow-hidden">
 
     <div class="max-w-[1500px] mx-auto px-5 sm:px-7 lg:px-10">
 
@@ -601,8 +406,7 @@
 
                 <div class="h-[360px] sm:h-[420px] lg:h-[480px] overflow-hidden">
 
-                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=85" alt="Premium Residence"
-                         class="w-full h-full object-cover">
+                    <img src="{{settings_obj.offer_img.url}}" alt="{{settings_obj.site_name}}" class="w-full h-full object-cover">
 
                 </div>
 
@@ -627,18 +431,10 @@
                     <span class="w-7 h-px bg-[#a8874b]"></span>
 
                     <span class="text-[10px] font-medium tracking-[0.25em] uppercase text-[#a8874b]">
-                        Why Choose Us
+                        Our Unique Selling Proposition
                     </span>
 
                 </div>
-
-                <h2 class="luxury-font text-3xl sm:text-4xl lg:text-5xl leading-[1.08] text-neutral-900">
-                    More Than
-                    <br>
-                    <span class="italic font-normal text-neutral-500">
-                        Just A Home
-                    </span>
-                </h2>
 
                 <p class="mt-4 max-w-xl text-[13px] sm:text-sm leading-6 text-neutral-600">
                     Every element has been carefully considered to offer a
@@ -648,12 +444,13 @@
 
                 <div class="mt-6 border-t border-black/10">
 
+                    {% for rs in unique_selling_proposition %}
                     <div class="group py-4 border-b border-black/10">
 
                         <div class="flex gap-4">
 
                             <span class="text-[10px] tracking-[0.15em] text-[#a8874b] pt-1">
-                                01
+                                {{ forloop.counter|stringformat:"02d" }}
                             </span>
 
                             <div class="flex-1">
@@ -661,7 +458,7 @@
                                 <div class="flex items-center justify-between gap-4">
 
                                     <h3 class="luxury-font text-lg sm:text-xl text-neutral-900">
-                                        Exceptional Connectivity
+                                        {{rs.title}}
                                     </h3>
 
                                     <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-neutral-400 group-hover:text-[#a8874b]"></i>
@@ -669,8 +466,7 @@
                                 </div>
 
                                 <p class="mt-1.5 text-xs sm:text-[13px] leading-5 text-neutral-500">
-                                    Seamless access to major roads, business hubs,
-                                    schools, hospitals and everyday essentials.
+                                    {{rs.subtitle}}
                                 </p>
 
                             </div>
@@ -679,103 +475,11 @@
 
                     </div>
 
-                    <div class="group py-4 border-b border-black/10">
-
-                        <div class="flex gap-4">
-
-                            <span class="text-[10px] tracking-[0.15em] text-[#a8874b] pt-1">
-                                02
-                            </span>
-
-                            <div class="flex-1">
-
-                                <div class="flex items-center justify-between gap-4">
-
-                                    <h3 class="luxury-font text-lg sm:text-xl text-neutral-900">
-                                        Thoughtful Architecture
-                                    </h3>
-
-                                    <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-neutral-400 group-hover:text-[#a8874b]"></i>
-
-                                </div>
-
-                                <p class="mt-1.5 text-xs sm:text-[13px] leading-5 text-neutral-500">
-                                    Contemporary architecture with spacious planning
-                                    creates elegant and timeless homes.
-                                </p>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="group py-4 border-b border-black/10">
-
-                        <div class="flex gap-4">
-
-                            <span class="text-[10px] tracking-[0.15em] text-[#a8874b] pt-1">
-                                03
-                            </span>
-
-                            <div class="flex-1">
-
-                                <div class="flex items-center justify-between gap-4">
-
-                                    <h3 class="luxury-font text-lg sm:text-xl text-neutral-900">
-                                        Premium Lifestyle
-                                    </h3>
-
-                                    <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-neutral-400 group-hover:text-[#a8874b]"></i>
-
-                                </div>
-
-                                <p class="mt-1.5 text-xs sm:text-[13px] leading-5 text-neutral-500">
-                                    Curated amenities bring comfort, wellness and
-                                    recreation closer to home.
-                                </p>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="group py-4">
-
-                        <div class="flex gap-4">
-
-                            <span class="text-[10px] tracking-[0.15em] text-[#a8874b] pt-1">
-                                04
-                            </span>
-
-                            <div class="flex-1">
-
-                                <div class="flex items-center justify-between gap-4">
-
-                                    <h3 class="luxury-font text-lg sm:text-xl text-neutral-900">
-                                        Built For Tomorrow
-                                    </h3>
-
-                                    <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-neutral-400 group-hover:text-[#a8874b]"></i>
-
-                                </div>
-
-                                <p class="mt-1.5 text-xs sm:text-[13px] leading-5 text-neutral-500">
-                                    Designed to deliver lasting value, comfort and
-                                    an elevated quality of life.
-                                </p>
-
-                            </div>
-
-                        </div>
-
-                    </div>
+                    {% endfor %}
 
                 </div>
 
-                <a href="#contact"
-                   class="mt-6 inline-flex items-center gap-3 bg-neutral-900 text-white px-6 py-3.5 text-[10px] font-medium tracking-[0.16em] uppercase hover:bg-[#a8874b] transition-all duration-300">
+                <a href="{% url "contact" %}" class="mt-6 inline-flex items-center gap-3 bg-neutral-900 text-white px-6 py-3.5 text-[10px] font-medium tracking-[0.16em] uppercase hover:bg-[#a8874b] transition-all duration-300">
 
                     Book A Private Visit
 
@@ -835,32 +539,47 @@
 
 
             <!-- Slider Wrapper -->
-            <div id="amenitiesSlider" class="flex gap-4 sm:gap-5 lg:gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hide px-1 py-3">
+                    <div id="amenitiesSlider"
+                        class="flex gap-4 sm:gap-5 lg:gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hide px-1 py-3">
 
-                <!-- Amenity 01 -->
-                <div class="group shrink-0 w-[72%] sm:w-[42%] md:w-[30%] lg:w-[23%]  snap-start">
+                        {% for item in project_obj.amenities.all %}
 
-                    <div class="overflow-hidden rounded-3xl bg-white  border border-neutral-200  shadow-sm  hover:shadow-xl  transition-all duration-500">
+                            <div class="group shrink-0 w-[72%] sm:w-[42%] md:w-[30%] lg:w-[23%] snap-start">
 
-                        <div class="relative aspect-[4/4.5] overflow-hidden">
+                                <div class="overflow-hidden rounded-3xl bg-white border border-neutral-200 shadow-sm hover:shadow-xl transition-all duration-500">
 
-                            <img src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=900&q=85" alt="Swimming Pool" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                                    <div class="relative aspect-[4/4.5] overflow-hidden">
 
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent">
+                                        <!-- Amenity Image -->
+                                        <img
+                                            src="{{ item.amenities.image.url }}"
+                                            alt="{{ item.amenities.title }}"
+                                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                        >
+
+                                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent">
+                                        </div>
+
+                                        <!-- Amenity Title -->
+                                        <h3 class="absolute bottom-5 left-5 right-5 text-white text-lg sm:text-xl font-semibold">
+                                            {{ item.amenities.title }}
+                                        </h3>
+
+                                    </div>
+
+                                </div>
+
                             </div>
 
-                            <h3 class="absolute bottom-5 left-5 right-5 text-white text-lg sm:text-xl font-semibold">
-                                Swimming Pool
-                            </h3>
+                        {% empty %}
 
-                        </div>
+                            <p class="w-full text-center text-neutral-500">
+                                No amenities available.
+                            </p>
+
+                        {% endfor %}
 
                     </div>
-
-                </div>
-            
-            
-            </div>
 
 
             <!-- Next Button -->
@@ -873,15 +592,21 @@
         </div>
 
 
-        <!-- Slider Dots -->
-        <div class="flex items-center justify-center gap-2 mt-7">
+            <!-- Slider Dots -->
+            <div id="amenitiesDots" class="flex items-center justify-center gap-2 mt-7">
 
-            <button class="amenity-dot w-7 h-1.5 rounded-full bg-[#c89b2c]"></button>
-            <button class="amenity-dot w-2 h-1.5 rounded-full bg-neutral-300"></button>
-            <button class="amenity-dot w-2 h-1.5 rounded-full bg-neutral-300"></button>
-            <button class="amenity-dot w-2 h-1.5 rounded-full bg-neutral-300"></button>
+                {% for item in project_obj.amenities.all %}
 
-        </div>
+                    <button
+                        type="button"
+                        class="amenity-dot {% if forloop.first %}w-7 bg-[#c89b2c]{% else %}w-2 bg-neutral-300{% endif %} h-1.5 rounded-full transition-all duration-300"
+                        data-index="{{ forloop.counter0 }}">
+                    </button>
+
+                {% endfor %}
+
+            </div>
+
 
     </div>
 
@@ -889,9 +614,12 @@
 
 
 <section id="gallery" class="bg-[#faf8f4] py-20 sm:py-24 lg:py-28">
+
     <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
 
+        <!-- Section Heading -->
         <div class="text-center max-w-2xl mx-auto">
+
             <span class="text-xs font-semibold tracking-[0.25em] uppercase text-[#a27a22]">
                 Project Gallery
             </span>
@@ -903,65 +631,83 @@
             <p class="mt-4 text-sm sm:text-base leading-7 text-neutral-500">
                 Take a closer look at the architecture, interiors and lifestyle spaces.
             </p>
-        </div>
-
-        <div class="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
-
-            <button onclick="openGallery(0)" class="group relative overflow-hidden rounded-2xl sm:rounded-3xl aspect-[4/5]">
-                <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=85"
-                     alt="Living Room"
-                     class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
-                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition"></div>
-            </button>
-
-            <button onclick="openGallery(1)" class="group relative overflow-hidden rounded-2xl sm:rounded-3xl aspect-[4/5]">
-                <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=900&q=85"
-                     alt="Interior"
-                     class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
-                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition"></div>
-            </button>
-
-            <button onclick="openGallery(2)" class="group relative overflow-hidden rounded-2xl sm:rounded-3xl aspect-[4/5]">
-                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=85"
-                     alt="Exterior"
-                     class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
-                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition"></div>
-            </button>
-
-            <button onclick="openGallery(3)" class="group relative overflow-hidden rounded-2xl sm:rounded-3xl aspect-[4/5]">
-                <img src="https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=900&q=85"
-                     alt="Bedroom"
-                     class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
-                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition"></div>
-            </button>
 
         </div>
 
-        <div class="mt-6 grid grid-cols-3 gap-3 sm:gap-5">
 
-            <button onclick="openGallery(4)" class="group relative overflow-hidden rounded-2xl sm:rounded-3xl aspect-[4/3]">
-                <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=900&q=85"
-                     alt="Building"
-                     class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
-            </button>
+        {% if project_obj.gallery.all %}
 
-            <button onclick="openGallery(5)" class="group relative overflow-hidden rounded-2xl sm:rounded-3xl aspect-[4/3]">
-                <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=900&q=85"
-                     alt="Residence"
-                     class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
-            </button>
+            <!-- First Row -->
+            <div class="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
 
-            <button onclick="openGallery(6)" class="group relative overflow-hidden rounded-2xl sm:rounded-3xl aspect-[4/3]">
-                <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=85"
-                     alt="Interior"
-                     class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
-            </button>
+                {% for item in project_obj.gallery.all|slice:":4" %}
 
-        </div>
+                    <button
+                        type="button"
+                        onclick="openGallery({{ forloop.counter0 }})"
+                        class="group relative overflow-hidden rounded-2xl sm:rounded-3xl aspect-[4/5]"
+                    >
+
+                        <img
+                            src="{{ item.image.url }}"
+                            alt="{{ project_obj.project_name }} Gallery Image {{ forloop.counter }}"
+                            class="w-full h-full object-cover transition duration-700 group-hover:scale-105"
+                        >
+
+                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition"></div>
+
+                    </button>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- Second Row -->
+            {% if project_obj.gallery.all|slice:"4:7" %}
+
+                <div class="mt-6 grid grid-cols-3 gap-3 sm:gap-5">
+
+                    {% for item in project_obj.gallery.all|slice:"4:7" %}
+
+                        <button
+                            type="button"
+                            onclick="openGallery({{ forloop.counter0|add:"4" }})"
+                            class="group relative overflow-hidden rounded-2xl sm:rounded-3xl aspect-[4/3]"
+                        >
+
+                            <img
+                                src="{{ item.image.url }}"
+                                alt="{{ project_obj.project_name }} Gallery Image {{ forloop.counter|add:"4" }}"
+                                class="w-full h-full object-cover transition duration-700 group-hover:scale-105"
+                            >
+
+                            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition"></div>
+
+                        </button>
+
+                    {% endfor %}
+
+                </div>
+
+            {% endif %}
+
+        {% else %}
+
+            <!-- No Gallery -->
+            <div class="mt-12 text-center py-16">
+
+                <p class="text-neutral-500">
+                    No gallery images available.
+                </p>
+
+            </div>
+
+        {% endif %}
 
     </div>
-</section>
 
+</section>
 
 <section id="location" class="bg-white py-20 sm:py-24 lg:py-28">
     <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">

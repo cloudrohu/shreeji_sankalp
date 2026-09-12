@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 
 from apps.core.models.website import Setting
 
+
 # Create your views here.
 
 def get_settings():

@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.utils.html import format_html
 
+
 from .models.website import (
     Setting,
     Slider,
@@ -13,12 +14,10 @@ from .models.website import (
     FAQ,
     ImpactMetric,
     Gallery,
+    USP,
+
 )
 
-
-# ============================================================
-# COMMON INLINE
-# ============================================================
 
 class BaseSettingInline(admin.StackedInline):
     """
@@ -31,10 +30,6 @@ class BaseSettingInline(admin.StackedInline):
     can_delete = True
     classes = ()
 
-
-# ============================================================
-# SLIDER INLINE
-# ============================================================
 
 class SliderInline(BaseSettingInline):
     model = Slider
@@ -69,11 +64,6 @@ class SliderInline(BaseSettingInline):
         return "No Image"
 
     image_preview.short_description = "Preview"
-
-
-# ============================================================
-# ABOUT INLINE
-# ============================================================
 
 class AboutInline(BaseSettingInline):
     model = About
@@ -182,11 +172,6 @@ class AboutInline(BaseSettingInline):
 
     right_image2_preview.short_description = "Right Image 2 Preview"
 
-
-# ============================================================
-# CONTACT PAGE INLINE
-# ============================================================
-
 class ContactPageInline(BaseSettingInline):
     model = Contact_Page
 
@@ -202,10 +187,6 @@ class ContactPageInline(BaseSettingInline):
 
     extra = 1
 
-
-# ============================================================
-# OUR TEAM INLINE
-# ============================================================
 
 class OurTeamInline(BaseSettingInline):
     model = Our_Team
@@ -238,10 +219,6 @@ class OurTeamInline(BaseSettingInline):
     image_preview.short_description = "Preview"
 
 
-# ============================================================
-# TESTIMONIAL INLINE
-# ============================================================
-
 class TestimonialInline(BaseSettingInline):
     model = Testimonial
 
@@ -273,11 +250,6 @@ class TestimonialInline(BaseSettingInline):
 
     image_preview.short_description = "Preview"
 
-
-# ============================================================
-# WHY CHOOSE INLINE
-# ============================================================
-
 class WhyChooseInline(BaseSettingInline):
     model = Why_Choose
 
@@ -291,10 +263,19 @@ class WhyChooseInline(BaseSettingInline):
 
     extra = 1
 
+class USPInline(BaseSettingInline):
+    model = USP
 
-# ============================================================
-# FAQ INLINE
-# ============================================================
+    fields = (
+        "icons",
+        "title",
+        "subtitle",
+        "order",
+        "is_active",
+    )
+
+    extra = 1
+
 
 class FAQInline(BaseSettingInline):
     model = FAQ
@@ -307,10 +288,6 @@ class FAQInline(BaseSettingInline):
 
     extra = 1
 
-
-# ============================================================
-# IMPACT METRIC INLINE
-# ============================================================
 
 class ImpactMetricInline(BaseSettingInline):
     model = ImpactMetric
@@ -325,10 +302,6 @@ class ImpactMetricInline(BaseSettingInline):
 
     extra = 1
 
-
-# ============================================================
-# GALLERY INLINE
-# ============================================================
 
 class GalleryInline(BaseSettingInline):
     model = Gallery
@@ -363,10 +336,6 @@ class GalleryInline(BaseSettingInline):
     image_preview.short_description = "Preview"
 
 
-# ============================================================
-# ENQUIRY INLINE
-# ============================================================
-
 class EnquiryInline(BaseSettingInline):
     model = Enquiry
 
@@ -385,10 +354,6 @@ class EnquiryInline(BaseSettingInline):
 
     extra = 1
 
-
-# ============================================================
-# SETTING ADMIN
-# ============================================================
 
 @admin.register(Setting)
 class SettingAdmin(admin.ModelAdmin):
@@ -424,10 +389,6 @@ class SettingAdmin(admin.ModelAdmin):
 
     fieldsets = (
 
-        # ====================================================
-        # WEBSITE INFORMATION
-        # ====================================================
-
         (
             "Website Information",
             {
@@ -443,10 +404,6 @@ class SettingAdmin(admin.ModelAdmin):
             },
         ),
 
-        # ====================================================
-        # THEME COLORS
-        # ====================================================
-
         (
             "Theme Colors",
             {
@@ -459,10 +416,6 @@ class SettingAdmin(admin.ModelAdmin):
             },
         ),
 
-        # ====================================================
-        # RERA
-        # ====================================================
-
         (
             "RERA Information",
             {
@@ -472,10 +425,6 @@ class SettingAdmin(admin.ModelAdmin):
                 )
             },
         ),
-
-        # ====================================================
-        # CONTACT
-        # ====================================================
 
         (
             "Contact Information",
@@ -490,10 +439,6 @@ class SettingAdmin(admin.ModelAdmin):
             },
         ),
 
-        # ====================================================
-        # WORKING HOURS
-        # ====================================================
-
         (
             "Working Hours",
             {
@@ -503,10 +448,6 @@ class SettingAdmin(admin.ModelAdmin):
                 )
             },
         ),
-
-        # ====================================================
-        # GOOGLE / SMTP
-        # ====================================================
 
         (
             "Google & SMTP",
@@ -521,10 +462,6 @@ class SettingAdmin(admin.ModelAdmin):
             },
         ),
 
-        # ====================================================
-        # SOCIAL MEDIA
-        # ====================================================
-
         (
             "Social Media",
             {
@@ -537,10 +474,6 @@ class SettingAdmin(admin.ModelAdmin):
             },
         ),
 
-        # ====================================================
-        # SEO
-        # ====================================================
-
         (
             "SEO",
             {
@@ -552,10 +485,6 @@ class SettingAdmin(admin.ModelAdmin):
             },
         ),
 
-        # ====================================================
-        # FOOTER
-        # ====================================================
-
         (
             "Footer",
             {
@@ -566,9 +495,6 @@ class SettingAdmin(admin.ModelAdmin):
             },
         ),
 
-        # ====================================================
-        # LEGAL
-        # ====================================================
 
         (
             "Legal Pages",
@@ -581,10 +507,6 @@ class SettingAdmin(admin.ModelAdmin):
                 )
             },
         ),
-
-        # ====================================================
-        # STATUS
-        # ====================================================
 
         (
             "Status",
@@ -599,10 +521,6 @@ class SettingAdmin(admin.ModelAdmin):
         ),
     )
 
-    # ========================================================
-    # ALL WEBSITE SECTIONS INLINE
-    # ========================================================
-
     inlines = [
         SliderInline,
         AboutInline,
@@ -614,11 +532,9 @@ class SettingAdmin(admin.ModelAdmin):
         ImpactMetricInline,
         GalleryInline,
         EnquiryInline,
-    ]
+        USPInline,
 
-    # ========================================================
-    # LOGO PREVIEW
-    # ========================================================
+    ]
 
     def logo_preview(self, obj):
         if obj and obj.logo:
