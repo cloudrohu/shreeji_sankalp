@@ -1143,6 +1143,8 @@ class USP(BaseModel):
     point = models.CharField(null=True, blank=True,max_length=150)
     def __str__(self):
         return self.point
+
+
 class Configuration(BaseModel):
     Project = models.ForeignKey("Project", on_delete=models.CASCADE, related_name="configurations")
     bhk_type = models.CharField(max_length=50)
@@ -1161,12 +1163,35 @@ class Configuration(BaseModel):
         help_text="Enter price in total rupees (e.g., 5000000)."
     )
 
+    def formatted_price(self):
+        price = float(self.price_in_rupees)
+
+        if price >= 10000000:
+            crore = price / 10000000
+
+            if crore == int(crore):
+                return f"{int(crore)} Cr"
+
+            return f"{crore:.2f}".rstrip("0").rstrip(".") + " Cr"
+
+        elif price >= 100000:
+            lakh = price / 100000
+
+            if lakh == int(lakh):
+                return f"{int(lakh)} Lakh"
+
+            return f"{lakh:.2f}".rstrip("0").rstrip(".") + " Lakh"
+
+        return f"{int(price):,}"
+
     def __str__(self):
         return f"{self.Project.project_name} - {self.bhk_type} ({self.area_sqft} sq.ft)"
     
     class Meta:
         # Configuration ke instances ko Project aur BHK type ke hisaab se arrange karein
         ordering = ['bhk_type']
+
+
 class Connectivity(BaseModel):
     Project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="connectivity")
     title = models.CharField(max_length=100)

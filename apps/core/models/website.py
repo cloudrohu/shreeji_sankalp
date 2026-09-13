@@ -51,7 +51,7 @@ class Setting(BaseModel):
     favicon = models.ImageField(upload_to="settings/", blank=True, null=True)
     offer_img = models.ImageField(upload_to="settings/", blank=True, null=True)
     search_bg = models.ImageField(upload_to="settings/", blank=True, null=True)
-    testmonial_bg = models.ImageField(upload_to="settings/", blank=True, null=True)
+    Virtual_bg = models.ImageField(upload_to="settings/", blank=True, null=True)
     header_footer_color = models.CharField(max_length=150, blank=True, null=True)
     text_color = models.CharField(max_length=150, blank=True, null=True)
     button_color = models.CharField(max_length=150, blank=True, null=True)

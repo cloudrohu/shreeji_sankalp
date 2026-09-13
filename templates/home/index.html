@@ -1,11 +1,11 @@
 {% extends "home/base.html" %}
+{% load price_filters %}
 
 {% block title %}
     Home | Your Brand
 {% endblock %}
 
 {% block content %}
-
 
 
 <section id="home" class="relative w-full h-[calc(100vh-68px)] lg:h-[calc(100vh-76px)] min-h-[620px] overflow-hidden">
@@ -783,181 +783,150 @@
         <div class="bg-white border border-neutral-200 shadow-[0_4px_20px_rgba(0,0,0,0.05)] p-5 sm:p-8 lg:p-10">
 
             <h2 class="text-2xl sm:text-3xl lg:text-4xl font-semibold text-[#d09a4b]">
-                Piramal Aranya Pricing And Carpet Area
+                {{settings_obj.site_name}} Pricing And Carpet Area
             </h2>
 
-            <div class="mt-8 grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_430px] gap-8">
+            <div class="mt-8 grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_430px] gap-8 items-stretch">
 
-                <div class="overflow-x-auto border border-neutral-200">
-                    <table class="w-full min-w-[760px] border-collapse text-left">
+                <!-- Left Column: flex-col & justify-between matches form height perfectly -->
+                <div class="flex flex-col justify-between gap-6">
+                    
+                    <!-- Table Box -->
+                    <div class="overflow-x-auto rounded-lg border border-neutral-200 bg-white shadow-sm">
+                        <table class="w-full min-w-[680px] border-collapse text-left">
+                            <thead>
+                                <tr class="border-b border-neutral-200 bg-neutral-50/80">
+                                    <th class="px-4 py-3.5 text-xs font-semibold uppercase tracking-wider text-neutral-600 border-r border-neutral-200">
+                                        Type
+                                    </th>
+                                    <th class="px-4 py-3.5 text-xs font-semibold uppercase tracking-wider text-neutral-600 border-r border-neutral-200">
+                                        Carpet Area
+                                    </th>
+                                    <th class="px-4 py-3.5 text-xs font-semibold uppercase tracking-wider text-neutral-600 border-r border-neutral-200">
+                                        Price
+                                    </th>
+                                    <th class="px-4 py-3.5 text-right"></th>
+                                </tr>
+                            </thead>
 
-                        <thead>
-                            <tr class="bg-white">
-                                <th class="px-4 py-4 text-sm sm:text-base font-semibold text-neutral-900 border-r border-neutral-200">
-                                    Type
-                                </th>
+                            <tbody class="divide-y divide-neutral-200">
+                                {% for rs in project_obj.configurations.all %}
+                                <tr class="transition hover:bg-amber-50/30">
+                                    <td class="px-4 py-3.5 text-sm font-medium text-neutral-900 border-r border-neutral-200">
+                                        {{ rs.bhk_type }}
+                                    </td>
 
-                                <th class="px-4 py-4 text-sm sm:text-base font-semibold text-neutral-900 border-r border-neutral-200">
-                                    Carpet Area
-                                </th>
+                                    <td class="px-4 py-3.5 text-sm text-neutral-700 border-r border-neutral-200">
+                                        {{ rs.area_sqft }} SqFt
+                                    </td>
 
-                                <th class="px-4 py-4 text-sm sm:text-base font-semibold text-neutral-900">
-                                    Price
-                                </th>
+                                    <td class="px-4 py-3.5 text-sm font-medium text-neutral-900 border-r border-neutral-200">
+                                        ₹ {{ rs.formatted_price }} <span class="text-xs font-normal text-neutral-500">Onwards</span>
+                                    </td>
 
-                                <th class="px-4 py-4"></th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-
-                            <tr class="bg-[#f1f1f1]">
-                                <td class="px-4 py-3.5 text-sm sm:text-base text-neutral-800 border-r border-neutral-200">
-                                    2 BHK
-                                </td>
-
-                                <td class="px-4 py-3.5 text-sm sm:text-base text-neutral-800 border-r border-neutral-200">
-                                    635 SqFt - 760 SqFt
-                                </td>
-
-                                <td class="px-4 py-3.5 text-sm sm:text-base text-neutral-800">
-                                    ₹ 3.50 Cr Onwards
-                                </td>
-
-                                <td class="px-3 py-3.5 text-right">
-                                    <button onclick="openPriceModal('2 BHK','635 SqFt - 760 SqFt','₹ 3.50 Cr Onwards')" class="whitespace-nowrap rounded-md bg-[#c7964a] hover:bg-[#b78336] px-3.5 py-2 text-sm font-medium text-white transition">
-                                        Price Breakup
-                                    </button>
-                                </td>
-                            </tr>
-
-                            <tr class="bg-white">
-                                <td class="px-4 py-3.5 text-sm sm:text-base text-neutral-800 border-r border-neutral-200">
-                                    3 BHK
-                                </td>
-
-                                <td class="px-4 py-3.5 text-sm sm:text-base text-neutral-800 border-r border-neutral-200">
-                                    873 SqFt - 877 SqFt
-                                </td>
-
-                                <td class="px-4 py-3.5 text-sm sm:text-base text-neutral-800">
-                                    ₹ 6.19 Cr All Inc
-                                </td>
-
-                                <td class="px-3 py-3.5 text-right">
-                                    <button onclick="openPriceModal('3 BHK','873 SqFt - 877 SqFt','₹ 6.19 Cr All Inc')" class="whitespace-nowrap rounded-md bg-[#c7964a] hover:bg-[#b78336] px-3.5 py-2 text-sm font-medium text-white transition">
-                                        Price Breakup
-                                    </button>
-                                </td>
-                            </tr>
-
-                            <tr class="bg-[#f1f1f1]">
-                                <td class="px-4 py-3.5 text-sm sm:text-base text-neutral-800 border-r border-neutral-200">
-                                    3 BHK
-                                </td>
-
-                                <td class="px-4 py-3.5 text-sm sm:text-base text-neutral-800 border-r border-neutral-200">
-                                    916 SqFt - 920 SqFt
-                                </td>
-
-                                <td class="px-4 py-3.5 text-sm sm:text-base text-neutral-800">
-                                    ₹ 6.40 Cr All Inc
-                                </td>
-
-                                <td class="px-3 py-3.5 text-right">
-                                    <button onclick="openPriceModal('3 BHK','916 SqFt - 920 SqFt','₹ 6.40 Cr All Inc')" class="whitespace-nowrap rounded-md bg-[#c7964a] hover:bg-[#b78336] px-3.5 py-2 text-sm font-medium text-white transition">
-                                        Price Breakup
-                                    </button>
-                                </td>
-                            </tr>
-
-                            <tr class="bg-white">
-                                <td class="px-4 py-3.5 text-sm sm:text-base text-neutral-800 border-r border-neutral-200">
-                                    3 BHK
-                                </td>
-
-                                <td class="px-4 py-3.5 text-sm sm:text-base text-neutral-800 border-r border-neutral-200">
-                                    1050 SqFt - 1094 SqFt
-                                </td>
-
-                                <td class="px-4 py-3.5 text-sm sm:text-base text-neutral-800">
-                                    ₹ 6.69 Cr All Inc
-                                </td>
-
-                                <td class="px-3 py-3.5 text-right">
-                                    <button onclick="openPriceModal('3 BHK','1050 SqFt - 1094 SqFt','₹ 6.69 Cr All Inc')" class="whitespace-nowrap rounded-md bg-[#c7964a] hover:bg-[#b78336] px-3.5 py-2 text-sm font-medium text-white transition">
-                                        Price Breakup
-                                    </button>
-                                </td>
-                            </tr>
-
-                            <tr class="bg-[#f1f1f1]">
-                                <td class="px-4 py-3.5 text-sm sm:text-base text-neutral-800 border-r border-neutral-200">
-                                    4 BHK
-                                </td>
-
-                                <td class="px-4 py-3.5 border-r border-neutral-200">
-                                    <span class="inline-flex rounded-md bg-[#c7964a] px-3 py-1.5 text-sm font-medium text-white">
-                                        On Request
-                                    </span>
-                                </td>
-
-                                <td class="px-4 py-3.5 text-sm sm:text-base text-neutral-800">
-                                    ₹ 9.29 Cr - 9.49 Cr All Inc
-                                </td>
-
-                                <td class="px-3 py-3.5 text-right">
-                                    <button onclick="openPriceModal('4 BHK','On Request','₹ 9.29 Cr - 9.49 Cr All Inc')" class="whitespace-nowrap rounded-md bg-[#c7964a] hover:bg-[#b78336] px-3.5 py-2 text-sm font-medium text-white transition">
-                                        Price Breakup
-                                    </button>
-                                </td>
-                            </tr>
-
-                            <tr class="bg-white">
-                                <td class="px-4 py-3.5 text-sm sm:text-base text-neutral-800 border-r border-neutral-200">
-                                    5 BHK
-                                </td>
-
-                                <td class="px-4 py-3.5 border-r border-neutral-200">
-                                    <span class="inline-flex rounded-md bg-[#c7964a] px-3 py-1.5 text-sm font-medium text-white">
-                                        On Request
-                                    </span>
-                                </td>
-
-                                <td class="px-4 py-3.5 text-sm sm:text-base text-neutral-800">
-                                    ₹ 10.99 Cr All Inc
-                                </td>
-
-                                <td class="px-3 py-3.5 text-right">
-                                    <button onclick="openPriceModal('5 BHK','On Request','₹ 10.99 Cr All Inc')" class="whitespace-nowrap rounded-md bg-[#c7964a] hover:bg-[#b78336] px-3.5 py-2 text-sm font-medium text-white transition">
-                                        Price Breakup
-                                    </button>
-                                </td>
-                            </tr>
-
-                        </tbody>
-
-                    </table>
-                </div>
-
-                <div class="border border-neutral-200 bg-white p-5 sm:p-6 shadow-[0_4px_15px_rgba(0,0,0,0.04)]">
-
-                    <div class="aspect-[1.5/1] overflow-hidden bg-neutral-50">
-                        <img
-                            src="YOUR_COSTING_IMAGE"
-                            alt="Costing Details"
-                            class="w-full h-full object-contain">
+                                    <td class="px-4 py-3.5 text-right">
+                                        <button type="button" 
+                                            onclick="openPriceModal(
+                                                '{{ rs.bhk_type|escapejs }}',
+                                                '{{ rs.area_sqft|escapejs }} SqFt',
+                                                '₹ {{ rs.formatted_price|escapejs }} Onwards')" 
+                                            class="whitespace-nowrap rounded-md bg-[#c7964a] px-3.5 py-1.5 text-xs sm:text-sm font-medium text-white shadow-sm transition hover:bg-[#b78336]">
+                                            Price Breakup
+                                        </button>
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="4" class="px-4 py-8 text-center text-sm text-neutral-500">
+                                        Configurations updating soon.
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
 
-                    <a
-                        href="YOUR_COSTING_PDF"
-                        target="_blank"
-                        class="mt-6 flex h-12 items-center justify-center rounded-md bg-[#c7964a] hover:bg-[#b78336] px-5 text-sm sm:text-base font-medium text-white transition">
+                    <!-- Dynamic Bottom Feature Banner: Fills remaining space gracefully -->
+                    <div class="rounded-lg border border-dashed border-amber-200/90 bg-gradient-to-r from-amber-50/50 via-white to-neutral-50 p-4 sm:p-5">
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 divide-y sm:divide-y-0 sm:divide-x divide-neutral-200">
+                            
+                            <div class="flex items-center gap-3">
+                                <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#c7964a]/10 text-[#c7964a]">
+                                    <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-semibold text-neutral-800">Flexible Payment</p>
+                                    <p class="text-[11px] text-neutral-500">Customized milestone plans</p>
+                                </div>
+                            </div>
 
-                        Download Costing Details
+                            <div class="flex items-center gap-3 pt-3 sm:pt-0 sm:pl-4">
+                                <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#c7964a]/10 text-[#c7964a]">
+                                    <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-semibold text-neutral-800">RERA Approved</p>
+                                    <p class="text-[11px] text-neutral-500">100% Transparent pricing</p>
+                                </div>
+                            </div>
 
-                    </a>
+                            <div class="flex items-center gap-3 pt-3 sm:pt-0 sm:pl-4">
+                                <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#c7964a]/10 text-[#c7964a]">
+                                    <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-semibold text-neutral-800">Bank Assistance</p>
+                                    <p class="text-[11px] text-neutral-500">Pre-approved loan options</p>
+                                </div>
+                            </div>
 
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Right Column: Form -->
+                <div class="rounded-lg border border-neutral-200 bg-white p-5 sm:p-6 shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
+                    <div class="mb-5">
+                        <h3 class="text-xl font-semibold text-neutral-900">
+                            Get Costing Details
+                        </h3>
+                        <p class="mt-1 text-sm text-neutral-500">
+                            Fill in your details and our team will get back to you shortly.
+                        </p>
+                    </div>
+
+                    <form action="#" method="POST" class="space-y-3.5">
+                        <div>
+                            <label for="name" class="mb-1.5 block text-xs font-medium text-neutral-700">Name</label>
+                            <input type="text" id="name" name="name" placeholder="Enter your name" required class="w-full rounded-md border border-neutral-200 bg-white px-3.5 py-2.5 text-sm text-neutral-800 outline-none transition placeholder:text-neutral-400 focus:border-[#c7964a] focus:ring-1 focus:ring-[#c7964a]">
+                        </div>
+
+                        <div>
+                            <label for="email" class="mb-1.5 block text-xs font-medium text-neutral-700">Email</label>
+                            <input type="email" id="email" name="email" placeholder="Enter your email" required class="w-full rounded-md border border-neutral-200 bg-white px-3.5 py-2.5 text-sm text-neutral-800 outline-none transition placeholder:text-neutral-400 focus:border-[#c7964a] focus:ring-1 focus:ring-[#c7964a]">
+                        </div>
+
+                        <div>
+                            <label for="phone" class="mb-1.5 block text-xs font-medium text-neutral-700">Phone</label>
+                            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required class="w-full rounded-md border border-neutral-200 bg-white px-3.5 py-2.5 text-sm text-neutral-800 outline-none transition placeholder:text-neutral-400 focus:border-[#c7964a] focus:ring-1 focus:ring-[#c7964a]">
+                        </div>
+
+                        <div>
+                            <label for="message" class="mb-1.5 block text-xs font-medium text-neutral-700">Message</label>
+                            <textarea id="message" name="message" rows="3" placeholder="Enter your message" required class="w-full resize-none rounded-md border border-neutral-200 bg-white px-3.5 py-2.5 text-sm text-neutral-800 outline-none transition placeholder:text-neutral-400 focus:border-[#c7964a] focus:ring-1 focus:ring-[#c7964a]"></textarea>
+                        </div>
+
+                        <button type="submit" class="mt-1 flex h-11 w-full items-center justify-center rounded-md bg-[#c7964a] px-5 text-sm font-medium text-white shadow-sm transition hover:bg-[#b78336]">
+                            Get Costing Details
+                        </button>
+                    </form>
                 </div>
 
             </div>
@@ -998,11 +967,10 @@
         <div class="relative overflow-hidden rounded-[28px] sm:rounded-[34px] bg-white border border-neutral-200 shadow-[0_20px_60px_rgba(0,0,0,0.08)]">
 
             <!-- Preview -->
-            <div
-                class="relative min-h-[430px] sm:min-h-[520px] lg:min-h-[650px] overflow-hidden bg-neutral-900">
+            <div class="relative min-h-[430px] sm:min-h-[520px] lg:min-h-[650px] overflow-hidden bg-neutral-900">
 
                 <!-- Background Image -->
-                <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=2000&q=85" alt="Virtual Tour" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000" id="tourPreviewImage">
+                <img src="{{settings_obj.Virtual_bg.url}}" alt="Virtual Tour" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000" id="tourPreviewImage">
 
                 <!-- Overlay -->
                 <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-black/20 to-black/70"></div>
@@ -1013,14 +981,13 @@
 
                     <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/90 backdrop-blur-md border border-white/50 shadow-lg">
 
-                        <svg class="w-4 h-4 text-[#a27a4d]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-                        >
+                        <svg class="w-4 h-4 text-[#a27a4d]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" >
                             <path d="M12 3v18M3 12h18"/>
                             <circle cx="12" cy="12" r="8"/>
                         </svg>
 
                         <span class="text-xs sm:text-sm font-semibold text-neutral-800">
-                            360° Virtual Experience
+                           Virtual Tour
                         </span>
 
                     </div>
@@ -1029,11 +996,7 @@
 
 
                 <!-- Play Button -->
-                <button
-                    type="button"
-                    onclick="openVirtualTour()"
-                    aria-label="Start Virtual Tour"
-                    class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 group">
+                <button type="button" onclick="openVirtualTour()" aria-label="Start Virtual Tour" class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 group">
 
                     <span class="absolute inset-0 rounded-full bg-white/30 animate-ping"></span>
 
@@ -1041,11 +1004,7 @@
 
                         <span class="flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#a27a4d] text-white shadow-lg transition-all duration-300 group-hover:bg-[#8f693f]">
 
-                            <svg
-                                class="w-6 h-6 sm:w-7 sm:h-7 ml-1"
-                                viewBox="0 0 24 24"
-                                fill="currentColor"
-                            >
+                            <svg class="w-6 h-6 sm:w-7 sm:h-7 ml-1" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M8 5.14v13.72c0 .78.85 1.26 1.52.86l10.02-6.86a1 1 0 0 0 0-1.64L9.52 4.28A1 1 0 0 0 8 5.14Z"/>
                             </svg>
 
@@ -1079,20 +1038,11 @@
                         </div>
 
 
-                        <button
-                            type="button"
-                            onclick="openVirtualTour()"
-                            class="shrink-0 inline-flex items-center justify-center gap-3 px-6 py-3.5 rounded-full bg-white text-neutral-900 text-sm font-semibold shadow-xl hover:bg-[#a27a4d] hover:text-white transition-all duration-300">
+                        <button type="button" onclick="openVirtualTour()" class="shrink-0 inline-flex items-center justify-center gap-3 px-6 py-3.5 rounded-full bg-white text-neutral-900 text-sm font-semibold shadow-xl hover:bg-[#a27a4d] hover:text-white transition-all duration-300">
 
                             Start Virtual Tour
 
-                            <svg
-                                class="w-4 h-4"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="2"
-                            >
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M5 12h14"/>
                                 <path d="m13 6 6 6-6 6"/>
                             </svg>
@@ -1113,71 +1063,76 @@
 
 
 <!-- Virtual Tour Modal -->
-<div id="virtualTourModal" class="fixed inset-0 z-[99999] hidden items-center justify-center bg-black/90 backdrop-blur-sm p-3 sm:p-6">
-
-    <div
-        id="tourModalContent"
-        class="relative w-full max-w-[1400px] h-[90vh] overflow-hidden rounded-2xl sm:rounded-3xl bg-neutral-950 shadow-2xl"
-    >
-
-        <!-- Close -->
-        <button
-            type="button"
-            onclick="closeVirtualTour()"
-            aria-label="Close Virtual Tour"
-            class="absolute top-4 right-4 z-20 flex items-center justify-center w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/20 transition-all duration-300"
-        >
-
+<div id="virtualTourModal" class="fixed inset-0 z-[99999] hidden items-center justify-center bg-black/90 backdrop-blur-md p-3 sm:p-6 overflow-y-auto">
+    <div id="tourModalContent" class="relative w-full max-w-[1100px] min-h-[580px] sm:h-[85vh] max-h-[750px] overflow-hidden rounded-2xl sm:rounded-3xl bg-neutral-950 shadow-2xl flex flex-col justify-center">
+        <!-- Close Button -->
+        <button type="button" onclick="closeVirtualTour()" aria-label="Close Virtual Tour" class="absolute top-4 right-4 z-30 flex items-center justify-center w-10 h-10 rounded-full bg-black/40 hover:bg-white/20 backdrop-blur-md text-white border border-white/20 transition-all duration-300">
             <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M6 6l12 12"/>
                 <path d="M18 6 6 18"/>
             </svg>
-
         </button>
 
-
-        <!-- Tour Content -->
-        <div class="relative w-full h-full">
-
-            <img src="https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=2200&q=90" alt="Virtual Tour Experience" class="absolute inset-0 w-full h-full object-cover">
-
-            <div class="absolute inset-0 bg-black/35"></div>
-
-
-            <div class="absolute inset-0 flex items-center justify-center">
-
-                <div class="text-center px-6">
-
-                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-white text-xs sm:text-sm mb-5">
-                        360° Virtual Tour
-                    </div>
-
-                    <h3 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white tracking-tight">
-                        Explore The Project
-                    </h3>
-
-                    <p class="mt-4 text-sm sm:text-base text-white/75 max-w-lg mx-auto">
-                        Your actual 360° tour URL can be embedded here.
-                    </p>
-
-                    <a href="#" class="mt-7 inline-flex items-center gap-3 px-7 py-3.5 rounded-full bg-white text-neutral-900 font-semibold text-sm hover:bg-[#a27a4d] hover:text-white transition-all duration-300">
-                        Enter 360° Tour
-
-                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14"/>
-                            <path d="m13 6 6 6-6 6"/>
-                        </svg>
-
-                    </a>
-
-                </div>
-
-            </div>
-
+        <!-- Background Teaser Image with Dark Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="{{settings_obj.Virtual_bg.url}}" alt="Virtual Tour Experience" class="w-full h-full object-cover scale-105 filter blur-[2px]">
+            <div class="absolute inset-0 bg-gradient-to-r from-black/90 via-black/80 to-black/60"></div>
         </div>
 
-    </div>
+        <!-- Main Split Content -->
+        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center p-6 sm:p-10 lg:p-12 w-full h-full overflow-y-auto">
+            <!-- Left Info Column -->
+            <div class="lg:col-span-6 space-y-4 text-left">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-white text-xs font-medium">
+                    <span class="w-2 h-2 rounded-full bg-[#c7964a] animate-pulse"></span>
+                    Interactive Virtual visit
+                </div>
+                <h3 class="text-2xl sm:text-4xl font-semibold text-white tracking-tight leading-tight">
+                    Experience The Luxury Before You Visit
+                </h3>
+                <p class="text-xs sm:text-sm text-neutral-300 leading-relaxed max-w-md">
+                    Take an immersive walk through the spacious living areas, premium master bedrooms, and world-class project amenities from anywhere.
+                </p>
+            </div>
 
+            <!-- Right Form Column -->
+            <div class="lg:col-span-6">
+                <div class="rounded-2xl border border-white/15 bg-white/[0.08] backdrop-blur-xl p-5 sm:p-7 shadow-2xl">
+                    <div class="mb-4">
+                        <h4 class="text-lg sm:text-xl font-semibold text-white">Unlock Virtual Tour</h4>
+                        <p class="text-xs text-neutral-400 mt-1">Please share your details to launch the 3D walkthrough immediately.</p>
+                    </div>
+
+                    <form action="#" method="POST" class="space-y-3.5">
+                        <div>
+                            <label for="tour_name" class="block text-xs font-medium text-neutral-300 mb-1">Full Name</label>
+                            <input type="text" id="tour_name" name="name" required placeholder="Write Your Name Here" class="w-full rounded-lg border border-white/15 bg-white/10 px-3.5 py-2.5 text-sm text-white placeholder-neutral-400 outline-none transition focus:border-[#c7964a] focus:bg-white/15 focus:ring-1 focus:ring-[#c7964a]">
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div>
+                                <label for="tour_phone" class="block text-xs font-medium text-neutral-300 mb-1">Phone Number</label>
+                                <input type="tel" id="tour_phone" name="phone" required placeholder="Your Phone Here" class="w-full rounded-lg border border-white/15 bg-white/10 px-3.5 py-2.5 text-sm text-white placeholder-neutral-400 outline-none transition focus:border-[#c7964a] focus:bg-white/15 focus:ring-1 focus:ring-[#c7964a]">
+                            </div>
+                            <div>
+                                <label for="tour_email" class="block text-xs font-medium text-neutral-300 mb-1">Email Address</label>
+                                <input type="email" id="tour_email" name="email" required placeholder="Your Email Here" class="w-full rounded-lg border border-white/15 bg-white/10 px-3.5 py-2.5 text-sm text-white placeholder-neutral-400 outline-none transition focus:border-[#c7964a] focus:bg-white/15 focus:ring-1 focus:ring-[#c7964a]">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="mt-2 w-full inline-flex items-center justify-center gap-2 rounded-lg bg-[#c7964a] hover:bg-[#b78336] px-5 py-3 text-sm font-semibold text-white shadow-lg transition duration-200">
+                            <span>Start 360° Walkthrough</span>
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14"/>
+                                <path d="m13 6 6 6-6 6"/>
+                            </svg>
+                        </button>
+                        <p class="text-[11px] text-center text-neutral-400 pt-1">🔒 We respect your privacy. No spam guaranteed.</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 
@@ -1238,11 +1193,7 @@
                     <!-- Logo -->
                     <div class="relative z-10 flex items-center justify-center w-[190px] h-[190px] sm:w-[230px] sm:h-[230px] lg:w-[260px] lg:h-[260px] rounded-full bg-white border border-neutral-200 shadow-[0_20px_60px_rgba(0,0,0,0.08)] p-10 sm:p-12">
 
-                        <img
-                            src="YOUR-DEVELOPER-LOGO.png"
-                            alt="Developer Logo"
-                            class="max-w-full max-h-full object-contain"
-                        >
+                        <img src="{{project_obj.developer.logo.url}}" alt="Developer Logo" class="max-w-full max-h-full rounded-full object-contain">
 
                     </div>
 
@@ -1275,7 +1226,7 @@
 
                 <!-- Developer Name -->
                 <h3 class="mt-6 text-xl sm:text-2xl font-semibold text-neutral-900">
-                    Shreeji Sankalp
+                    {{project_obj.developer}}
                 </h3>
 
 
@@ -1283,75 +1234,21 @@
                 <div class="mt-5 space-y-4 text-sm sm:text-base leading-7 text-neutral-500 max-w-2xl">
 
                     <p>
-                        With a strong commitment to quality, innovation and customer
-                        satisfaction, Shreeji Sankalp has established itself as a trusted
-                        name in real estate development.
-                    </p>
-
-                    <p>
-                        The group focuses on creating thoughtfully planned residential
-                        and commercial spaces that combine modern architecture,
-                        functionality and lasting value.
-                    </p>
-
-                    <p>
-                        Every project is developed with attention to detail, superior
-                        construction standards and a vision to create spaces that
-                        people are proud to call their own.
+                        {{project_obj.developer.about_developer|safe}}
                     </p>
 
                 </div>
 
 
-                <!-- Highlights -->
-                <div class="grid grid-cols-2 sm:grid-cols-3 gap-5 sm:gap-8 mt-8 sm:mt-10 pt-7 sm:pt-8 border-t border-neutral-200">
-
-                    <div>
-                        <p class="text-2xl sm:text-3xl font-semibold text-neutral-900">
-                            15+
-                        </p>
-                        <p class="mt-1 text-xs sm:text-sm text-neutral-500">
-                            Years of Experience
-                        </p>
-                    </div>
-
-                    <div>
-                        <p class="text-2xl sm:text-3xl font-semibold text-neutral-900">
-                            25+
-                        </p>
-                        <p class="mt-1 text-xs sm:text-sm text-neutral-500">
-                            Projects Delivered
-                        </p>
-                    </div>
-
-                    <div class="col-span-2 sm:col-span-1">
-                        <p class="text-2xl sm:text-3xl font-semibold text-neutral-900">
-                            10K+
-                        </p>
-                        <p class="mt-1 text-xs sm:text-sm text-neutral-500">
-                            Happy Families
-                        </p>
-                    </div>
-
-                </div>
 
 
                 <!-- CTA -->
                 <div class="mt-8 sm:mt-10">
 
-                    <a
-                        href="#contact"
-                        class="inline-flex items-center gap-3 px-6 py-3.5 rounded-full bg-neutral-900 text-white text-sm font-semibold hover:bg-[#a27a4d] transition-all duration-300"
-                    >
-                        Know More About Developer
+                    <a href="#contact" class="inline-flex items-center gap-3 px-6 py-3.5 rounded-full bg-neutral-900 text-white text-sm font-semibold hover:bg-[#a27a4d] transition-all duration-300">
+                        Know More Project From {{project_obj.developer.title}}
 
-                        <svg
-                            class="w-4 h-4"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                        >
+                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M5 12h14"/>
                             <path d="m13 6 6 6-6 6"/>
                         </svg>
@@ -1488,7 +1385,7 @@
                         <div class="mt-2.5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
 
                             <p class="text-sm sm:text-base font-semibold text-neutral-900 break-all">
-                                PR/GJ/GANDHINAGAR/GANDHINAGAR/Others
+                                {{project_obj.rera.registration_no}}
                             </p>
 
                             <span class="shrink-0 inline-flex items-center gap-1.5 text-[10px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-100 px-2.5 py-1.5 rounded-full">
@@ -1509,7 +1406,8 @@
                                 Project Status
                             </p>
                             <p class="mt-1 text-xs font-semibold text-neutral-900">
-                                Government RERA Authorised
+                                {{project_obj.rera.project_registered}}
+                                
                             </p>
                         </div>
 
@@ -1527,7 +1425,7 @@
                                 Project
                             </p>
                             <p class="mt-1 text-xs font-semibold text-neutral-900">
-                                Shreeji Sankalp
+                               {{project_obj.project_name}}
                             </p>
                         </div>
 
@@ -1536,7 +1434,9 @@
                                 Developer
                             </p>
                             <p class="mt-1 text-xs font-semibold text-neutral-900">
-                                Shreeji Sankalp
+
+                               {{project_obj.developer}}
+
                             </p>
                         </div>
 
@@ -1548,61 +1448,19 @@
 
                         <div class="flex items-center justify-between gap-5">
 
-                            <!-- Info -->
-                            <div class="max-w-sm">
-
-                                <div class="flex items-center gap-2.5">
-
-                                    <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-[#faf4eb] border border-[#eadbc8]">
-                                        <svg class="w-4 h-4 text-[#a27a4d]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                                            <path d="M3 3h7v7H3z"/>
-                                            <path d="M14 3h7v7h-7z"/>
-                                            <path d="M3 14h7v7H3z"/>
-                                            <path d="M14 14h3v3h-3z"/>
-                                            <path d="M19 14h2v2h-2z"/>
-                                            <path d="M19 19h2v2h-2z"/>
-                                            <path d="M14 19h2v2h-2z"/>
-                                        </svg>
-                                    </div>
-
-                                    <h4 class="text-xs font-semibold text-neutral-900">
-                                        Verify RERA Registration
-                                    </h4>
-
-                                </div>
-
-                                <p class="mt-2 text-[11px] sm:text-xs leading-5 text-neutral-500">
-                                    Scan the QR code to verify the project registration
-                                    details directly through the official RERA authority.
-                                </p>
-
-                                <a
-                                    href="https://gujrera.gujarat.gov.in/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="mt-3 inline-flex items-center gap-2 text-xs font-semibold text-[#a27a4d] hover:text-neutral-900 transition-colors"
-                                >
-                                    Verify Online
-
-                                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M5 12h14"/>
-                                        <path d="m13 6 6 6-6 6"/>
-                                    </svg>
-                                </a>
-
-                            </div>
 
 
                             <!-- QR -->
                             <div class="shrink-0 text-center">
 
                                 <div class="p-2 bg-white rounded-xl border border-neutral-200 shadow-sm">
-
-                                    <img
-                                        src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https://gujrera.gujarat.gov.in/"
-                                        alt="RERA Verification QR Code"
-                                        class="w-24 h-24 sm:w-28 sm:h-28 object-contain"
-                                    >
+                                {% if project_obj.rera.qr_image %}
+                                    <img src="{{ project_obj.rera.qr_image.url }}" alt="RERA QR Code" class="w-24 h-24 sm:w-28 sm:h-28 object-contain">
+                                {% else %}
+                                    <div class="w-24 h-24 sm:w-28 sm:h-28 flex items-center justify-center text-[10px] text-neutral-400">
+                                        No QR Available
+                                    </div>
+                                {% endif %}
 
                                 </div>
 
@@ -1661,13 +1519,7 @@
 
                             <div class="flex items-center justify-center w-10 h-10 rounded-xl bg-white border border-[#eadbc8] shadow-sm">
 
-                                <svg
-                                    class="w-[18px] h-[18px] text-[#a27a4d]"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    stroke-width="1.7"
-                                >
+                                <svg class="w-[18px] h-[18px] text-[#a27a4d]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
                                     <circle cx="12" cy="12" r="9"/>
                                     <path d="M12 10v6"/>
                                     <path d="M12 7h.01"/>
@@ -1700,101 +1552,10 @@
                     <div class="relative pl-5 sm:pl-6 border-l-2 border-[#c5a47b]">
 
                         <p class="text-sm sm:text-[15px] leading-7 text-neutral-600">
-                            The information, images, specifications, illustrations,
-                            amenities, features and other details presented on this
-                            website are for general informational purposes only and
-                            are subject to change without prior notice.
+                           {{project_obj.rera.Disclaimer}}
                         </p>
 
                     </div>
-
-
-                    <!-- Disclaimer Points -->
-                    <div class="mt-6 grid sm:grid-cols-2 gap-4">
-
-
-                        <!-- Point 01 -->
-                        <div class="group p-4 sm:p-5 rounded-2xl bg-white border border-neutral-200 hover:border-[#d8c1a3] hover:shadow-[0_10px_30px_rgba(0,0,0,0.04)] transition-all duration-300">
-
-                            <div class="flex items-start gap-4">
-
-                                <span class="shrink-0 text-[10px] font-semibold tracking-wider text-[#a27a4d]">
-                                    01
-                                </span>
-
-                                <p class="text-xs sm:text-sm leading-6 text-neutral-500">
-                                    Visuals, layouts, floor plans, dimensions and
-                                    specifications are indicative and may differ
-                                    from the actual project.
-                                </p>
-
-                            </div>
-
-                        </div>
-
-
-                        <!-- Point 02 -->
-                        <div class="group p-4 sm:p-5 rounded-2xl bg-white border border-neutral-200 hover:border-[#d8c1a3] hover:shadow-[0_10px_30px_rgba(0,0,0,0.04)] transition-all duration-300">
-
-                            <div class="flex items-start gap-4">
-
-                                <span class="shrink-0 text-[10px] font-semibold tracking-wider text-[#a27a4d]">
-                                    02
-                                </span>
-
-                                <p class="text-xs sm:text-sm leading-6 text-neutral-500">
-                                    This website does not constitute an offer,
-                                    invitation, representation or guarantee
-                                    of any kind.
-                                </p>
-
-                            </div>
-
-                        </div>
-
-
-                        <!-- Point 03 -->
-                        <div class="group p-4 sm:p-5 rounded-2xl bg-white border border-neutral-200 hover:border-[#d8c1a3] hover:shadow-[0_10px_30px_rgba(0,0,0,0.04)] transition-all duration-300">
-
-                            <div class="flex items-start gap-4">
-
-                                <span class="shrink-0 text-[10px] font-semibold tracking-wider text-[#a27a4d]">
-                                    03
-                                </span>
-
-                                <p class="text-xs sm:text-sm leading-6 text-neutral-500">
-                                    Buyers are advised to independently verify
-                                    project details, approvals, pricing and
-                                    availability with the authorised developer.
-                                </p>
-
-                            </div>
-
-                        </div>
-
-
-                        <!-- Point 04 -->
-                        <div class="group p-4 sm:p-5 rounded-2xl bg-white border border-neutral-200 hover:border-[#d8c1a3] hover:shadow-[0_10px_30px_rgba(0,0,0,0.04)] transition-all duration-300">
-
-                            <div class="flex items-start gap-4">
-
-                                <span class="shrink-0 text-[10px] font-semibold tracking-wider text-[#a27a4d]">
-                                    04
-                                </span>
-
-                                <p class="text-xs sm:text-sm leading-6 text-neutral-500">
-                                    The developer reserves the right to modify
-                                    plans, specifications, amenities or other
-                                    project details without prior notice.
-                                </p>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
                     <!-- Bottom Strip -->
                     <div class="mt-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-4 py-3.5 rounded-xl bg-neutral-900">
 
@@ -1822,7 +1583,7 @@
 
 
                         <p class="text-[10px] sm:text-xs text-white/40">
-                            © 2026 All Rights Reserved.
+                            © {{settings_obj.copy_right}} All Rights Reserved
                         </p>
 
                     </div>
@@ -1840,49 +1601,144 @@
 
 
 
+<!-- Price / Enquiry Modal -->
 <div id="priceModal" class="fixed inset-0 z-[99999] hidden items-center justify-center bg-black/60 p-4" onclick="closePriceModal(event)">
 
-    <div class="w-full max-w-md rounded-2xl bg-white p-6 sm:p-7 shadow-2xl" onclick="event.stopPropagation()">
+    <div class="relative w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-2xl bg-white p-5 shadow-2xl sm:p-6" onclick="event.stopPropagation()" >
 
-        <div class="flex items-center justify-between gap-4">
+        <!-- Header -->
+        <div class="flex items-start justify-between gap-4">
 
             <div>
-                <p class="text-xs font-semibold uppercase tracking-[0.2em] text-[#c7964a]">
-                    Price Breakup
+                <p class="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#c7964a]">
+                    Price Details
                 </p>
 
-                <h3 id="modalType" class="mt-1 text-2xl font-semibold text-neutral-900"></h3>
+                <h3
+                    id="modalType"
+                    class="mt-1 text-xl font-semibold text-neutral-900 sm:text-2xl"
+                ></h3>
             </div>
 
-            <button
-                onclick="closePriceModal()"
-                class="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-100 text-neutral-600 hover:bg-neutral-200 transition">
-
+            <!-- Close -->
+            <button type="button" onclick="closePriceModal()" class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-neutral-100 text-neutral-600 transition hover:bg-neutral-200">
                 <i class="fa-solid fa-xmark"></i>
-
             </button>
 
         </div>
 
-        <div class="mt-6 divide-y divide-neutral-200 border-y border-neutral-200">
 
-            <div class="flex items-center justify-between py-4 gap-5">
-                <span class="text-sm text-neutral-500">Carpet Area</span>
-                <span id="modalArea" class="text-sm font-semibold text-neutral-900 text-right"></span>
+        <!-- Selected Property Details -->
+        <div class="mt-4 grid grid-cols-2 gap-3">
+
+            <!-- Carpet Area -->
+            <div class="rounded-lg border border-neutral-200 bg-neutral-50 p-3">
+                <p class="text-xs text-neutral-500">
+                    Carpet Area
+                </p>
+
+                <p
+                    id="modalArea"
+                    class="mt-1 text-sm font-semibold text-neutral-900"
+                ></p>
             </div>
 
-            <div class="flex items-center justify-between py-4 gap-5">
-                <span class="text-sm text-neutral-500">Price</span>
-                <span id="modalPrice" class="text-sm font-semibold text-[#bd8429] text-right"></span>
+
+            <!-- Price -->
+            <div class="rounded-lg border border-neutral-200 bg-neutral-50 p-3">
+                <p class="text-xs text-neutral-500">
+                    Starting Price
+                </p>
+
+                <p
+                    id="modalPrice"
+                    class="mt-1 text-sm font-semibold text-[#bd8429]"
+                ></p>
             </div>
 
         </div>
 
-        <a href="#contact" onclick="closePriceModal()" class="mt-6 flex h-12 items-center justify-center rounded-md bg-[#c7964a] hover:bg-[#b78336] text-sm font-semibold text-white transition">
 
-            Get Price Details
+        <!-- Form Heading -->
+        <div class="mt-5 mb-4">
 
-        </a>
+            <h4 class="text-lg font-semibold text-neutral-900">
+                Get Detailed Price
+            </h4>
+
+            <p class="mt-1 text-sm text-neutral-500">
+                Share your details and our property expert will contact you.
+            </p>
+
+        </div>
+
+
+        <!-- Enquiry Form -->
+        <form action="#" method="POST" class="space-y-3.5">
+
+            <!-- Name -->
+            <div>
+
+                <label for="modalName" class="mb-1.5 block text-xs font-medium text-neutral-700" >
+                    Name
+                </label>
+
+                <input type="text" id="modalName" name="name" placeholder="Enter your name" required class="w-full rounded-md border border-neutral-200 bg-white px-3.5 py-2.5 text-sm text-neutral-800 outline-none transition placeholder:text-neutral-400 focus:border-[#c7964a] focus:ring-1 focus:ring-[#c7964a]">
+
+            </div>
+
+
+            <!-- Email -->
+            <div>
+
+                <label for="modalEmail" class="mb-1.5 block text-xs font-medium text-neutral-700">
+                    Email
+                </label>
+
+                <input type="email" id="modalEmail" name="email" placeholder="Enter your email" required class="w-full rounded-md border border-neutral-200 bg-white px-3.5 py-2.5 text-sm text-neutral-800 outline-none transition placeholder:text-neutral-400 focus:border-[#c7964a] focus:ring-1 focus:ring-[#c7964a]">
+
+            </div>
+
+
+            <!-- Phone -->
+            <div>
+
+                <label for="modalPhone" class="mb-1.5 block text-xs font-medium text-neutral-700" >
+                    Phone
+                </label>
+
+                <input type="tel" id="modalPhone" name="phone" placeholder="Enter your phone number" required class="w-full rounded-md border border-neutral-200 bg-white px-3.5 py-2.5 text-sm text-neutral-800 outline-none transition placeholder:text-neutral-400 focus:border-[#c7964a] focus:ring-1 focus:ring-[#c7964a]"
+                >
+
+            </div>
+
+
+            <!-- Message -->
+            <div>
+
+                <label for="modalMessage" class="mb-1.5 block text-xs font-medium text-neutral-700">
+                    Message
+                </label>
+
+                <textarea id="modalMessage" name="message" rows="3" placeholder="I'm interested in this property..." class="w-full resize-none rounded-md border border-neutral-200 bg-white px-3.5 py-2.5 text-sm text-neutral-800 outline-none transition placeholder:text-neutral-400 focus:border-[#c7964a] focus:ring-1 focus:ring-[#c7964a]"></textarea>
+
+            </div>
+
+
+            <!-- Hidden Property Details -->
+            <input type="hidden" id="modalPropertyType" name="property_type">
+
+            <input  type="hidden"  id="modalPropertyArea"  name="property_area">
+
+            <input  type="hidden"  id="modalPropertyPrice"  name="property_price">
+
+
+            <!-- Submit -->
+            <button type="submit" class="flex h-11 w-full items-center justify-center rounded-md bg-[#c7964a] px-5 text-sm font-semibold text-white transition hover:bg-[#b78336]">
+                Get Price Breakup
+            </button>
+
+        </form>
 
     </div>
 
@@ -1890,23 +1746,44 @@
 
 <script>
     function openPriceModal(type, area, price) {
-        modalType.textContent = type;
-        modalArea.textContent = area;
-        modalPrice.textContent = price;
-        priceModal.classList.remove("hidden");
-        priceModal.classList.add("flex");
+
+        // Display property details
+        document.getElementById("modalType").textContent = type;
+        document.getElementById("modalArea").textContent = area;
+        document.getElementById("modalPrice").textContent = price;
+
+        // Store property details in hidden fields
+        document.getElementById("modalPropertyType").value = type;
+        document.getElementById("modalPropertyArea").value = area;
+        document.getElementById("modalPropertyPrice").value = price;
+
+        // Open modal
+        const modal = document.getElementById("priceModal");
+
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+
+        // Prevent background scrolling
         document.body.classList.add("overflow-hidden");
     }
 
+
     function closePriceModal(e) {
-        if (e && e.target !== priceModal) return;
-        priceModal.classList.add("hidden");
-        priceModal.classList.remove("flex");
+
+        const modal = document.getElementById("priceModal");
+
+        // If clicked on background
+        if (e && e.target !== modal) {
+            return;
+        }
+
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+
+        // Enable scrolling
         document.body.classList.remove("overflow-hidden");
     }
 </script>
-
-
 
 
 

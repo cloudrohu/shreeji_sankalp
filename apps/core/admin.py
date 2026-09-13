@@ -399,7 +399,7 @@ class SettingAdmin(admin.ModelAdmin):
                     "favicon",
                     "offer_img",
                     "search_bg",
-                    "testmonial_bg",
+                    "Virtual_bg",
                 )
             },
         ),
