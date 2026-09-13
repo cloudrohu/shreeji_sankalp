@@ -58,6 +58,8 @@ class Setting(BaseModel):
     rera_color = models.CharField(max_length=150, blank=True, null=True)
     rera_number = models.CharField(max_length=150, blank=True, null=True)
     current_project_rera = models.CharField(max_length=150, blank=True, null=True)
+    virtual_360_url = models.TextField(blank=True, null=True, )
+    virtual_360_title = models.CharField(max_length=200, blank=True, null=True, default="360° Airspace Panorama",help_text="Heading/Title for 360 Section")
     googletagmanager = models.CharField(max_length=150, blank=True, null=True)
     google_map = models.CharField(max_length=1000, blank=True, null=True)
     address = models.CharField(max_length=500, blank=True, null=True)
@@ -98,6 +100,8 @@ class Setting(BaseModel):
         return "No Logo"
 
     logo_tag.short_description = "Logo"
+
+
 
 class Slider(BaseModel):
     setting = models.ForeignKey(Setting, on_delete=models.CASCADE, related_name="sliders", blank=True, null=True)

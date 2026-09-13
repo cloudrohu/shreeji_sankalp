@@ -1193,14 +1193,33 @@ class Configuration(BaseModel):
 
 
 class Connectivity(BaseModel):
-    Project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="connectivity")
-    title = models.CharField(max_length=100)
-    km = models.CharField(max_length=50, blank=True, null=True      )
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="connectivity")
+    title = models.CharField(max_length=150, help_text="e.g. Western Express Highway")
+    subtitle = models.CharField(max_length=200, blank=True, null=True, help_text="e.g. North-South Arterial Corridor")
+    
+    km = models.CharField(max_length=50, blank=True, null=True, help_text="e.g. 2.5 KM")
 
+    drive_time = models.CharField(max_length=50, default="05 Mins", help_text="e.g. 04 Mins", blank=True, null=True,)
+    metro_time = models.CharField(max_length=50, default="10 Mins", help_text="e.g. 08 Mins", blank=True, null=True,)
+    walk_time = models.CharField(max_length=50, default="15 Mins", help_text="e.g. 20 Mins ya -- Mins", blank=True, null=True,)
 
+    progress_percent = models.PositiveIntegerField(default=25, help_text="Telemetry progress bar width (1 - 100)")
+
+    # Radar coordinates (Canvas par dot kahan dikhega)
+    radar_radius = models.PositiveIntegerField(default=50, help_text="Center se doori (Value 25 se 120 ke beech rakhein)")
+    radar_angle = models.FloatField(default=1.5, help_text="Angle in radians (0.1 se 6.2 ke beech)")
+
+    order = models.PositiveIntegerField(default=0, help_text="Display order")
+
+    class Meta:
+        ordering = ['order', 'id']
+        verbose_name = "Connectivity Point"
+        verbose_name_plural = "Connectivity Points"
 
     def __str__(self):
-        return f"{self.title}"
+        return self.title
+    
+
     
 class Amenities(BaseModel):
     Project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="amenities")

@@ -2,17 +2,14 @@
 
 {% block content %}
 
-<!-- About Hero Section -->
-<section id="about-hero" class="bg-[#faf9f7] pt-24 sm:pt-28 lg:pt-30 pb-10 sm:pb-12">
+<section id="about-hero" class="bg-[#faf9f7] pt-24 sm:pt-28 lg:pt-30 pb-10 sm:pb-12">  
 
     <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
 
         <div class="grid lg:grid-cols-[1.05fr_0.75fr] gap-8 lg:gap-14 items-center">
 
-            <!-- Left Content -->
             <div>
 
-                <!-- Breadcrumb -->
                 <div class="flex items-center gap-2 text-[11px] sm:text-xs text-neutral-400">
 
                     <a href="/" class="hover:text-neutral-900 transition-colors">
@@ -36,7 +33,7 @@
                     <span class="w-1.5 h-1.5 rounded-full bg-[#a27a4d]"></span>
 
                     <span class="text-[9px] sm:text-[10px] font-semibold tracking-[0.16em] uppercase text-[#8f693f]">
-                        About Developer
+                        About Us
                     </span>
 
                 </div>
@@ -45,12 +42,12 @@
                 <!-- Heading -->
                 <h1 class="mt-4 text-3xl sm:text-4xl lg:text-5xl xl:text-[56px] font-semibold tracking-[-0.03em] text-neutral-900 leading-[1.05]">
 
-                    Creating Spaces
+                {{about_obj.hero_title}}
 
                     <br>
 
                     <span class="text-[#a27a4d]">
-                        With Purpose.
+                      {{about_obj.hero_highlight}}
                     </span>
 
                 </h1>
@@ -59,12 +56,7 @@
                 <!-- Description -->
                 <p class="mt-4 text-xs sm:text-sm lg:text-base leading-6 lg:leading-7 text-neutral-500 max-w-lg">
 
-                    At
-                    <span class="font-semibold text-neutral-800">
-                        Vinayak Group
-                    </span>,
-                    we create thoughtfully designed spaces that bring together
-                    quality, comfort, functionality and lasting value.
+                      {{about_obj.hero_description|safe}}
 
                 </p>
 
@@ -72,10 +64,7 @@
                 <!-- CTA -->
                 <div class="mt-6">
 
-                    <a
-                        href="#developer"
-                        class="inline-flex items-center gap-2.5 px-5 py-3 rounded-full bg-neutral-900 text-white text-xs sm:text-sm font-semibold hover:bg-[#a27a4d] transition-all duration-300"
-                    >
+                    <a href="#about" class="inline-flex items-center gap-2.5 px-5 py-3 rounded-full bg-neutral-900 text-white text-xs sm:text-sm font-semibold hover:bg-[#a27a4d] transition-all duration-300">
 
                         Discover Our Story
 
@@ -95,7 +84,7 @@
                     <div>
 
                         <p class="text-xl sm:text-2xl font-semibold text-neutral-900">
-                            15+
+                           {{about_obj.years_of_experience}}
                         </p>
 
                         <p class="mt-0.5 text-[9px] sm:text-[10px] text-neutral-400 uppercase tracking-wider">
@@ -111,27 +100,11 @@
                     <div>
 
                         <p class="text-xl sm:text-2xl font-semibold text-neutral-900">
-                            25+
+                           {{about_obj.happy_families}}
                         </p>
 
                         <p class="mt-0.5 text-[9px] sm:text-[10px] text-neutral-400 uppercase tracking-wider">
-                            Projects
-                        </p>
-
-                    </div>
-
-
-                    <div class="w-px h-8 bg-neutral-200"></div>
-
-
-                    <div>
-
-                        <p class="text-xl sm:text-2xl font-semibold text-neutral-900">
-                            10K+
-                        </p>
-
-                        <p class="mt-0.5 text-[9px] sm:text-[10px] text-neutral-400 uppercase tracking-wider">
-                            Families
+                            Happy families
                         </p>
 
                     </div>
@@ -147,45 +120,10 @@
                 <!-- Image -->
                 <div class="relative overflow-hidden rounded-[24px] sm:rounded-[28px] aspect-[4/4.2] bg-white border border-neutral-200 shadow-[0_20px_50px_rgba(0,0,0,0.07)]">
 
-                    <img
-                        src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1000&q=85"
-                        alt="Vinayak Group"
-                        class="w-full h-full object-cover"
-                    >
+                    <img src="{{about_obj.right_image1.url}}" alt="Vinayak Group" class="w-full h-full object-cover">
 
                 </div>
 
-
-                <!-- Developer Card -->
-                <div class="absolute left-3 sm:left-5 bottom-3 sm:bottom-5">
-
-                    <div class="flex items-center gap-3 p-3 sm:p-3.5 rounded-xl bg-white border border-neutral-200 shadow-[0_10px_30px_rgba(0,0,0,0.09)]">
-
-                        <div class="flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-[#faf9f7] border border-neutral-200 p-2">
-
-                            <img
-                                src="YOUR-DEVELOPER-LOGO.png"
-                                alt="Vinayak Group Logo"
-                                class="w-full h-full object-contain"
-                            >
-
-                        </div>
-
-                        <div>
-
-                            <p class="text-[8px] text-neutral-400 uppercase tracking-[0.14em]">
-                                Developer
-                            </p>
-
-                            <p class="mt-0.5 text-xs sm:text-sm font-semibold text-neutral-900">
-                                Vinayak Group
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                </div>
 
 
                 <!-- Decorative Circle -->
@@ -199,8 +137,6 @@
 
 </section>
 
-
-<!-- About Vinayak Sapphire II -->
 <section id="about-project" class="bg-white py-12 sm:py-14 lg:py-16 mt-15">
 
     <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -212,36 +148,10 @@
 
                 <div class="relative overflow-hidden rounded-[24px] sm:rounded-[28px] aspect-[4/3] bg-[#faf9f7] border border-neutral-200">
 
-                    <img
-                        src="YOUR-PROJECT-IMAGE.jpg"
-                        alt="Vinayak Sapphire II"
-                        class="w-full h-full object-cover"
-                    >
+                    <img src="{{about_obj.right_image2.url}}" alt="Vinayak Sapphire II" class="w-full h-full object-cover" >
 
                 </div>
 
-                <!-- Small Project Badge -->
-                <div class="absolute left-4 bottom-4">
-
-                    <div class="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/95 backdrop-blur-sm border border-white shadow-[0_10px_30px_rgba(0,0,0,0.10)]">
-
-                        <div class="w-2 h-2 rounded-full bg-[#a27a4d]"></div>
-
-                        <div>
-
-                            <p class="text-[9px] uppercase tracking-[0.14em] text-neutral-400">
-                                Project
-                            </p>
-
-                            <p class="mt-0.5 text-xs font-semibold text-neutral-900">
-                                Vinayak Sapphire II
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                </div>
 
             </div>
 
@@ -255,7 +165,7 @@
                     <span class="w-1.5 h-1.5 rounded-full bg-[#a27a4d]"></span>
 
                     <span class="text-[9px] sm:text-[10px] font-semibold tracking-[0.16em] uppercase text-[#8f693f]">
-                        About The Project
+                       {{about_obj.title}}
                     </span>
 
                 </span>
@@ -264,14 +174,11 @@
                 <!-- Heading -->
                 <h2 class="mt-4 text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-neutral-900 leading-[1.05]">
 
-                    Vinayak Sapphire II
+                    {{about_obj.subtitle}}
+
 
                 </h2>
 
-
-                <p class="mt-2 text-xs sm:text-sm font-medium text-[#a27a4d]">
-                    Premium 3 BHK Residences · Kudasan, Gandhinagar
-                </p>
 
 
                 <!-- Divider -->
@@ -282,66 +189,15 @@
                 <div class="mt-6 space-y-4">
 
                     <p class="text-sm sm:text-base leading-7 text-neutral-600">
-                        Vinayak Sapphire II is thoughtfully envisioned as a premium
-                        residential destination for modern families. Located in the
-                        well-connected locality of Kudasan, Gandhinagar, the project
-                        brings together contemporary architecture, intelligently
-                        planned homes and a comfortable lifestyle.
+                       {{about_obj.content|safe}}
                     </p>
 
                     <p class="text-sm sm:text-base leading-7 text-neutral-600">
-                        Designed with a focus on quality, functionality and everyday
-                        convenience, the project offers thoughtfully planned spaces
-                        complemented by lifestyle-oriented amenities. Every detail
-                        is intended to create a refined environment where residents
-                        can experience comfort, privacy and a better quality of life.
+                        {{about_obj.read_legacy|safe}}
                     </p>
 
                 </div>
 
-
-                <!-- Highlights -->
-                <div class="mt-7 grid grid-cols-2 sm:grid-cols-3 gap-3">
-
-                    <div class="px-4 py-3.5 rounded-xl bg-[#faf9f7] border border-neutral-200">
-
-                        <p class="text-[9px] uppercase tracking-wider text-neutral-400">
-                            Configuration
-                        </p>
-
-                        <p class="mt-1 text-sm font-semibold text-neutral-900">
-                            3 BHK
-                        </p>
-
-                    </div>
-
-
-                    <div class="px-4 py-3.5 rounded-xl bg-[#faf9f7] border border-neutral-200">
-
-                        <p class="text-[9px] uppercase tracking-wider text-neutral-400">
-                            Location
-                        </p>
-
-                        <p class="mt-1 text-sm font-semibold text-neutral-900">
-                            Kudasan
-                        </p>
-
-                    </div>
-
-
-                    <div class="px-4 py-3.5 rounded-xl bg-[#faf9f7] border border-neutral-200">
-
-                        <p class="text-[9px] uppercase tracking-wider text-neutral-400">
-                            Developer
-                        </p>
-
-                        <p class="mt-1 text-sm font-semibold text-neutral-900">
-                            Vinayak Group
-                        </p>
-
-                    </div>
-
-                </div>
 
             </div>
 
@@ -401,13 +257,7 @@
                 <!-- Icon -->
                 <div class="relative flex items-center justify-center w-12 h-12 rounded-xl bg-[#faf4eb] border border-[#eadbc8]">
 
-                    <svg
-                        class="w-5 h-5 text-[#a27a4d]"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="1.7"
-                    >
+                    <svg  class="w-5 h-5 text-[#a27a4d]"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="1.7">
                         <path d="M3 11.5 12 4l9 7.5"/>
                         <path d="M5.5 10.5V20h13v-9.5"/>
                         <path d="M9 20v-5h6v5"/>
@@ -422,15 +272,12 @@
 
 
                 <h3 class="relative mt-2 text-xl sm:text-2xl font-semibold text-neutral-900">
-                    Creating Better Places To Live
+                    {{about_obj.mission_title}} 
                 </h3>
 
 
                 <p class="relative mt-4 text-sm leading-6 text-neutral-500 max-w-xl">
-                    Our mission is to deliver thoughtfully planned homes that combine
-                    quality construction, functional design and modern amenities.
-                    We aim to create comfortable living environments that add
-                    meaningful value to the everyday lives of our customers.
+                        {{about_obj.mission_content|safe}} 
                 </p>
 
 
@@ -464,13 +311,7 @@
                 <!-- Icon -->
                 <div class="relative flex items-center justify-center w-12 h-12 rounded-xl bg-white/10 border border-white/10">
 
-                    <svg
-                        class="w-5 h-5 text-[#c5a47b]"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="1.7"
-                    >
+                    <svg class="w-5 h-5 text-[#c5a47b]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
                         <circle cx="12" cy="12" r="8"/>
                         <circle cx="12" cy="12" r="3"/>
                         <path d="M12 4V2"/>
@@ -489,14 +330,12 @@
 
                 <h3 class="relative mt-2 text-xl sm:text-2xl font-semibold text-white">
                     Shaping A Better Tomorrow
+                    {{about_obj.vision_title}} 
                 </h3>
 
 
                 <p class="relative mt-4 text-sm leading-6 text-white/55 max-w-xl">
-                    Our vision is to be recognised as a trusted name in real estate
-                    by creating thoughtfully designed communities, embracing
-                    innovation and setting higher standards of quality, transparency
-                    and customer satisfaction.
+                    {{about_obj.vision_content|safe}} 
                 </p>
 
 

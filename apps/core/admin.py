@@ -435,6 +435,9 @@ class SettingAdmin(admin.ModelAdmin):
                     "whatsapp",
                     "email",
                     "google_map",
+                    "virtual_360_url",
+                    "virtual_360_title",
+
                 )
             },
         ),
