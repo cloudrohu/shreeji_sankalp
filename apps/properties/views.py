@@ -21,7 +21,15 @@ from .models import (
     ProjectFAQ,
 )
 
-from utility.models import City, Locality, ProjectAmenities, PropertyType
+from apps.core.models.website import Setting
+
+
+from apps.properties_utility.models import ProjectAmenities, PropertyType
+from apps.utility.models.location import Location, LocationType
+
+def get_settings():
+    """Helper function to fetch settings object safely"""
+    return Setting.objects.first()
 
 def index(request):
     queryset_list = Project.objects.filter(active=True).order_by('project_name')
@@ -217,31 +225,85 @@ def commercial_projects(request):
 
 def project_details(request, id, slug):
 
-    project = get_object_or_404(Project,id=id,slug=slug,active=True)
+    project = get_object_or_404(
+        Project.objects.select_related(
+            'developer',
+            'property_type',
+            'city',
+            'locality',
+            'area',
+            'postal_code',
+            'possession_year',
+            'architect',
+            'engineer',
+        ).prefetch_related(
 
-    carpet_range = (
-        project.configurations.aggregate(
-            min_area=Min("area_sqft"),
-            max_area=Max("area_sqft"),
-        )
+            # Main project sections
+            'configurations',
+            'amenities',
+            'connectivity',
+            'gallery',
+
+            # Content
+            'welcomes',
+            'overviews',
+            'aboutus',
+            'usps',
+
+            # Other sections
+            'BookingOffer',
+            'sliders',
+            'rera',
+            'why_invest',
+            'bank_offers',
+            'faqs',
+            'contact_persons',
+
+        ),
+        id=id,
+        slug=slug,
+        is_active=True,
+    )
+
+    settings_obj = get_settings()
+
+    carpet_range = project.configurations.aggregate(
+        min_area=Min("area_sqft"),
+        max_area=Max("area_sqft"),
     )
 
     related_projects = (
-        Project.objects.filter(
+        Project.objects
+        .filter(
             city=project.city,
-            active=True
+            is_active=True,
         )
-        .exclude(id=project.id)[:8]
+        .exclude(id=project.id)
+        .select_related(
+            'developer',
+            'property_type',
+            'city',
+            'locality',
+        )[:4]
     )
 
     context = {
         "project": project,
+
         "min_carpet": carpet_range["min_area"],
         "max_carpet": carpet_range["max_area"],
+
         "related_projects": related_projects,
+
+        "settings_obj": settings_obj,
     }
 
-    return render(request,"projects/project_detail.html",context,)
+    return render(
+        request,
+        "home/project_detail.html",
+        context
+    )
+
 
 def submit_enquiry(request, id):
 
@@ -273,8 +335,12 @@ def submit_enquiry(request, id):
         slug=project.slug,
     )
 
+
+
 def thank_you(request):
     return render(
         request,
         "projects/thank_you.html"
     )
+
+

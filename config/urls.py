@@ -46,6 +46,7 @@ urlpatterns = [
         include("apps.job.urls"),
     ),
 
+
    
 
     path(
@@ -53,7 +54,7 @@ urlpatterns = [
         include("apps.companies.urls"),
     ),
 
-    
+    path("projects/",include("apps.properties.urls"),),
 
     path(
         "ckeditor5/",

@@ -94,6 +94,8 @@ def GalleryView(request):
         }
     )  
 
+
+
     
 def ContactView(request):
     settings_obj = get_settings()

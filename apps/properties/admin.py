@@ -1238,12 +1238,7 @@ class EngineerAdmin(
 
 
 @admin.register(Project)
-class ProjectAdmin(
-    BaseAdmin,
-    ImagePreviewMixin,
-    ImportExportModelAdmin,
-    DraggableMPTTAdmin,
-):
+class ProjectAdmin(BaseAdmin,ImagePreviewMixin,ImportExportModelAdmin,DraggableMPTTAdmin,):
     image_field = "image"
     mptt_indent_field = "project_name"
 
@@ -1478,6 +1473,9 @@ class ProjectAdmin(
             request,
             obj,
         )
+
+
+
 
 # =====================================================
 # VOICE RECORDING
