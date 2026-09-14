@@ -298,6 +298,8 @@ def project_details(request, id, slug):
         [:4]
     )
 
+    first_project = Project.objects.filter(is_active=True).first()
+
     context = {
         "project": project,
 
@@ -307,6 +309,7 @@ def project_details(request, id, slug):
         "related_projects": related_projects,
         "more_projects": more_projects,
         "settings_obj": settings_obj,
+        "first_project": first_project,
     }
 
     return render(

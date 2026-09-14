@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 
 from apps.core.models.website import Setting,About,FAQ,Inquiry
 
-from apps.properties.models import Project, Connectivity, Gallery
+from apps.properties.models import Project, Connectivity,ProjectAmenities
 
 # Create your views here.
 
@@ -53,10 +53,13 @@ def Disclaimer(request):
   
     return render(request, 'home/disclaimer.html', {'settings_obj': get_settings()})
 
-
 def Amenities(request):
-  
-    return render(request, 'home/amenities.html', {'settings_obj': get_settings()})
+    amenities = ProjectAmenities.objects.all()
+    return render(request, 'home/amenities.html', {
+        'settings_obj': get_settings(),
+        'amenities': amenities,
+    })
+
 
 def Location(request):
     settings_obj = get_settings()
