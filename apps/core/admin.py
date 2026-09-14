@@ -516,10 +516,11 @@ class SettingAdmin(admin.ModelAdmin):
             "Legal Pages",
             {
                 "fields": (
-                    "privacy_policy",
-                    "terms_conditions",
-                    "disclaimer",
-                    "cookies",
+                    "privacy_policy_title",
+                    "privacy_policy_content",
+                    "disclaimer_title",
+                    "disclaimer_content",
+                    
                 )
             },
         ),

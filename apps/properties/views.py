@@ -287,6 +287,17 @@ def project_details(request, id, slug):
         )[:4]
     )
 
+    more_projects = (
+        Project.objects.filter(
+            developer=project.developer,
+            is_active=True
+        )
+        .exclude(id=project.id)
+        .select_related('locality', 'city', 'property_type', 'possession_year')
+        .prefetch_related('configurations')
+        [:4]
+    )
+
     context = {
         "project": project,
 
@@ -294,14 +305,13 @@ def project_details(request, id, slug):
         "max_carpet": carpet_range["max_area"],
 
         "related_projects": related_projects,
-
+        "more_projects": more_projects,
         "settings_obj": settings_obj,
     }
 
     return render(
         request,
-        "home/project_detail.html",
-        context
+        "home/project_detail.html", context
     )
 
 
