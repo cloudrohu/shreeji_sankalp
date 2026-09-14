@@ -10,8 +10,8 @@ urlpatterns = [
     path('disclaimer/', views.Disclaimer, name='disclaimer'),
     path('amenities/', views.Amenities, name='amenities'),
     path('location/', views.Location, name='location'),
-    path('gallery/', views.Gallery, name='gallery'),
-    path('contact/', views.Contact, name='contact'),
-    path('floor_plan/', views.Contact, name='floor_plans'),
+    path('gallery/', views.GalleryView, name='gallery'),
+    path('contact/', views.ContactView, name='contact'),
+    path('thank-you/', views.ThankYouView, name='thank_you'),
     
 ]

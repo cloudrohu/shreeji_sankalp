@@ -1,8 +1,8 @@
 from django.shortcuts import render,redirect
 
-from apps.core.models.website import Setting,About,FAQ
+from apps.core.models.website import Setting,About,FAQ,Inquiry
 
-from apps.properties.models import Project, Connectivity
+from apps.properties.models import Project, Connectivity, Gallery
 
 # Create your views here.
 
@@ -78,11 +78,63 @@ def Floor_plans(request):
   
     return render(request, 'home/floor_plans.html', {'settings_obj': get_settings()})
     
-def Gallery(request):
-  
-    return render(request, 'home/gallery.html', {'settings_obj': get_settings()})
+def GalleryView(request):
+    settings_obj = get_settings()
+    project_obj = Project.objects.first()
+    gallery_items = Gallery.objects.filter(project=project_obj)
+
+
+    return render(
+        request,
+        'home/gallery.html',
+        {
+            'settings_obj': settings_obj,
+            'project_obj': project_obj,
+            'gallery_items': gallery_items,
+        }
+    )  
 
     
-def Contact(request):
-  
-    return render(request, 'home/contact.html', {'settings_obj': get_settings()})
+def ContactView(request):
+    settings_obj = get_settings()
+    project_obj = Project.objects.first()
+
+    if request.method == "POST":
+        name = request.POST.get("name")
+        email = request.POST.get("email")
+        phone = request.POST.get("phone")
+        message = request.POST.get("message")
+
+        if name and phone:
+            Inquiry.objects.create(
+                project=project_obj,
+                name=name,
+                email=email,
+                phone=phone,
+                message=message,
+            )
+            return redirect('thank_you')
+
+    return render(
+        request,
+        'home/contact.html',
+        {
+            'settings_obj': settings_obj,
+            'project_obj': project_obj,
+        }
+    )
+
+
+def ThankYouView(request):
+    settings_obj = get_settings()
+    project_obj = Project.objects.first()
+
+    return render(
+        request,
+        'home/thank_you.html',
+        {
+            'settings_obj': settings_obj,
+            'project_obj': project_obj,
+        }
+    )
+

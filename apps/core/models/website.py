@@ -4,7 +4,7 @@ from django.conf import settings
 from django.db import models
 from django.utils.safestring import mark_safe
 from django_ckeditor_5.fields import CKEditor5Field
-
+from apps.properties.models import Project
 
 class BaseModel(models.Model):
     id = models.UUIDField(
@@ -309,4 +309,17 @@ class Enquiry(BaseModel):
 
     def __str__(self):
         return f"{self.name or 'Unknown'} - {self.phone or 'No Phone'}"
+
+class Inquiry(BaseModel):
+    project = models.ForeignKey(Project, on_delete=models.SET_NULL, null=True, blank=True, related_name="inquiries")
+    name = models.CharField(max_length=150)
+    phone = models.CharField(max_length=20)
+    email = models.EmailField(blank=True, null=True)
+    message = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.name} - {self.phone}"
+
+
 

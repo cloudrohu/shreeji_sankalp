@@ -1227,12 +1227,33 @@ class Amenities(BaseModel):
     
     def __str__(self):
         return f"{self.Project.project_name} - {self.amenities.title}"
+
+
+    
 class Gallery(BaseModel):
-    Project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="gallery")
-    image = models.ImageField(upload_to='gallery/')
+    CATEGORY_CHOICES = (
+        ('all', 'All'),
+        ('exterior', 'Exterior & Architecture'),
+        ('interior', 'Luxury Interiors'),
+        ('amenities', 'Amenities & Landscape'),
+        ('construction', 'Construction Updates'),
+    )
+
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="gallery")
+    title = models.CharField(max_length=150, blank=True, null=True)
+    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default='exterior')
+    image = models.ImageField(upload_to="gallery/")
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['order', 'id']
+        verbose_name = "Gallery Image"
+        verbose_name_plural = "Gallery Images"
 
     def __str__(self):
-        return f"Image #{self.pk}"
+        return self.title or f"Gallery Item {self.id}"
+
+    
 class Header(BaseModel):
     Project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="headers")    
     title = models.CharField(max_length=2000,null=True, blank=True)

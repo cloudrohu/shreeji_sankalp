@@ -117,10 +117,6 @@
                     Gallery
                 </a>
 
-                <a href="{% url "floor_plans" %}" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800">
-                    Floor Plans
-                </a>
-
                 <a href="{% url "contact" %}" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800">
                     Contact
                 </a>
@@ -136,7 +132,7 @@
                     <span>Call Us</span>
                 </a>
 
-                <a href="#contact"
+                <a href="{% url "contact" %}"
                    class="px-5 lg:px-6 py-3 bg-neutral-900 text-white text-[11px] font-medium tracking-[0.15em] uppercase hover:bg-[#a8874b] transition-all duration-300">
                     Enquire Now
                 </a>
@@ -163,13 +159,13 @@
                     <span class="text-[#a8874b]">01</span>
                 </a>
 
-                <a href="#about"
+                <a href="{% url "about" %}"
                    class="mobile-link flex items-center justify-between py-3.5 text-sm font-medium border-b border-black/[0.06]">
                     <span>About</span>
                     <span class="text-[#a8874b]">02</span>
                 </a>
 
-                <a href="#projects"
+                <a href=""
                    class="mobile-link flex items-center justify-between py-3.5 text-sm font-medium border-b border-black/[0.06]">
                     <span>Projects</span>
                     <span class="text-[#a8874b]">03</span>
@@ -181,31 +177,25 @@
                     <span class="text-[#a8874b]">04</span>
                 </a>
 
-                <a href="#amenities"
+                <a href="{% url "amenities" %}"
                    class="mobile-link flex items-center justify-between py-3.5 text-sm font-medium border-b border-black/[0.06]">
                     <span>Amenities</span>
                     <span class="text-[#a8874b]">05</span>
                 </a>
 
-                <a href="#location"
+                <a href="{% url "location" %}"
                    class="mobile-link flex items-center justify-between py-3.5 text-sm font-medium border-b border-black/[0.06]">
                     <span>Location</span>
                     <span class="text-[#a8874b]">06</span>
                 </a>
 
-                <a href="#gallery"
+                <a href="{% url "gallery" %}"
                    class="mobile-link flex items-center justify-between py-3.5 text-sm font-medium border-b border-black/[0.06]">
                     <span>Gallery</span>
                     <span class="text-[#a8874b]">07</span>
                 </a>
 
-                <a href="#floor-plans"
-                   class="mobile-link flex items-center justify-between py-3.5 text-sm font-medium border-b border-black/[0.06]">
-                    <span>Floor Plans</span>
-                    <span class="text-[#a8874b]">08</span>
-                </a>
-
-                <a href="#contact"
+                <a href="{% url "contact" %}"
                    class="mobile-link flex items-center justify-between py-3.5 text-sm font-medium">
                     <span>Contact</span>
                     <span class="text-[#a8874b]">{{settings_obj.phone}}</span>
@@ -218,7 +208,7 @@
                         Call Us
                     </a>
 
-                    <a href="#contact" class="flex items-center justify-center bg-neutral-900 text-white py-3.5 text-[11px] uppercase tracking-wider">
+                    <a href="{% url "contact" %}" class="flex items-center justify-center bg-neutral-900 text-white py-3.5 text-[11px] uppercase tracking-wider">
                         Enquire Now
                     </a>
 

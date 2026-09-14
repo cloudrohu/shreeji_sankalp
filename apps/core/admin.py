@@ -15,7 +15,7 @@ from .models.website import (
     ImpactMetric,
     Gallery,
     USP,
-
+    Inquiry,
 )
 
 
@@ -354,6 +354,19 @@ class EnquiryInline(BaseSettingInline):
 
     extra = 1
 
+
+
+@admin.register(Inquiry)
+class InquiryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'phone', 'email', 'project', 'created_at')
+    list_filter = ('created_at', 'project')
+    search_fields = ('name', 'phone', 'email', 'message')
+    readonly_fields = ('created_at',)
+    ordering = ('-created_at',)
+
+    # Lead records secure thevnyasaathi direct add/edit restrict karu shakta (optional)
+    def has_add_permission(self, request):
+        return False  # Leads fakta website form madhun yetil
 
 @admin.register(Setting)
 class SettingAdmin(admin.ModelAdmin):

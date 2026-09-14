@@ -15,6 +15,7 @@ from .website import (
     ImpactMetric,
     Gallery,
     USP,
+    Inquiry,
     Enquiry,
 
 )
@@ -32,5 +33,6 @@ __all__ = [
     'ImpactMetric',
     'Gallery',
     'USP',
+    'Inquiry',
     'Enquiry',
 ]
