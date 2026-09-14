@@ -331,8 +331,6 @@
             </div>
         </section>
 
-        <section id="location" class="scroll-mt-24"></section>
-
         <section id="location" class="scroll-mt-24 py-6 sm:py-10">
             <div class="rounded-2xl border border-[#e5e0d6] bg-white p-4 sm:p-8 lg:p-10">
                 <div class="max-w-2xl">
@@ -344,11 +342,11 @@
                 <div class="mt-6 grid gap-5 lg:mt-8 lg:grid-cols-[1.05fr_.95fr] lg:gap-8">
                     <div class="overflow-hidden rounded-xl border border-[#e5e0d6] bg-[#f8f6f1]">
                         {% if project.google_map_iframe %}
-                        <div class="h-[280px] w-full sm:h-[380px]">
+                        <div class="h-[300px] w-full sm:h-[450px] lg:h-[500px] [&>iframe]:h-full [&>iframe]:w-full [&>iframe]:border-0">
                             {{ project.google_map_iframe|safe }}
                         </div>
                         {% else %}
-                        <div class="flex h-[280px] items-center justify-center text-sm text-gray-400 sm:h-[380px]">
+                        <div class="flex h-[320px] items-center justify-center text-sm text-gray-400 sm:h-[450px] lg:h-[500px]">
                             Map not available
                         </div>
                         {% endif %}
@@ -414,12 +412,261 @@
         </section>
 
 
-        <section id="video" class="scroll-mt-24"></section>
-        <section id="amenities" class="scroll-mt-24"></section>
-        <section id="floorplan" class="scroll-mt-24"></section>
-        <section id="paymentscheme" class="scroll-mt-24"></section>
-        <section id="bank_offers" class="scroll-mt-24"></section>
-        <section id="emi_calculator" class="scroll-mt-24"></section>
+        <section id="video" class="scroll-mt-24 py-6 sm:py-10">
+            <div class="rounded-2xl border border-[#e5e0d6] bg-white p-4 sm:p-8 lg:p-10">
+                <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+                    <div>
+                        <p class="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#b89252] sm:text-xs">Project Video</p>
+                        <h2 class="mt-1.5 text-xl font-bold tracking-tight text-gray-900 sm:mt-2 sm:text-3xl">Experience The Project</h2>
+                        <p class="mt-2 text-xs leading-5 text-gray-500 sm:text-sm">Take a closer look at the project, amenities and overall lifestyle.</p>
+                    </div>
+                </div>
+
+                {% if project.youtube_embed_id %}
+                <div class="mt-5 overflow-hidden rounded-xl bg-black sm:mt-8">
+                    <div class="relative aspect-video w-full">
+                        <iframe
+                            src="https://www.youtube.com/embed/{{ project.youtube_embed_id }}"
+                            title="{{ project.project_name }} Project Video"
+                            class="absolute inset-0 h-full w-full"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+                {% else %}
+                <div class="mt-5 flex aspect-video items-center justify-center rounded-xl border border-dashed border-[#dcd5c8] bg-[#faf9f6] sm:mt-8">
+                    <div class="text-center">
+                        <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[#f8f1e5] text-[#b89252]">
+                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </div>
+                        <p class="mt-3 text-xs font-medium text-gray-500 sm:text-sm">Project video will be available soon.</p>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </section>
+
+
+        <section id="amenities" class="scroll-mt-24 py-6 sm:py-10">
+            <div class="rounded-2xl border border-[#e5e0d6] bg-white p-4 sm:p-8 lg:p-10">
+                <div>
+                    <p class="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#b89252] sm:text-xs">Project Amenities</p>
+                    <h2 class="mt-1.5 text-xl font-bold tracking-tight text-gray-900 sm:mt-2 sm:text-3xl">Amenities & Facilities</h2>
+                    <p class="mt-2 text-xs leading-5 text-gray-500 sm:mt-3 sm:text-sm">Everything you need for a comfortable and convenient lifestyle.</p>
+                </div>
+
+                {% if project.amenities.all %}
+                <div class="mt-6 grid grid-cols-2 gap-x-3 gap-y-4 sm:mt-8 sm:grid-cols-3 sm:gap-5 lg:grid-cols-4">
+                    {% for amenity in project.amenities.all %}
+                    <div class="group flex items-center gap-3 border-b border-[#eee9df] pb-4">
+                        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#f8f1e5] text-[#b89252] transition group-hover:bg-[#b89252] group-hover:text-white">
+                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" d="M4 12h16M12 4v16"/>
+                            </svg>
+                        </div>
+                        <div class="min-w-0">
+                            <p class="truncate text-xs font-semibold text-gray-800 sm:text-sm">{{ amenity.amenities.title }}</p>
+                            <p class="mt-0.5 text-[10px] text-gray-400 sm:text-xs">Available</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="mt-6 rounded-xl border border-dashed border-[#dcd5c8] p-8 text-center sm:mt-8">
+                    <p class="text-xs text-gray-500 sm:text-sm">Amenities details will be updated soon.</p>
+                </div>
+                {% endif %}
+            </div>
+        </section>
+
+        <section id="floorplan" class="scroll-mt-24 py-6 sm:py-10">
+            <div class="rounded-2xl border border-[#e5e0d6] bg-white p-4 sm:p-8 lg:p-10">
+                <div>
+                    <p class="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#b89252] sm:text-xs">Floor Plans</p>
+                    <h2 class="mt-1.5 text-xl font-bold tracking-tight text-gray-900 sm:mt-2 sm:text-3xl">Explore Floor Plans</h2>
+                    <p class="mt-2 text-xs leading-5 text-gray-500 sm:mt-3 sm:text-sm">View detailed floor plans and explore the available configurations.</p>
+                </div>
+
+                {% if project.configurations.all %}
+                <div class="mt-6 grid gap-4 sm:mt-8 sm:grid-cols-2 lg:grid-cols-3">
+                    {% for config in project.configurations.all %}
+                    {% if config.unit_plan %}
+                    <div class="group overflow-hidden rounded-xl border border-[#e5e0d6] bg-white">
+                        <button type="button" onclick="openUnitPlan('{{ config.unit_plan.url }}')" class="relative block aspect-[4/3] w-full overflow-hidden bg-[#f8f6f1]">
+                            <img src="{{ config.unit_plan.url }}" alt="{{ config.bhk_type }} Floor Plan" class="h-full w-full object-contain p-3 transition duration-500 group-hover:scale-[1.03]">
+                            <span class="absolute bottom-3 right-3 rounded-lg bg-black/70 px-3 py-1.5 text-[10px] font-semibold text-white backdrop-blur-sm sm:text-xs">View Plan</span>
+                        </button>
+
+                        <div class="flex items-center justify-between gap-3 border-t border-[#e5e0d6] px-4 py-3.5">
+                            <div>
+                                <p class="text-sm font-semibold text-gray-900">{{ config.bhk_type }}</p>
+                                <p class="mt-0.5 text-[10px] text-gray-400 sm:text-xs">{{ config.area_sqft }} Sq.ft</p>
+                            </div>
+                            <p class="text-xs font-semibold text-[#9a7139]">₹ {{ config.formatted_price }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="mt-6 rounded-xl border border-dashed border-[#dcd5c8] p-8 text-center sm:mt-8">
+                    <p class="text-xs text-gray-500 sm:text-sm">Floor plans will be updated soon.</p>
+                </div>
+                {% endif %}
+            </div>
+       </section>
+
+        <section id="paymentscheme" class="scroll-mt-24 py-6 sm:py-10">
+            <div class="rounded-2xl border border-[#e5e0d6] bg-white p-4 sm:p-8 lg:p-10">
+                <div>
+                    <p class="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#b89252] sm:text-xs">Payment Scheme</p>
+                    <h2 class="mt-1.5 text-xl font-bold tracking-tight text-gray-900 sm:mt-2 sm:text-3xl">Flexible Payment Plans</h2>
+                    <p class="mt-2 text-xs leading-5 text-gray-500 sm:mt-3 sm:text-sm">Explore the available booking offers and payment options for this project.</p>
+                </div>
+
+                {% if project.BookingOffer.all %}
+                <div class="mt-6 divide-y divide-[#e5e0d6] border-y border-[#e5e0d6] sm:mt-8">
+                    {% for offer in project.BookingOffer.all %}
+                    <div class="flex items-center justify-between gap-4 py-4 sm:py-5">
+                        <div class="flex min-w-0 items-center gap-3 sm:gap-4">
+                            <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#f8f1e5] text-[#b89252] sm:h-10 sm:w-10">
+                                <svg class="h-4 w-4 sm:h-5 sm:w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 8v8m-3-4h6M5 4h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z"/>
+                                </svg>
+                            </div>
+                            <div class="min-w-0">
+                                <p class="text-xs font-semibold text-gray-900 sm:text-sm">{{ offer.title }}</p>
+                                <p class="mt-0.5 text-[10px] text-gray-400 sm:text-xs">Available payment option</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="mt-6 rounded-xl border border-dashed border-[#dcd5c8] p-8 text-center sm:mt-8">
+                    <p class="text-xs text-gray-500 sm:text-sm">Payment scheme details will be updated soon.</p>
+                </div>
+                {% endif %}
+            </div>
+        </section>
+
+        <section id="bank_offers" class="scroll-mt-24 py-6 sm:py-10">
+            <div class="rounded-2xl border border-[#e5e0d6] bg-white p-4 sm:p-8 lg:p-10">
+                <div>
+                    <p class="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#b89252] sm:text-xs">Bank Offers</p>
+                    <h2 class="mt-1.5 text-xl font-bold tracking-tight text-gray-900 sm:mt-2 sm:text-3xl">Home Loan & Bank Offers</h2>
+                    <p class="mt-2 text-xs leading-5 text-gray-500 sm:mt-3 sm:text-sm">Explore banks and financial institutions offering home loan facilities for this project.</p>
+                </div>
+
+                {% if project.bank_offers.all %}
+                <div class="mt-6 divide-y divide-[#e5e0d6] border-y border-[#e5e0d6] sm:mt-8">
+                    {% for offer in project.bank_offers.all %}
+                    <div class="flex items-center justify-between gap-4 py-4 sm:py-5">
+                        <div class="flex min-w-0 items-center gap-3 sm:gap-4">
+                            <div class="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-[#e5e0d6] bg-white sm:h-12 sm:w-12">
+                                {% if offer.bank.image %}
+                                <img src="{{ offer.bank.image.url }}" alt="{{ offer.bank }}" class="h-full w-full object-contain p-1.5">
+                                {% else %}
+                                <span class="text-sm font-bold text-[#9a7139]">{{ offer.bank|slice:":1" }}</span>
+                                {% endif %}
+                            </div>
+
+                            <div class="min-w-0">
+                                <p class="truncate text-xs font-semibold text-gray-900 sm:text-sm">{{ offer.bank }}</p>
+                                <p class="mt-0.5 text-[10px] text-gray-400 sm:text-xs">Home Loan Available</p>
+                            </div>
+                        </div>
+
+                        <span class="shrink-0 text-[10px] font-semibold text-green-700 sm:text-xs">✓ Available</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="mt-6 rounded-xl border border-dashed border-[#dcd5c8] p-8 text-center sm:mt-8">
+                    <p class="text-xs text-gray-500 sm:text-sm">Bank offers will be updated soon.</p>
+                </div>
+                {% endif %}
+            </div>
+        </section>
+
+        <section id="emi_calculator" class="scroll-mt-24 py-6 sm:py-10">
+            <div class="rounded-2xl border border-[#e5e0d6] bg-white p-4 sm:p-8 lg:p-10">
+                <div>
+                    <p class="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#b89252] sm:text-xs">EMI Calculator</p>
+                    <h2 class="mt-1.5 text-xl font-bold tracking-tight text-gray-900 sm:mt-2 sm:text-3xl">Calculate Your Home Loan EMI</h2>
+                    <p class="mt-2 text-xs leading-5 text-gray-500 sm:mt-3 sm:text-sm">Estimate your monthly EMI, total interest and total repayment amount.</p>
+                </div>
+
+                <div class="mt-6 grid gap-6 lg:mt-8 lg:grid-cols-[1fr_1fr] lg:gap-10">
+                    <div class="space-y-5">
+                        <div>
+                            <div class="flex items-center justify-between">
+                                <label class="text-xs font-semibold text-gray-700 sm:text-sm">Loan Amount</label>
+                                <span id="loanAmountValue" class="text-xs font-bold text-[#9a7139] sm:text-sm">₹ 50,00,000</span>
+                            </div>
+                            <input id="loanAmount" type="range" min="500000" max="50000000" step="100000" value="5000000" class="mt-3 h-1.5 w-full cursor-pointer accent-[#b89252]">
+                            <div class="mt-1 flex justify-between text-[10px] text-gray-400">
+                                <span>₹5 Lakh</span>
+                                <span>₹5 Crore</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex items-center justify-between">
+                                <label class="text-xs font-semibold text-gray-700 sm:text-sm">Interest Rate</label>
+                                <span id="interestValue" class="text-xs font-bold text-[#9a7139] sm:text-sm">8.5%</span>
+                            </div>
+                            <input id="interestRate" type="range" min="5" max="15" step="0.1" value="8.5" class="mt-3 h-1.5 w-full cursor-pointer accent-[#b89252]">
+                            <div class="mt-1 flex justify-between text-[10px] text-gray-400">
+                                <span>5%</span>
+                                <span>15%</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex items-center justify-between">
+                                <label class="text-xs font-semibold text-gray-700 sm:text-sm">Loan Tenure</label>
+                                <span id="tenureValue" class="text-xs font-bold text-[#9a7139] sm:text-sm">20 Years</span>
+                            </div>
+                            <input id="loanTenure" type="range" min="1" max="30" step="1" value="20" class="mt-3 h-1.5 w-full cursor-pointer accent-[#b89252]">
+                            <div class="mt-1 flex justify-between text-[10px] text-gray-400">
+                                <span>1 Year</span>
+                                <span>30 Years</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="rounded-xl bg-[#f8f6f1] p-4 sm:p-6">
+                        <div class="border-b border-[#e5e0d6] pb-5">
+                            <p class="text-[10px] font-semibold uppercase tracking-wider text-gray-400">Monthly EMI</p>
+                            <p id="emiAmount" class="mt-1 text-2xl font-bold text-[#9a7139] sm:text-3xl">₹ 43,391</p>
+                        </div>
+
+                        <div class="mt-5 grid grid-cols-2 gap-4">
+                            <div>
+                                <p class="text-[10px] uppercase tracking-wider text-gray-400">Principal Amount</p>
+                                <p id="principalAmount" class="mt-1 text-xs font-semibold text-gray-800 sm:text-sm">₹ 50,00,000</p>
+                            </div>
+
+                            <div>
+                                <p class="text-[10px] uppercase tracking-wider text-gray-400">Total Interest</p>
+                                <p id="totalInterest" class="mt-1 text-xs font-semibold text-gray-800 sm:text-sm">₹ 54,13,840</p>
+                            </div>
+
+                            <div class="col-span-2 border-t border-[#e5e0d6] pt-4">
+                                <p class="text-[10px] uppercase tracking-wider text-gray-400">Total Payment</p>
+                                <p id="totalPayment" class="mt-1 text-sm font-bold text-gray-900 sm:text-base">₹ 1,04,13,840</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="about_developer" class="scroll-mt-24"></section>
         <section id="faqs" class="scroll-mt-24"></section>
 
@@ -687,6 +934,41 @@
         lightbox.classList.add("flex");
         document.body.classList.add("overflow-hidden");
     }
+
+    const loanAmount = document.getElementById("loanAmount");
+    const interestRate = document.getElementById("interestRate");
+    const loanTenure = document.getElementById("loanTenure");
+
+    const formatINR = value => "₹ " + Math.round(value).toLocaleString("en-IN");
+
+    function calculateEMI() {
+        const principal = Number(loanAmount.value);
+        const annualRate = Number(interestRate.value);
+        const years = Number(loanTenure.value);
+        const months = years * 12;
+        const monthlyRate = annualRate / 12 / 100;
+
+        const emi = monthlyRate === 0
+            ? principal / months
+            : principal * monthlyRate * Math.pow(1 + monthlyRate, months) / (Math.pow(1 + monthlyRate, months) - 1);
+
+        const totalPayment = emi * months;
+        const totalInterest = totalPayment - principal;
+
+        document.getElementById("loanAmountValue").textContent = formatINR(principal);
+        document.getElementById("interestValue").textContent = annualRate.toFixed(1) + "%";
+        document.getElementById("tenureValue").textContent = years + (years === 1 ? " Year" : " Years");
+        document.getElementById("emiAmount").textContent = formatINR(emi);
+        document.getElementById("principalAmount").textContent = formatINR(principal);
+        document.getElementById("totalInterest").textContent = formatINR(totalInterest);
+        document.getElementById("totalPayment").textContent = formatINR(totalPayment);
+    }
+
+    [loanAmount, interestRate, loanTenure].forEach(input => {
+        input.addEventListener("input", calculateEMI);
+    });
+
+    calculateEMI();
 
     function setProjectNavPosition() {
     const header = document.querySelector("header");
