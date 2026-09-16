@@ -10,7 +10,7 @@
     <meta name="description" content="{% block meta_description %}Your website description here{% endblock %}">
     <meta name="keywords" content="{% block meta_keywords %}website, business, services{% endblock %}">
     <meta name="author" content="{% block meta_author %}Your Company{% endblock %}">
-    <title>{% block title %}Website{% endblock %}</title>
+    <title>{% block title %}{{settings_obj.site_name}} By {{project_obj.developer}}{% endblock title %}</title>
     <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
