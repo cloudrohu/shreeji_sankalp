@@ -1442,7 +1442,7 @@
                             <div class="shrink-0 text-center">
 
                                 <div class="p-2 bg-white rounded-xl border border-neutral-200 shadow-sm">
-                                {% if project_obj.rera.qr_image %}
+                                {% if project_obj.rera.first.qr_image %}
                                     <img src="{{ project_obj.rera.first.qr_image.url }}" alt="RERA QR Code" class="w-24 h-24 sm:w-28 sm:h-28 object-contain">
                                 {% else %}
                                     <div class="w-24 h-24 sm:w-28 sm:h-28 flex items-center justify-center text-[10px] text-neutral-400">
