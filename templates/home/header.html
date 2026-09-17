@@ -72,7 +72,7 @@
     }
 </style>
 
-<header id="siteHeader"  class="fixed top-0 left-0 w-full z-[9999] bg-white/90 backdrop-blur-xl border-b border-black/[0.06] transition-all duration-300">
+<header id="siteHeader" class="fixed top-0 left-0 w-full z-[9999] bg-white/90 backdrop-blur-xl border-b border-black/[0.06] transition-all duration-300">
 
     <div class="max-w-[1500px] mx-auto px-5 sm:px-7 lg:px-10">
 
@@ -153,50 +153,42 @@
 
             <nav class="py-5">
 
-                <a href="/"
-                   class="mobile-link flex items-center justify-between py-3.5 text-sm font-medium border-b border-black/[0.06]">
+                <a href="/" class="mobile-link flex items-center justify-between py-3.5 text-sm font-medium border-b border-black/[0.06]">
                     <span>Home</span>
                     <span class="text-[#a8874b]">01</span>
                 </a>
 
-                <a href="{% url "about" %}"
-                   class="mobile-link flex items-center justify-between py-3.5 text-sm font-medium border-b border-black/[0.06]">
+                <a href="{% url "about" %}" class="mobile-link flex items-center justify-between py-3.5 text-sm font-medium border-b border-black/[0.06]">
                     <span>About</span>
                     <span class="text-[#a8874b]">02</span>
                 </a>
 
-                <a href=""
-                   class="mobile-link flex items-center justify-between py-3.5 text-sm font-medium border-b border-black/[0.06]">
+                <a href="" class="mobile-link flex items-center justify-between py-3.5 text-sm font-medium border-b border-black/[0.06]">
                     <span>Projects</span>
                     <span class="text-[#a8874b]">03</span>
                 </a>
 
-                <a href="#project-details"
-                   class="mobile-link flex items-center justify-between py-3.5 text-sm font-medium border-b border-black/[0.06]">
+                <a href="{{ first_project.get_absolute_url }}" class="mobile-link flex items-center justify-between py-3.5 text-sm font-medium border-b border-black/[0.06]">
                     <span>Project Details</span>
                     <span class="text-[#a8874b]">04</span>
                 </a>
 
-                <a href="{% url "amenities" %}"
-                   class="mobile-link flex items-center justify-between py-3.5 text-sm font-medium border-b border-black/[0.06]">
+                <a href="{% url "amenities" %}" class="mobile-link flex items-center justify-between py-3.5 text-sm font-medium border-b border-black/[0.06]">
                     <span>Amenities</span>
                     <span class="text-[#a8874b]">05</span>
                 </a>
 
-                <a href="{% url "location" %}"
-                   class="mobile-link flex items-center justify-between py-3.5 text-sm font-medium border-b border-black/[0.06]">
+                <a href="{% url "location" %}" class="mobile-link flex items-center justify-between py-3.5 text-sm font-medium border-b border-black/[0.06]">
                     <span>Location</span>
                     <span class="text-[#a8874b]">06</span>
                 </a>
 
-                <a href="{% url "gallery" %}"
-                   class="mobile-link flex items-center justify-between py-3.5 text-sm font-medium border-b border-black/[0.06]">
+                <a href="{% url "gallery" %}" class="mobile-link flex items-center justify-between py-3.5 text-sm font-medium border-b border-black/[0.06]">
                     <span>Gallery</span>
                     <span class="text-[#a8874b]">07</span>
                 </a>
 
-                <a href="{% url "contact" %}"
-                   class="mobile-link flex items-center justify-between py-3.5 text-sm font-medium">
+                <a href="{% url "contact" %}" class="mobile-link flex items-center justify-between py-3.5 text-sm font-medium">
                     <span>Contact</span>
                     <span class="text-[#a8874b]">{{settings_obj.phone}}</span>
                 </a>
