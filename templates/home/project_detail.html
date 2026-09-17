@@ -3,171 +3,526 @@
 {% block content %}
 
 <div class="min-h-screen bg-[#f7f6f2]">
+    
+    <div id="galleryData" class="hidden">
+        {% if project.image %}
+        <div class="gallery-data-item" data-image="{{ project.image.url }}" data-title="{{ project.project_name }}" data-category="Cover Image"></div>
+        {% endif %}
 
-    <div class="border-b border-[#e8e3d9] bg-white">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div class="flex h-14 items-center gap-2 overflow-hidden text-sm">
-                <a href="/" class="shrink-0 text-gray-500 hover:text-[#a98248]">
-                    Home
-                </a>
+        {% for slider in project.sliders.all %}
+            {% if slider.image %}
+            <div class="gallery-data-item" data-image="{{ slider.image.url }}" data-title="{{ slider.caption|default:project.project_name }}" data-category="Slide View"></div>
+            {% endif %}
+        {% endfor %}
 
-                <span class="text-gray-300">/</span>
+        {% for item in project.gallery.all %}
+            {% if item.image %}
+            <div class="gallery-data-item" data-image="{{ item.image.url }}" data-title="{{ item.title|default:project.project_name }}" data-category="{{ item.get_category_display|default:'Gallery' }}"></div>
+            {% endif %}
+        {% endfor %}
+    </div>
 
-                <a href="{% url 'properties' %}" class="shrink-0 text-gray-500 hover:text-[#a98248]">
-                    Projects
-                </a>
-
-                <span class="text-gray-300">/</span>
-
-                <span class="truncate font-medium text-gray-900">
-                    {{ project.project_name }}
-                </span>
+    <!-- Fullscreen Gallery Modal -->
+    <div id="galleryModal" class="fixed inset-0 z-[9999] hidden bg-black/95 backdrop-blur-sm">
+        <!-- Header Controls -->
+        <div class="absolute left-0 right-0 top-0 z-30 flex items-center justify-between px-4 py-4 sm:px-7">
+            <div id="galleryCounter" class="rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-medium text-white backdrop-blur-md">
+                1 / 1
             </div>
+
+            <button type="button" id="closeGalleryBtn" class="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white backdrop-blur-md transition hover:bg-white hover:text-black" aria-label="Close Gallery">
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 6l12 12M18 6 6 18"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Main Image Box -->
+        <div class="absolute inset-0 flex items-center justify-center px-4 py-20 sm:px-16">
+            <div class="flex h-[360px] w-full max-w-4xl items-center justify-center overflow-hidden rounded-xl bg-black/40 sm:h-[480px] lg:h-[580px]">
+                <img id="galleryMainImage"  src=""  alt=""  class="h-full w-full object-contain shadow-2xl transition duration-300">
+            </div>
+        </div>
+
+        <!-- Navigation Arrows -->
+        <button type="button" id="galleryPrev" class="absolute left-3 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white backdrop-blur-md transition hover:bg-white hover:text-black sm:left-6">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 18-6-6 6-6"/>
+            </svg>
+        </button>
+
+        <button type="button" id="galleryNext" class="absolute right-3 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white backdrop-blur-md transition hover:bg-white hover:text-black sm:right-6">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 18 6-6-6 6"/>
+            </svg>
+        </button>
+
+        <!-- Image Info -->
+        <div class="absolute bottom-20 left-1/2 z-30 w-full max-w-xl -translate-x-1/2 px-4 text-center sm:bottom-24">
+            <h3 id="galleryImageTitle" class="text-base font-semibold text-white sm:text-lg"></h3>
+            <p id="galleryImageCategory" class="mt-1 text-xs text-white/60 sm:text-sm"></p>
+        </div>
+
+        <!-- Thumbnails -->
+        <div class="absolute bottom-3 left-0 right-0 z-30 px-3 sm:bottom-5 sm:px-6">
+            <div id="galleryThumbnails" class="mx-auto flex max-w-5xl items-center justify-center gap-2 overflow-x-auto pb-1"></div>
         </div>
     </div>
 
+    <!-- Project Hero Section -->
+    <section class="bg-white mt-20">
+        <div class="mx-auto max-w-7xl px-4 py-5 sm:px-6 lg:px-8">
+            <div id="projectHero" class="group relative overflow-hidden rounded-2xl bg-[#1a1a1a] shadow-xl">
+                <div class="relative h-[430px] sm:h-[500px] lg:h-[590px]">
 
-        <section class="bg-white">
-            <div class="mx-auto max-w-7xl px-4 py-5 sm:px-6 lg:px-8">
-                <div id="projectHero" class="group relative overflow-hidden rounded-2xl bg-[#1a1a1a] shadow-xl">
-                    <div class="relative h-[430px] sm:h-[500px] lg:h-[590px]">
-
-                        {% if project.image %}
-                        <div class="hero-slide absolute inset-0 opacity-100 transition-opacity duration-700">
-                            <img src="{{ project.image.url }}" alt="{{ project.project_name }}" class="hero-lightbox-trigger h-full w-full cursor-zoom-in object-cover">
-                        </div>
-                        {% endif %}
-
-                        {% for slider in project.sliders.all %}
-                        <div class="hero-slide absolute inset-0 opacity-0 transition-opacity duration-700">
-                            <img src="{{ slider.image.url }}" alt="{{ slider.caption|default:project.project_name }}" class="hero-lightbox-trigger h-full w-full cursor-zoom-in object-cover">
-                        </div>
-                        {% endfor %}
-
-                        {% if not project.image and not project.sliders.all %}
-                        <div class="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-800 to-gray-950">
-                            <p class="text-sm text-gray-400">Project Image Coming Soon</p>
-                        </div>
-                        {% endif %}
-
-                        <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/5"></div>
-
-                        <div class="absolute left-5 right-5 top-5 flex items-start justify-between sm:left-7 sm:right-7 sm:top-7">
-                            <div class="flex flex-wrap gap-2">
-                                {% if project.featured_property %}
-                                <span class="inline-flex items-center gap-2 rounded-full bg-[#b89252] px-4 py-2 text-xs font-semibold uppercase tracking-wider text-white shadow-lg">
-                                    <span class="h-1.5 w-1.5 rounded-full bg-white"></span>
-                                    Featured
-                                </span>
-                                {% endif %}
-
-                                {% if project.construction_status %}
-                                <span class="rounded-full border border-white/25 bg-black/30 px-4 py-2 text-xs font-medium text-white backdrop-blur-md">
-                                    {{ project.construction_status }}
-                                </span>
-                                {% endif %}
-                            </div>
-
-                            <button type="button" onclick="shareProject()" class="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-black/30 text-white backdrop-blur-md transition hover:bg-white hover:text-gray-900" aria-label="Share project">
-                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8.59 13.51l6.83 3.98M15.41 6.51L8.59 10.49M21 5a3 3 0 11-6 0 3 3 0 016 0zM9 12a3 3 0 11-6 0 3 3 0 016 0zm12 7a3 3 0 11-6 0 3 3 0 016 0z"/>
-                                </svg>
-                            </button>
-                        </div>
-
-                        <div class="absolute bottom-0 left-0 right-0 p-5 sm:p-7 lg:p-10">
-                            <div class="max-w-4xl">
-                                <div class="mb-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-white/85">
-                                    {% if project.locality %}
-                                    <span class="font-medium">{{ project.locality.name }}</span>
-                                    {% endif %}
-                                    {% if project.locality and project.city %}
-                                    <span class="text-white/40">•</span>
-                                    {% endif %}
-                                    {% if project.city %}
-                                    <span>{{ project.city.name }}</span>
-                                    {% endif %}
-                                </div>
-
-                                <h1 class="max-w-4xl text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl xl:text-6xl">
-                                    {{ project.project_name }}
-                                </h1>
-
-                                {% if project.developer %}
-                                <div class="mt-3 flex items-center gap-2 text-sm text-white/80">
-                                    <svg class="h-4 w-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-5h6v5M9 9h.01M12 9h.01M15 9h.01"/>
-                                    </svg>
-                                    <span>By <strong class="font-semibold text-white">{{ project.developer }}</strong></span>
-                                </div>
-                                {% endif %}
-
-                                <div class="mt-6 flex flex-wrap gap-2 sm:gap-3">
-                                    {% if project.bhk_type %}
-                                    <div class="rounded-lg border border-white/15 bg-white/10 px-4 py-2.5 backdrop-blur-md">
-                                        <p class="text-[10px] uppercase tracking-wider text-white/55">Configuration</p>
-                                        <p class="mt-0.5 text-sm font-semibold text-white">{{ project.bhk_type|join:", " }}</p>
-                                    </div>
-                                    {% endif %}
-
-                                    <div class="rounded-lg border border-white/15 bg-white/10 px-4 py-2.5 backdrop-blur-md">
-                                        <p class="text-[10px] uppercase tracking-wider text-white/55">Carpet Area</p>
-                                        <p class="mt-0.5 text-sm font-semibold text-white">{{ project.get_carpet_area_range }}</p>
-                                    </div>
-
-                                    <div class="rounded-lg border border-white/15 bg-white/10 px-4 py-2.5 backdrop-blur-md">
-                                        <p class="text-[10px] uppercase tracking-wider text-white/55">Price</p>
-                                        <p class="mt-0.5 text-sm font-semibold text-white">{{ project.get_price_range }}</p>
-                                    </div>
-
-                                    {% if project.possession_year %}
-                                    <div class="rounded-lg border border-white/15 bg-white/10 px-4 py-2.5 backdrop-blur-md">
-                                        <p class="text-[10px] uppercase tracking-wider text-white/55">Possession</p>
-                                        <p class="mt-0.5 text-sm font-semibold text-white">{% if project.possession_month %}{{ project.possession_month }} {% endif %}{{ project.possession_year }}</p>
-                                    </div>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
-
-                        {% if project.sliders.all|length > 0 %}
-                        <button type="button" id="heroPrev" class="absolute left-4 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/25 text-white opacity-0 backdrop-blur-md transition hover:bg-white hover:text-gray-900 group-hover:opacity-100">
-                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-                            </svg>
-                        </button>
-
-                        <button type="button" id="heroNext" class="absolute right-4 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/25 text-white opacity-0 backdrop-blur-md transition hover:bg-white hover:text-gray-900 group-hover:opacity-100">
-                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                            </svg>
-                        </button>
-
-                        <div id="heroDots" class="absolute bottom-5 right-5 flex items-center gap-1.5 sm:bottom-7 sm:right-7"></div>
-                        {% endif %}
-
+                    <!-- Slide 1: Main Project Image -->
+                    {% if project.image %}
+                    <div class="hero-slide absolute inset-0 opacity-100 transition-opacity duration-700">
+                        <img src="{{ project.image.url }}"
+                            alt="{{ project.project_name }}"
+                            data-gallery-idx="0"
+                            class="hero-trigger h-full w-full cursor-pointer object-cover">
                     </div>
-                </div>
-            </div>
-        </section>
+                    {% endif %}
 
-        <nav id="projectNav" class="sticky z-40 border-y border-[#e5e0d6] bg-white/95 shadow-sm backdrop-blur-md">
-            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div class="flex items-center gap-1 overflow-x-auto scrollbar-hide">
-                    <a href="#overview" class="project-nav-link shrink-0 border-b-2 border-[#b89252] px-4 py-4 text-sm font-semibold text-[#9a7139]">Overview</a>
-                    <a href="#pricing" class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">Pricing & Unit Plans</a>
-                    <a href="#location" class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">Location</a>
-                    <a href="#video" class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">Video</a>
-                    <a href="#amenities" class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">Amenities</a>
-                    <a href="#floorplan" class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">Floor Plan</a>
-                    <a href="#paymentscheme" class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">Payment Scheme</a>
-                    <a href="#bank_offers" class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">Bank</a>
-                    <a href="#emi_calculator" class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">EMI Calculator</a>
-                    <a href="#about_developer" class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">About Developer</a>
-                    <a href="#faqs" class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">FAQs</a>
+                    <!-- Sliders Loop -->
+                    {% for slider in project.sliders.all %}
+                        {% if slider.image %}
+                        <div class="hero-slide pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700">
+                            <img src="{{ slider.image.url }}"
+                                alt="{{ slider.caption|default:project.project_name }}"
+                                data-gallery-idx="{% if project.image %}{{ forloop.counter }}{% else %}{{ forloop.counter0 }}{% endif %}"
+                                class="hero-trigger h-full w-full cursor-pointer object-cover">
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if not project.image and not project.sliders.all %}
+                    <div class="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-800 to-gray-950">
+                        <p class="text-sm text-gray-400">Project Image Coming Soon</p>
+                    </div>
+                    {% endif %}
+
+                    <!-- Dark Overlays -->
+                    <div class="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-black/90 via-black/35 to-black/10"></div>
+
+                    <!-- Top Badges & Share Button -->
+                    <div class="absolute left-5 right-5 top-5 z-20 flex items-start justify-between sm:left-7 sm:right-7 sm:top-7">
+                        <div class="flex flex-wrap gap-2">
+                            {% if project.featured_property %}
+                            <span class="inline-flex items-center gap-2 rounded-full bg-[#b89252] px-4 py-2 text-xs font-semibold uppercase tracking-wider text-white shadow-lg">
+                                <span class="h-1.5 w-1.5 rounded-full bg-white"></span>
+                                Featured
+                            </span>
+                            {% endif %}
+
+                            {% if project.construction_status %}
+                            <span class="rounded-full border border-white/25 bg-black/30 px-4 py-2 text-xs font-medium text-white backdrop-blur-md">
+                                {{ project.construction_status }}
+                            </span>
+                            {% endif %}
+                        </div>
+
+                        <button type="button"
+                                onclick="shareProject()"
+                                class="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-black/30 text-white backdrop-blur-md transition hover:bg-white hover:text-gray-900"
+                                aria-label="Share project">
+                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8.59 13.51 15.42 17.5M15.41 6.5 8.59 10.49M21 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM9 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM21 19a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Bottom Information -->
+                    <div class="pointer-events-none absolute bottom-0 left-0 right-0 z-20 p-5 sm:p-7 lg:p-10">
+                        <div class="pointer-events-auto max-w-4xl pb-12 sm:pb-10">
+                            <div class="mb-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-white/85">
+                                {% if project.locality %}
+                                <span class="font-medium">{{ project.locality.name }}</span>
+                                {% endif %}
+                                {% if project.locality and project.city %}
+                                <span class="text-white/40">•</span>
+                                {% endif %}
+                                {% if project.city %}
+                                <span>{{ project.city.name }}</span>
+                                {% endif %}
+                            </div>
+
+                            <h1 class="max-w-4xl text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl xl:text-6xl">
+                                {{ project.project_name }}
+                            </h1>
+
+                            {% if project.developer %}
+                            <div class="mt-3 flex items-center gap-2 text-sm text-white/80">
+                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-5h6v5M9 10h.01M12 10h.01M15 10h.01"/>
+                                </svg>
+                                <span>By <strong class="font-semibold text-white">{{ project.developer }}</strong></span>
+                            </div>
+                            {% endif %}
+
+                            <div class="mt-6 flex flex-wrap gap-2 sm:gap-3">
+                                {% if project.bhk_type %}
+                                <div class="rounded-xl border border-white/15 bg-black/30 px-4 py-3 backdrop-blur-md">
+                                    <p class="text-[10px] uppercase tracking-wider text-white/60">Configuration</p>
+                                    <p class="mt-1 text-sm font-semibold text-white">{{ project.bhk_type|join:", " }}</p>
+                                </div>
+                                {% endif %}
+
+                                {% if project.get_carpet_area_range %}
+                                <div class="rounded-xl border border-white/15 bg-black/30 px-4 py-3 backdrop-blur-md">
+                                    <p class="text-[10px] uppercase tracking-wider text-white/60">Carpet Area</p>
+                                    <p class="mt-1 text-sm font-semibold text-white">{{ project.get_carpet_area_range }}</p>
+                                </div>
+                                {% endif %}
+
+                                {% if project.get_price_range %}
+                                <div class="rounded-xl border border-white/15 bg-black/30 px-4 py-3 backdrop-blur-md">
+                                    <p class="text-[10px] uppercase tracking-wider text-white/60">Price</p>
+                                    <p class="mt-1 text-sm font-semibold text-white">{{ project.get_price_range }}</p>
+                                </div>
+                                {% endif %}
+
+                                {% if project.possession_year %}
+                                <div class="rounded-xl border border-white/15 bg-black/30 px-4 py-3 backdrop-blur-md">
+                                    <p class="text-[10px] uppercase tracking-wider text-white/60">Possession</p>
+                                    <p class="mt-1 text-sm font-semibold text-white">
+                                        {% if project.possession_month %}{{ project.possession_month }} {% endif %}{{ project.possession_year }}
+                                    </p>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hero Navigation Buttons -->
+                    <button type="button"
+                            id="heroPrev"
+                            class="absolute left-4 top-1/2 z-30 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/30 text-white opacity-0 backdrop-blur-md transition group-hover:opacity-100 hover:bg-white hover:text-black sm:left-6">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 18-6-6 6-6"/>
+                        </svg>
+                    </button>
+
+                    <button type="button"
+                            id="heroNext"
+                            class="absolute right-4 top-1/2 z-30 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/30 text-white opacity-0 backdrop-blur-md transition group-hover:opacity-100 hover:bg-white hover:text-black sm:right-6">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 18 6-6-6 6"/>
+                        </svg>
+                    </button>
+
+                    <div id="heroDots" class="absolute bottom-5 right-5 z-30 flex items-center gap-1.5 sm:bottom-7 sm:right-7"></div>
+
+                    <!-- Open Gallery Button -->
+                    {% if project.gallery.all.count > 0 %}
+                    <button type="button"
+                            id="openGalleryBtn"
+                            class="absolute bottom-5 left-5 z-30 inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/50 px-4 py-2.5 text-xs font-semibold text-white shadow-lg backdrop-blur-md transition hover:bg-white hover:text-gray-900 sm:bottom-7 sm:left-7">
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <rect x="3" y="4" width="18" height="16" rx="2" stroke-width="1.8"/>
+                            <circle cx="8.5" cy="9" r="1.3" stroke-width="1.8"/>
+                            <path stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M3 16l5-5 4 4 3-3 6 6"/>
+                        </svg>
+                        <span>More {{ project.gallery.all.count }} Images</span>
+                    </button>
+                    {% endif %}
+
                 </div>
             </div>
-        </nav>
+        </div>
+    </section>
+
+    <!-- Component JavaScript -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const galleryItems = document.querySelectorAll(".gallery-data-item");
+            const rawImages = Array.from(galleryItems).map(item => ({
+                image: item.dataset.image,
+                title: item.dataset.title || "",
+                category: item.dataset.category || ""
+            })).filter(item => Boolean(item.image));
+
+            // Unique images by image URL
+            const seenUrls = new Set();
+            const galleryImages = rawImages.filter(item => {
+                if (seenUrls.has(item.image)) {
+                    return false;
+                }
+                seenUrls.add(item.image);
+                return true;
+            });
+
+            // 2. HERO SLIDER LOGIC
+            const heroSlides = document.querySelectorAll(".hero-slide");
+            const heroPrev = document.getElementById("heroPrev");
+            const heroNext = document.getElementById("heroNext");
+            const heroDots = document.getElementById("heroDots");
+            let currentHeroIndex = 0;
+
+            function showHeroSlide(index) {
+                if (!heroSlides.length) return;
+                heroSlides.forEach((slide, idx) => {
+                    if (idx === index) {
+                        slide.classList.remove("opacity-0", "pointer-events-none");
+                        slide.classList.add("opacity-100");
+                    } else {
+                        slide.classList.remove("opacity-100");
+                        slide.classList.add("opacity-0", "pointer-events-none");
+                    }
+                });
+
+                if (heroDots) {
+                    const dots = heroDots.querySelectorAll("button");
+                    dots.forEach((dot, idx) => {
+                        dot.className = idx === index 
+                            ? "h-2 w-6 rounded-full bg-white transition-all duration-300" 
+                            : "h-2 w-2 rounded-full bg-white/50 transition-all duration-300 hover:bg-white";
+                    });
+                }
+            }
+
+            if (heroSlides.length > 1) {
+                if (heroDots) {
+                    heroDots.innerHTML = "";
+                    heroSlides.forEach((_, idx) => {
+                        const dot = document.createElement("button");
+                        dot.type = "button";
+                        dot.setAttribute("aria-label", `Slide ${idx + 1}`);
+                        dot.addEventListener("click", () => {
+                            currentHeroIndex = idx;
+                            showHeroSlide(currentHeroIndex);
+                        });
+                        heroDots.appendChild(dot);
+                    });
+                }
+
+                if (heroNext) {
+                    heroNext.addEventListener("click", () => {
+                        currentHeroIndex = (currentHeroIndex + 1) % heroSlides.length;
+                        showHeroSlide(currentHeroIndex);
+                    });
+                }
+
+                if (heroPrev) {
+                    heroPrev.addEventListener("click", () => {
+                        currentHeroIndex = (currentHeroIndex - 1 + heroSlides.length) % heroSlides.length;
+                        showHeroSlide(currentHeroIndex);
+                    });
+                }
+            } else {
+                if (heroPrev) heroPrev.style.display = "none";
+                if (heroNext) heroNext.style.display = "none";
+            }
+
+            showHeroSlide(0);
+
+            // 3. FULL MODAL GALLERY LOGIC
+            const openGalleryBtn = document.getElementById("openGalleryBtn");
+            const closeGalleryBtn = document.getElementById("closeGalleryBtn");
+            const galleryModal = document.getElementById("galleryModal");
+            const galleryMainImage = document.getElementById("galleryMainImage");
+            const galleryCounter = document.getElementById("galleryCounter");
+            const galleryPrev = document.getElementById("galleryPrev");
+            const galleryNext = document.getElementById("galleryNext");
+            const galleryThumbnails = document.getElementById("galleryThumbnails");
+            const galleryImageTitle = document.getElementById("galleryImageTitle");
+            const galleryImageCategory = document.getElementById("galleryImageCategory");
+            const heroTriggers = document.querySelectorAll(".hero-trigger");
+
+            let currentGalleryIdx = 0;
+
+            function openGallery(index) {
+                if (!galleryImages.length) return;
+                currentGalleryIdx = parseInt(index, 10) || 0;
+                galleryModal.classList.remove("hidden");
+                document.body.classList.add("overflow-hidden");
+                createThumbnails();
+                showGalleryImage(currentGalleryIdx);
+            }
+
+            function closeGallery() {
+                galleryModal.classList.add("hidden");
+                document.body.classList.remove("overflow-hidden");
+            }
+
+            function showGalleryImage(index) {
+                if (!galleryImages.length) return;
+                currentGalleryIdx = (index + galleryImages.length) % galleryImages.length;
+                const item = galleryImages[currentGalleryIdx];
+
+                galleryMainImage.src = item.image;
+                galleryMainImage.alt = item.title;
+                galleryImageTitle.textContent = item.title;
+                galleryImageCategory.textContent = item.category;
+                galleryCounter.textContent = `${currentGalleryIdx + 1} / ${galleryImages.length}`;
+
+                updateActiveThumbnail();
+            }
+
+            function createThumbnails() {
+                if (!galleryThumbnails) return;
+                galleryThumbnails.innerHTML = "";
+
+                galleryImages.forEach((item, index) => {
+                    const button = document.createElement("button");
+                    button.type = "button";
+                    button.className = "gallery-thumb shrink-0 overflow-hidden rounded-md border-2 border-transparent opacity-60 transition hover:opacity-100";
+                    button.dataset.index = index;
+
+                    const image = document.createElement("img");
+                    image.src = item.image;
+                    image.alt = item.title;
+                    image.loading = "lazy";
+                    image.className = "h-12 w-16 object-cover sm:h-14 sm:w-20";
+
+                    button.appendChild(image);
+                    button.addEventListener("click", () => showGalleryImage(index));
+                    galleryThumbnails.appendChild(button);
+                });
+
+                updateActiveThumbnail();
+            }
+
+            function updateActiveThumbnail() {
+                const thumbnails = document.querySelectorAll(".gallery-thumb");
+                thumbnails.forEach((thumb, index) => {
+                    if (index === currentGalleryIdx) {
+                        thumb.classList.remove("border-transparent", "opacity-60");
+                        thumb.classList.add("border-[#b89252]", "opacity-100");
+                        thumb.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+                    } else {
+                        thumb.classList.remove("border-[#b89252]", "opacity-100");
+                        thumb.classList.add("border-transparent", "opacity-60");
+                    }
+                });
+            }
+
+            // Hero trigger bindings
+            heroTriggers.forEach(trigger => {
+                trigger.addEventListener("click", function () {
+                    const index = this.dataset.galleryIdx || 0;
+                    openGallery(index);
+                });
+            });
+
+            if (openGalleryBtn) openGalleryBtn.addEventListener("click", () => openGallery(0));
+            if (closeGalleryBtn) closeGalleryBtn.addEventListener("click", closeGallery);
+            if (galleryPrev) galleryPrev.addEventListener("click", () => showGalleryImage(currentGalleryIdx - 1));
+            if (galleryNext) galleryNext.addEventListener("click", () => showGalleryImage(currentGalleryIdx + 1));
+
+            if (galleryModal) {
+                galleryModal.addEventListener("click", (e) => {
+                    if (e.target === galleryModal) closeGallery();
+                });
+            }
+
+            // Keyboard controls
+            document.addEventListener("keydown", function (event) {
+                if (!galleryModal || galleryModal.classList.contains("hidden")) return;
+                if (event.key === "Escape") closeGallery();
+                if (event.key === "ArrowRight") showGalleryImage(currentGalleryIdx + 1);
+                if (event.key === "ArrowLeft") showGalleryImage(currentGalleryIdx - 1);
+            });
+
+            // Touch swiping
+            let touchStartX = 0;
+            let touchEndX = 0;
+            if (galleryModal) {
+                galleryModal.addEventListener("touchstart", (e) => {
+                    touchStartX = e.changedTouches[0].screenX;
+                }, { passive: true });
+
+                galleryModal.addEventListener("touchend", (e) => {
+                    touchEndX = e.changedTouches[0].screenX;
+                    const dist = touchEndX - touchStartX;
+                    if (Math.abs(dist) > 50) {
+                        dist < 0 ? showGalleryImage(currentGalleryIdx + 1) : showGalleryImage(currentGalleryIdx - 1);
+                    }
+                }, { passive: true });
+            }
+        });
+
+        // Share action
+        function shareProject() {
+            if (navigator.share) {
+                navigator.share({
+                    title: document.title,
+                    url: window.location.href
+                }).catch(() => {});
+            } else if (navigator.clipboard) {
+                navigator.clipboard.writeText(window.location.href);
+                alert("Link copied to clipboard!");
+            }
+        }
+
+
+    </script>
+
+    <nav id="projectNav"
+        class="sticky top-0 z-40 border-y border-[#e5e0d6] bg-white/95 shadow-sm backdrop-blur-md">
+
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center gap-1 overflow-x-auto scrollbar-hide">
+
+                <a href="#overview"
+                class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">
+                    Overview
+                </a>
+
+                <a href="#pricing"
+                class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">
+                    Pricing & Unit Plans
+                </a>
+
+                <a href="#location"
+                class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">
+                    Location
+                </a>
+
+                <a href="#video"
+                class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">
+                    Video
+                </a>
+
+                <a href="#amenities"
+                class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">
+                    Amenities
+                </a>
+
+                <a href="#floorplan"
+                class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">
+                    Floor Plan
+                </a>
+
+                <a href="#paymentscheme"
+                class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">
+                    Payment Scheme
+                </a>
+
+                <a href="#bank_offers"
+                class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">
+                    Bank
+                </a>
+
+                <a href="#emi_calculator"
+                class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">
+                    EMI Calculator
+                </a>
+
+                <a href="#about_developer"
+                class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">
+                    About Developer
+                </a>
+
+                <a href="#faqs"
+                class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">
+                    FAQs
+                </a>
+
+            </div>
+        </div>
+    </nav>
 
     <main class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
 
@@ -230,7 +585,7 @@
             {% endfor %}
         </section>
             
-        <section  section id="pricing" class="scroll-mt-24 py-6 sm:py-10">
+        <section id="pricing" class="scroll-mt-24 py-6 sm:py-10">
             <div class="rounded-2xl border border-[#e5e0d6] bg-white p-4 sm:p-8 lg:p-10">
                 <div>
                     <p class="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#b89252] sm:text-xs">Pricing & Unit Plans</p>
@@ -340,17 +695,56 @@
                 </div>
 
                 <div class="mt-6 grid gap-5 lg:mt-8 lg:grid-cols-[1.05fr_.95fr] lg:gap-8">
-                    <div class="overflow-hidden rounded-xl border border-[#e5e0d6] bg-[#f8f6f1]">
-                        {% if project.google_map_iframe %}
-                        <div class="h-[300px] w-full sm:h-[450px] lg:h-[500px] [&>iframe]:h-full [&>iframe]:w-full [&>iframe]:border-0">
-                            {{ project.google_map_iframe|safe }}
+
+                        <style>
+                            .google-map-wrapper {
+                                width: 100%;
+                                height: 500px;
+                                overflow: hidden;
+                            }
+
+                            .google-map-wrapper iframe {
+                                display: block !important;
+                                width: 100% !important;
+                                height: 100% !important;
+                                min-height: 100% !important;
+                                max-height: none !important;
+                                border: 0 !important;
+                                margin: 0 !important;
+                                padding: 0 !important;
+                                vertical-align: top !important;
+                            }
+
+                            @media (max-width: 1023px) {
+                                .google-map-wrapper {
+                                    height: 450px;
+                                }
+                            }
+
+                            @media (max-width: 639px) {
+                                .google-map-wrapper {
+                                    height: 300px;
+                                }
+                            }
+                        </style>
+
+                        <div class="overflow-hidden rounded-xl border border-[#e5e0d6] bg-[#f8f6f1]">
+
+                            {% if project.google_map_iframe %}
+
+                                <div class="google-map-wrapper">
+                                    {{ project.google_map_iframe|safe }}
+                                </div>
+
+                            {% else %}
+
+                                <div class="flex h-[300px] items-center justify-center text-sm text-gray-400 sm:h-[450px] lg:h-[500px]">
+                                    Map not available
+                                </div>
+
+                            {% endif %}
+
                         </div>
-                        {% else %}
-                        <div class="flex h-[320px] items-center justify-center text-sm text-gray-400 sm:h-[450px] lg:h-[500px]">
-                            Map not available
-                        </div>
-                        {% endif %}
-                    </div>
 
                     <div>
                         <div class="border-b border-[#e5e0d6] pb-5">
@@ -450,7 +844,6 @@
             </div>
         </section>
 
-
         <section id="amenities" class="scroll-mt-24 py-6 sm:py-10">
             <div class="rounded-2xl border border-[#e5e0d6] bg-white p-4 sm:p-8 lg:p-10">
                 <div>
@@ -464,9 +857,8 @@
                     {% for amenity in project.amenities.all %}
                     <div class="group flex items-center gap-3 border-b border-[#eee9df] pb-4">
                         <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#f8f1e5] text-[#b89252] transition group-hover:bg-[#b89252] group-hover:text-white">
-                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" d="M4 12h16M12 4v16"/>
-                            </svg>
+                          
+                           <i class="{{amenity.amenities.icon}}"></i>
                         </div>
                         <div class="min-w-0">
                             <p class="truncate text-xs font-semibold text-gray-800 sm:text-sm">{{ amenity.amenities.title }}</p>
@@ -815,6 +1207,59 @@
 
 </div>
 
+<div id="galleryData" class="hidden">
+    {% for item in project.gallery.all %}
+        {% if item.image %}
+        <div class="gallery-data-item"
+             data-image="{{ item.image.url }}"
+             data-title="{{ item.title|default:project.project_name }}"
+             data-category="{{ item.get_category_display }}">
+        </div>
+        {% endif %}
+    {% endfor %}
+</div>
+
+<div id="galleryModal" class="fixed inset-0 z-[9999] hidden bg-black/95 backdrop-blur-sm">
+
+    <div class="absolute left-0 right-0 top-0 z-30 flex items-center justify-between px-4 py-4 sm:px-7">
+        <div id="galleryCounter" class="rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-medium text-white backdrop-blur-md">
+            1 / 1
+        </div>
+
+        <button type="button" id="closeGalleryBtn" class="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white backdrop-blur-md transition hover:bg-white hover:text-black" aria-label="Close Gallery">
+            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 6l12 12M18 6 6 18"/>
+            </svg>
+        </button>
+    </div>
+
+    <div class="absolute inset-0 flex items-center justify-center px-14 py-20 sm:px-20">
+        <img id="galleryMainImage" src="" alt="" class="max-h-full max-w-full rounded-lg object-contain shadow-2xl transition duration-300">
+    </div>
+
+    <button type="button" id="galleryPrev" class="absolute left-3 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white backdrop-blur-md transition hover:bg-white hover:text-black sm:left-6">
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 18-6-6 6-6"/>
+        </svg>
+    </button>
+
+    <button type="button" id="galleryNext" class="absolute right-3 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white backdrop-blur-md transition hover:bg-white hover:text-black sm:right-6">
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 18 6-6-6 6"/>
+        </svg>
+    </button>
+
+    <div class="absolute bottom-24 left-1/2 z-30 w-full max-w-xl -translate-x-1/2 px-4 text-center">
+        <h3 id="galleryImageTitle" class="text-base font-semibold text-white sm:text-lg"></h3>
+
+        <p id="galleryImageCategory" class="mt-1 text-xs text-white/60 sm:text-sm"></p>
+    </div>
+
+    <div class="absolute bottom-3 left-0 right-0 z-30 px-3 sm:bottom-5 sm:px-6">
+        <div id="galleryThumbnails" class="mx-auto flex max-w-5xl items-center justify-center gap-2 overflow-x-auto pb-1">
+        </div>
+    </div>
+</div>
 
 <div
     id="imageLightbox"
@@ -1147,6 +1592,117 @@
                 icon.classList.add("rotate-180");
             }
         });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const nav = document.getElementById("projectNav");
+        const navLinks = document.querySelectorAll(".project-nav-link");
+
+        // Nav links ke corresponding sections
+        const sections = [];
+
+        navLinks.forEach(link => {
+            const id = link.getAttribute("href");
+
+            if (id && id.startsWith("#")) {
+                const section = document.querySelector(id);
+
+                if (section) {
+                    sections.push({
+                        section: section,
+                        link: link
+                    });
+                }
+            }
+        });
+
+        // Active class
+        function setActive(link) {
+
+            navLinks.forEach(navLink => {
+                navLink.classList.remove(
+                    "border-[#b89252]",
+                    "text-[#9a7139]",
+                    "font-semibold"
+                );
+
+                navLink.classList.add(
+                    "border-transparent",
+                    "text-gray-500",
+                    "font-medium"
+                );
+            });
+
+            if (link) {
+                link.classList.remove(
+                    "border-transparent",
+                    "text-gray-500",
+                    "font-medium"
+                );
+
+                link.classList.add(
+                    "border-[#b89252]",
+                    "text-[#9a7139]",
+                    "font-semibold"
+                );
+
+                // Active link ko horizontal scroll mein visible rakho
+                link.scrollIntoView({
+                    behavior: "smooth",
+                    block: "nearest",
+                    inline: "center"
+                });
+            }
+        }
+
+        // Scroll detection
+        const observer = new IntersectionObserver(
+            (entries) => {
+
+                entries.forEach(entry => {
+
+                    if (entry.isIntersecting) {
+
+                        const item = sections.find(
+                            item => item.section === entry.target
+                        );
+
+                        if (item) {
+                            setActive(item.link);
+                        }
+                    }
+
+                });
+
+            },
+            {
+                root: null,
+
+                // Sticky navbar ke according detection area
+                rootMargin: "-120px 0px -55% 0px",
+
+                threshold: 0
+            }
+        );
+
+        // Observe all sections
+        sections.forEach(item => {
+            observer.observe(item.section);
+        });
+
+
+        // Click par bhi immediately active
+        navLinks.forEach(link => {
+
+            link.addEventListener("click", function () {
+
+                setActive(this);
+
+            });
+
+        });
+
     });
 
 </script>

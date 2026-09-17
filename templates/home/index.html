@@ -218,12 +218,12 @@
 
                             <div class="flex items-center gap-3">
 
-                                <a href="#contact"
+                                <a href="{% url "contact" %}"
                                 class="px-6 py-3 bg-[#a8874b] text-white text-xs font-medium hover:bg-neutral-900 transition-all duration-300">
                                     Book Visit
                                 </a>
 
-                                <a href="#contact"
+                                <a href="{% url "contact" %}"
                                 class="px-6 py-3 border border-black/10 text-[#a8874b] text-xs font-medium hover:border-[#a8874b] transition-all duration-300">
                                     Get Price
                                 </a>
@@ -497,216 +497,173 @@
 
 
 <section id="amenities" class="relative overflow-hidden bg-white py-20 sm:py-24">
-
-    <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
 
         <!-- Section Heading -->
-        <div class="text-center max-w-2xl mx-auto">
-
-            <span class="inline-flex items-center gap-2 text-[11px] sm:text-x font-semibold tracking-[0.25em] uppercase text-[#a27a22]">
-
-                <span class="w-8 h-px bg-[#c89b2c]"></span>
-
+        <div class="mx-auto max-w-2xl text-center">
+            <span class="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.25em] uppercase text-[#a27a22]">
+                <span class="h-px w-8 bg-[#c89b2c]"></span>
                 Lifestyle & Comfort
-
-                <span class="w-8 h-px bg-[#c89b2c]"></span>
-
+                <span class="h-px w-8 bg-[#c89b2c]"></span>
             </span>
 
-            <h2 class="mt-4 text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-neutral-900">
-
+            <h2 class="mt-4 text-3xl font-semibold tracking-tight text-neutral-900 sm:text-4xl lg:text-5xl">
                 Premium Amenities
-
             </h2>
 
-            <p class="mt-4 text-sm sm:text-base text-neutral-500">
-                Experience thoughtfully designed spaces crafted for comfort,
-                wellness and everyday living.
+            <p class="mt-4 text-sm text-neutral-500 sm:text-base">
+                Experience thoughtfully designed spaces crafted for comfort, wellness and everyday living.
             </p>
-
         </div>
 
-
-        <!-- Amenities Slider -->
+        {% with total_amenities=project_obj.amenities.all.count %}
+        
+        <!-- Slider Container -->
         <div class="relative mt-12 sm:mt-14">
 
-            <!-- Previous Button -->
-            <button type="button" id="amenitiesPrev" class="absolute left-0 top-1/2 -translate-y-1/2 z-20 hidden lg:flex items-center justify-center w-11 h-11 rounded-full bg-white border border-neutral-200 shadow-lg text-neutral-700 hover:bg-[#c89b2c] hover:text-white hover:border-[#c89b2c] transition-all duration-300">
-
-                <i class="fa-solid fa-chevron-left text-sm"></i>
-
+            {% if total_amenities > 1 %}
+            <button type="button" 
+                    id="amenitiesPrev" 
+                    class="absolute -left-3 sm:-left-5 top-1/2 z-20 -translate-y-1/2 items-center justify-center rounded-full border border-neutral-200 bg-white shadow-lg text-neutral-700 transition hover:bg-[#c89b2c] hover:text-white hover:border-[#c89b2c] w-10 h-10 sm:w-11 sm:h-11
+                    {% if total_amenities <= 5 %}lg:hidden{% else %}lg:flex{% endif %}
+                    {% if total_amenities <= 3 %}sm:hidden{% else %}sm:flex{% endif %}
+                    flex">
+                <i class="fa-solid fa-chevron-left text-xs sm:text-sm"></i>
             </button>
+            {% endif %}
 
-
-            <!-- Slider Wrapper -->
-                    <div id="amenitiesSlider"
-                        class="flex gap-4 sm:gap-5 lg:gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hide px-1 py-3">
-
-                        {% for item in project_obj.amenities.all %}
-
-                            <div class="group shrink-0 w-[72%] sm:w-[42%] md:w-[30%] lg:w-[23%] snap-start">
-
-                                <div class="overflow-hidden rounded-3xl bg-white border border-neutral-200 shadow-sm hover:shadow-xl transition-all duration-500">
-
-                                    <div class="relative aspect-[4/4.5] overflow-hidden">
-
-                                        <!-- Amenity Image -->
-                                        <img
-                                            src="{{ item.amenities.image.url }}"
-                                            alt="{{ item.amenities.title }}"
-                                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                                        >
-
-                                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent">
-                                        </div>
-
-                                        <!-- Amenity Title -->
-                                        <h3 class="absolute bottom-5 left-5 right-5 text-white text-lg sm:text-xl font-semibold">
-                                            {{ item.amenities.title }}
-                                        </h3>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        {% empty %}
-
-                            <p class="w-full text-center text-neutral-500">
-                                No amenities available.
-                            </p>
-
-                        {% endfor %}
-
-                    </div>
-
-
-            <!-- Next Button -->
-            <button type="button" id="amenitiesNext" class="absolute right-0 top-1/2 -translate-y-1/2 z-20  hidden lg:flex items-center justify-center  w-11 h-11 rounded-full  bg-white border border-neutral-200  shadow-lg text-neutral-700  hover:bg-[#c89b2c] hover:text-white  hover:border-[#c89b2c]  transition-all duration-300">
-
-                <i class="fa-solid fa-chevron-right text-sm"></i>
-
-            </button>
-
-        </div>
-
-
-            <!-- Slider Dots -->
-            <div id="amenitiesDots" class="flex items-center justify-center gap-2 mt-7">
+            <!-- Slider Track: Desktop (1/5 ~ 18.2%), Tablet (1/3 ~ 31%), Mobile (100% ~ 85%) -->
+            <div id="amenitiesSlider"
+                 class="scrollbar-hide flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-1 py-4 sm:gap-5 lg:gap-6">
 
                 {% for item in project_obj.amenities.all %}
+                    <div class="amenity-card group w-[85%] shrink-0 snap-center sm:w-[31%] lg:w-[18.2%]">
+                        <div class="flex flex-col items-center justify-center rounded-3xl border border-neutral-200/80 bg-white p-6 sm:p-7 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#c89b2c]/40 hover:shadow-xl hover:shadow-[#c89b2c]/10">
+                            
+                            <!-- Icon Container -->
+                            <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#faf8f4] text-[#c89b2c] transition-all duration-300 group-hover:scale-110 group-hover:bg-[#c89b2c] group-hover:text-white">
+                                <i class="{{ item.amenities.icon|default:'fa-solid fa-star' }} text-2xl"></i>
+                            </div>
 
-                    <button
-                        type="button"
-                        class="amenity-dot {% if forloop.first %}w-7 bg-[#c89b2c]{% else %}w-2 bg-neutral-300{% endif %} h-1.5 rounded-full transition-all duration-300"
-                        data-index="{{ forloop.counter0 }}">
-                    </button>
+                            <!-- Title -->
+                            <h3 class="mt-4 text-sm sm:text-base font-semibold text-neutral-900 transition-colors duration-300 group-hover:text-[#a27a22]">
+                                {{ item.amenities.title }}
+                            </h3>
 
+                        </div>
+                    </div>
+                {% empty %}
+                    <p class="w-full py-8 text-center text-neutral-500">
+                        No amenities available.
+                    </p>
                 {% endfor %}
 
             </div>
 
+            {% if total_amenities > 1 %}
+            <button type="button" 
+                    id="amenitiesNext" 
+                    class="absolute -right-3 sm:-right-5 top-1/2 z-20 -translate-y-1/2 items-center justify-center rounded-full border border-neutral-200 bg-white shadow-lg text-neutral-700 transition hover:bg-[#c89b2c] hover:text-white hover:border-[#c89b2c] w-10 h-10 sm:w-11 sm:h-11
+                    {% if total_amenities <= 5 %}lg:hidden{% else %}lg:flex{% endif %}
+                    {% if total_amenities <= 3 %}sm:hidden{% else %}sm:flex{% endif %}
+                    flex">
+                <i class="fa-solid fa-chevron-right text-xs sm:text-sm"></i>
+            </button>
+            {% endif %}
+
+        </div>
+
+        <!-- Pagination Dots -->
+        {% if total_amenities > 1 %}
+        <div id="amenitiesDots" 
+             class="mt-7 items-center justify-center gap-2
+             {% if total_amenities <= 5 %}lg:hidden{% else %}lg:flex{% endif %}
+             {% if total_amenities <= 3 %}sm:hidden{% else %}sm:flex{% endif %}
+             flex">
+            {% for item in project_obj.amenities.all %}
+                <button type="button"
+                        class="amenity-dot {% if forloop.first %}w-6 bg-[#c89b2c]{% else %}w-2 bg-neutral-300{% endif %} h-1.5 rounded-full transition-all duration-300"
+                        data-index="{{ forloop.counter0 }}">
+                </button>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% endwith %}
 
     </div>
-
 </section>
 
 
 <section id="gallery" class="bg-[#faf8f4] py-20 sm:py-24 lg:py-28">
+    <div class="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
 
-    <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
-
-        <!-- Section Heading -->
-        <div class="text-center max-w-2xl mx-auto">
-
+        <!-- Section Header -->
+        <div class="mx-auto max-w-2xl text-center">
             <span class="text-xs font-semibold tracking-[0.25em] uppercase text-[#a27a22]">
                 Project Gallery
             </span>
-
-            <h2 class="mt-4 text-3xl sm:text-4xl lg:text-5xl font-semibold text-neutral-900">
+            <h2 class="mt-4 text-3xl font-semibold text-neutral-900 sm:text-4xl lg:text-5xl">
                 Explore The Gallery
             </h2>
-
-            <p class="mt-4 text-sm sm:text-base leading-7 text-neutral-500">
+            <p class="mt-4 text-sm leading-7 text-neutral-500 sm:text-base">
                 Take a closer look at the architecture, interiors and lifestyle spaces.
             </p>
-
         </div>
-
 
         {% if project_obj.gallery.all %}
 
-            <!-- First Row -->
-            <div class="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
-
+            <div class="mt-12 grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">
                 {% for item in project_obj.gallery.all|slice:":4" %}
-
-                    <button
-                        type="button"
-                        onclick="openGallery({{ forloop.counter0 }})"
-                        class="group relative overflow-hidden rounded-2xl sm:rounded-3xl aspect-[4/5]"
-                    >
-
-                        <img
-                            src="{{ item.image.url }}"
-                            alt="{{ project_obj.project_name }} Gallery Image {{ forloop.counter }}"
-                            class="w-full h-full object-cover transition duration-700 group-hover:scale-105"
-                        >
-
-                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition"></div>
-
+                    {% if item.image %}
+                    <button type="button"
+                            onclick="openGalleryByUrl('{{ item.image.url }}')"
+                            class="group relative aspect-[4/5] overflow-hidden rounded-2xl sm:rounded-3xl focus:outline-none focus:ring-2 focus:ring-[#a27a22]">
+                        <img src="{{ item.image.url }}"
+                             alt="{{ item.title|default:project_obj.project_name }}"
+                             loading="lazy"
+                             class="h-full w-full object-cover transition duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-black/0 transition group-hover:bg-black/20"></div>
                     </button>
-
+                    {% endif %}
                 {% endfor %}
-
             </div>
 
-
-            <!-- Second Row -->
             {% if project_obj.gallery.all|slice:"4:7" %}
+            <div class="mt-4 grid grid-cols-1 gap-3 sm:mt-6 sm:grid-cols-3 sm:gap-5">
+                {% for item in project_obj.gallery.all|slice:"4:7" %}
+                    {% if item.image %}
+                    <button type="button" onclick="openGalleryByUrl('{{ item.image.url }}')" class="group relative aspect-[4/3] overflow-hidden rounded-2xl sm:rounded-3xl focus:outline-none focus:ring-2 focus:ring-[#a27a22]">
+                        <img src="{{ item.image.url }}" alt="{{ item.title|default:project_obj.project_name }}" loading="lazy" class="h-full w-full object-cover transition duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-black/0 transition group-hover:bg-black/20"></div>
+                    </button>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            {% endif %}
 
-                <div class="mt-6 grid grid-cols-3 gap-3 sm:gap-5">
-
-                    {% for item in project_obj.gallery.all|slice:"4:7" %}
-
-                        <button
-                            type="button"
-                            onclick="openGallery({{ forloop.counter0|add:"4" }})"
-                            class="group relative overflow-hidden rounded-2xl sm:rounded-3xl aspect-[4/3]"
-                        >
-
-                            <img
-                                src="{{ item.image.url }}"
-                                alt="{{ project_obj.project_name }} Gallery Image {{ forloop.counter|add:"4" }}"
-                                class="w-full h-full object-cover transition duration-700 group-hover:scale-105"
-                            >
-
-                            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition"></div>
-
-                        </button>
-
-                    {% endfor %}
-
-                </div>
-
+            <!-- "See More" Button (Sirf tabhi aayega agar 7 se zyada photos hain) -->
+           {% if project_obj.gallery.all.count > 7 %}
+            <div class="mt-10 flex justify-center">
+                <a href="{% url 'gallery' %}" class="inline-flex items-center gap-2 rounded-full border border-neutral-900/10 bg-white px-7 py-3 text-xs font-semibold uppercase tracking-wider text-neutral-900 shadow-sm transition hover:bg-neutral-900 hover:text-white">
+                    <span>View Full Gallery ({{ project_obj.gallery.all.count }})</span>
+                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
+                    </svg>
+                </a>
+            </div>
             {% endif %}
 
         {% else %}
 
-            <!-- No Gallery -->
-            <div class="mt-12 text-center py-16">
-
-                <p class="text-neutral-500">
-                    No gallery images available.
-                </p>
-
+            <!-- Empty State -->
+            <div class="mt-12 py-16 text-center">
+                <p class="text-sm text-neutral-500">No gallery images available for this project.</p>
             </div>
 
         {% endif %}
 
     </div>
-
 </section>
 
 
@@ -763,11 +720,6 @@
                 {% endfor %}
 
                 </div>
-
-                <a href="https://www.google.com/maps/search/?api=1&query=Kudasan,Gandhinagar,Gujarat" target="_blank" rel="noopener noreferrer" class="mt-8 inline-flex items-center justify-center gap-3 w-full sm:w-fit px-7 py-3.5 bg-neutral-900 text-white text-sm font-semibold rounded-xl hover:bg-[#c89b2c] transition-colors duration-300">
-                    <i class="fa-solid fa-location-dot text-sm"></i>
-                    View on Google Maps
-                </a>
 
             </div>
 
@@ -902,7 +854,12 @@
                         </p>
                     </div>
 
-                    <form action="#" method="POST" class="space-y-3.5">
+                    <form action="" method="POST" class="space-y-3.5">
+
+                        {% csrf_token %}
+
+                        <input type="hidden" name="inquiry_type" value="virtual_tour">
+
                         <div>
                             <label for="name" class="mb-1.5 block text-xs font-medium text-neutral-700">Name</label>
                             <input type="text" id="name" name="name" placeholder="Enter your name" required class="w-full rounded-md border border-neutral-200 bg-white px-3.5 py-2.5 text-sm text-neutral-800 outline-none transition placeholder:text-neutral-400 focus:border-[#c7964a] focus:ring-1 focus:ring-[#c7964a]">
@@ -937,7 +894,6 @@
 </section>
 
 
-<!-- Virtual Tour Section -->
 <section id="virtual-tour" class="bg-[#faf9f7] py-16 sm:py-20 lg:py-24">
 
     <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -1062,10 +1018,9 @@
 </section>
 
 
-<!-- Virtual Tour Modal -->
 <div id="virtualTourModal" class="fixed inset-0 z-[99999] hidden items-center justify-center bg-black/90 backdrop-blur-md p-3 sm:p-6 overflow-y-auto">
     <div id="tourModalContent" class="relative w-full max-w-[1100px] min-h-[580px] sm:h-[85vh] max-h-[750px] overflow-hidden rounded-2xl sm:rounded-3xl bg-neutral-950 shadow-2xl flex flex-col justify-center">
-        <!-- Close Button -->
+       
         <button type="button" onclick="closeVirtualTour()" aria-label="Close Virtual Tour" class="absolute top-4 right-4 z-30 flex items-center justify-center w-10 h-10 rounded-full bg-black/40 hover:bg-white/20 backdrop-blur-md text-white border border-white/20 transition-all duration-300">
             <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M6 6l12 12"/>
@@ -1103,7 +1058,11 @@
                         <p class="text-xs text-neutral-400 mt-1">Please share your details to launch the 3D walkthrough immediately.</p>
                     </div>
 
-                    <form action="#" method="POST" class="space-y-3.5">
+                    <form action="" method="POST" class="space-y-3.5">
+                        {% csrf_token %}
+
+                        <input type="hidden" name="inquiry_type" value="virtual_tour">
+
                         <div>
                             <label for="tour_name" class="block text-xs font-medium text-neutral-300 mb-1">Full Name</label>
                             <input type="text" id="tour_name" name="name" required placeholder="Write Your Name Here" class="w-full rounded-lg border border-white/15 bg-white/10 px-3.5 py-2.5 text-sm text-white placeholder-neutral-400 outline-none transition focus:border-[#c7964a] focus:bg-white/15 focus:ring-1 focus:ring-[#c7964a]">
@@ -1131,7 +1090,10 @@
                     </form>
                 </div>
             </div>
+
         </div>
+
+
     </div>
 </div>
 
@@ -1164,11 +1126,59 @@
             closeVirtualTour();
         }
     });
+    document.addEventListener("DOMContentLoaded", function () {
+        const slider = document.getElementById("amenitiesSlider");
+        const prevBtn = document.getElementById("amenitiesPrev");
+        const nextBtn = document.getElementById("amenitiesNext");
+        const dotsContainer = document.getElementById("amenitiesDots");
+
+        if (!slider) return;
+
+        const cards = slider.querySelectorAll(".amenity-card");
+        const dots = dotsContainer ? dotsContainer.querySelectorAll(".amenity-dot") : [];
+
+        function getScrollStep() {
+            const firstCard = cards[0];
+            return firstCard ? firstCard.offsetWidth + 20 : 260; // card width + gap
+        }
+
+        if (nextBtn) {
+            nextBtn.addEventListener("click", () => {
+                slider.scrollBy({ left: getScrollStep(), behavior: "smooth" });
+            });
+        }
+
+        if (prevBtn) {
+            prevBtn.addEventListener("click", () => {
+                slider.scrollBy({ left: -getScrollStep(), behavior: "smooth" });
+            });
+        }
+
+        // Dot click triggers scroll
+        dots.forEach((dot, index) => {
+            dot.addEventListener("click", () => {
+                if (cards[index]) {
+                    cards[index].scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
+                }
+            });
+        });
+
+        // Update active dot on scroll
+        slider.addEventListener("scroll", () => {
+            const step = getScrollStep();
+            const activeIndex = Math.round(slider.scrollLeft / step);
+            dots.forEach((dot, idx) => {
+                if (idx === activeIndex) {
+                    dot.className = "amenity-dot w-6 bg-[#c89b2c] h-1.5 rounded-full transition-all duration-300";
+                } else {
+                    dot.className = "amenity-dot w-2 bg-neutral-300 h-1.5 rounded-full transition-all duration-300";
+                }
+            });
+        }, { passive: true });
+    });
 </script>
 
 
-
-<!-- About Developer Section -->
 <section id="about-developer" class="bg-white py-16 sm:py-20 lg:py-24">
 
     <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -1239,24 +1249,6 @@
 
                 </div>
 
-
-
-
-                <!-- CTA -->
-                <div class="mt-8 sm:mt-10">
-
-                    <a href="#contact" class="inline-flex items-center gap-3 px-6 py-3.5 rounded-full bg-neutral-900 text-white text-sm font-semibold hover:bg-[#a27a4d] transition-all duration-300">
-                        Know More Project From {{project_obj.developer.title}}
-
-                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14"/>
-                            <path d="m13 6 6 6-6 6"/>
-                        </svg>
-
-                    </a>
-
-                </div>
-
             </div>
 
         </div>
@@ -1266,10 +1258,6 @@
 </section>
 
 
-
-
-
-<!-- RERA Section -->
 <section id="rera" class="bg-[#faf9f7] py-12 sm:py-14 lg:py-16">
 
     <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -1485,9 +1473,6 @@
 </section>  
 
 
-
-
-<!-- Disclaimer Section -->
 <section id="disclaimer" class="relative bg-[#faf9f7] border-t border-neutral-200 overflow-hidden">
 
     <!-- Decorative Background -->
@@ -1599,9 +1584,6 @@
 </section>
 
 
-
-
-<!-- Price / Enquiry Modal -->
 <div id="priceModal" class="fixed inset-0 z-[99999] hidden items-center justify-center bg-black/60 p-4" onclick="closePriceModal(event)">
 
     <div class="relative w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-2xl bg-white p-5 shadow-2xl sm:p-6" onclick="event.stopPropagation()" >
@@ -1614,10 +1596,7 @@
                     Price Details
                 </p>
 
-                <h3
-                    id="modalType"
-                    class="mt-1 text-xl font-semibold text-neutral-900 sm:text-2xl"
-                ></h3>
+                <h3 id="modalType" class="mt-1 text-xl font-semibold text-neutral-900 sm:text-2xl"></h3>
             </div>
 
             <!-- Close -->
@@ -1637,10 +1616,7 @@
                     Carpet Area
                 </p>
 
-                <p
-                    id="modalArea"
-                    class="mt-1 text-sm font-semibold text-neutral-900"
-                ></p>
+                <p id="modalArea" class="mt-1 text-sm font-semibold text-neutral-900" ></p>
             </div>
 
 
@@ -1650,10 +1626,7 @@
                     Starting Price
                 </p>
 
-                <p
-                    id="modalPrice"
-                    class="mt-1 text-sm font-semibold text-[#bd8429]"
-                ></p>
+                <p id="modalPrice" class="mt-1 text-sm font-semibold text-[#bd8429]"></p>
             </div>
 
         </div>
@@ -1674,7 +1647,10 @@
 
 
         <!-- Enquiry Form -->
-        <form action="#" method="POST" class="space-y-3.5">
+        <form action="" method="POST" class="space-y-3.5">
+            {% csrf_token %}
+
+            <input type="hidden" name="inquiry_type" value="price_breakup">
 
             <!-- Name -->
             <div>
@@ -1707,8 +1683,7 @@
                     Phone
                 </label>
 
-                <input type="tel" id="modalPhone" name="phone" placeholder="Enter your phone number" required class="w-full rounded-md border border-neutral-200 bg-white px-3.5 py-2.5 text-sm text-neutral-800 outline-none transition placeholder:text-neutral-400 focus:border-[#c7964a] focus:ring-1 focus:ring-[#c7964a]"
-                >
+                <input type="tel" id="modalPhone" name="phone" placeholder="Enter your phone number" required class="w-full rounded-md border border-neutral-200 bg-white px-3.5 py-2.5 text-sm text-neutral-800 outline-none transition placeholder:text-neutral-400 focus:border-[#c7964a] focus:ring-1 focus:ring-[#c7964a]" >
 
             </div>
 
@@ -1786,8 +1761,6 @@
 </script>
 
 
-
-
 <div id="planModal" class="fixed inset-0 z-[99999] hidden items-center justify-center bg-black/80 p-4" onclick="closePlan(event)">
     <button type="button" onclick="closePlan()" class="absolute top-5 right-5 w-11 h-11 rounded-full bg-white text-neutral-900 shadow-lg">
         <i class="fa-solid fa-xmark"></i>
@@ -1810,6 +1783,10 @@
         planModal.classList.remove("flex");
         document.body.classList.remove("overflow-hidden");
     }
+    window.openGalleryByUrl = function(imageUrl) {
+        const targetIdx = galleryImages.findIndex(img => img.image === imageUrl);
+        openGallery(targetIdx !== -1 ? targetIdx : 0);
+    };
 </script>
 
 

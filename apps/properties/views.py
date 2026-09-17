@@ -351,9 +351,15 @@ def submit_enquiry(request, id):
 
 
 def thank_you(request):
+    settings_obj = get_settings()
+    project_obj = Project.objects.first()
+
     return render(
         request,
-        "projects/thank_you.html"
+        'projects/thank_you.html',
+        {
+            'settings_obj': settings_obj,
+            'project_obj': project_obj,
+        }
     )
-
 

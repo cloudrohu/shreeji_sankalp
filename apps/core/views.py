@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 
 from apps.core.models.website import Setting,About,FAQ,Inquiry
 
-from apps.properties.models import Project, Connectivity,ProjectAmenities
+from apps.properties.models import Project, Connectivity,ProjectAmenities,Gallery
 
 # Create your views here.
 
@@ -77,6 +77,8 @@ def Location(request):
             'connectivities': connectivities,  # <-- Ye zaroori tha
         }
     )
+
+
 def Floor_plans(request):
   
     return render(request, 'home/floor_plans.html', {'settings_obj': get_settings()})
@@ -99,7 +101,6 @@ def GalleryView(request):
 
 
 
-    
 def ContactView(request):
     settings_obj = get_settings()
     project_obj = Project.objects.first()
@@ -128,6 +129,7 @@ def ContactView(request):
             'project_obj': project_obj,
         }
     )
+
 
 
 def ThankYouView(request):

@@ -17,6 +17,7 @@ from .website import (
     USP,
     Inquiry,
     Enquiry,
+    PriceBreakupInquiry,
 
 )
 __all__ = [
@@ -35,4 +36,7 @@ __all__ = [
     'USP',
     'Inquiry',
     'Enquiry',
+    'PriceBreakupInquiry',
+
+
 ]

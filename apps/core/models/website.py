@@ -324,5 +324,20 @@ class Inquiry(BaseModel):
     def __str__(self):
         return f"{self.name} - {self.phone}"
 
+class PriceBreakupInquiry(models.Model):
+    project = models.ForeignKey(Project,on_delete=models.SET_NULL,null=True,blank=True,related_name="price_breakup_inquiries")
 
+    name = models.CharField(max_length=150)
+    email = models.EmailField(blank=True, null=True)
+    phone = models.CharField(max_length=15)
+    message = models.TextField(blank=True, null=True)
+
+    property_type = models.CharField(max_length=100,blank=True,null=True)
+    property_area = models.CharField(max_length=100,blank=True,null=True)
+    property_price = models.CharField(max_length=100,blank=True,null=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.name} - {self.phone}"
 

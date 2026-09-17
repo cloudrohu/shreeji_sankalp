@@ -19,28 +19,28 @@
                 designed to provide comfort, convenience and a better lifestyle.
             </p>
         </div>
-
+        
         {% if amenities %}
         <div class="mt-7 grid grid-cols-2 gap-3 sm:mt-10 sm:grid-cols-3 sm:gap-5 lg:grid-cols-4">
 
             {% for amenity in amenities %}
-            <div class="group overflow-hidden rounded-xl border border-[#e5e0d6] bg-white transition duration-300 hover:-translate-y-1 hover:shadow-lg">
 
-                {% if amenity.image %}
-                <div class="aspect-[4/3] overflow-hidden bg-[#f8f6f1]">
-                    <img src="{{ amenity.image.url }}"
-                         alt="{{ amenity.title }}"
-                         class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
-                </div>
-                {% else %}
-                <div class="flex aspect-[4/3] items-center justify-center bg-[#f8f6f1]">
-                    <svg class="h-8 w-8 text-[#c7b38e] sm:h-10 sm:w-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.5-5 3.5 4 3-3 5 6M4 19h16M7 5h.01"/>
-                    </svg>
-                </div>
-                {% endif %}
+            <div class="group rounded-xl border border-[#e5e0d6] bg-white p-4 sm:p-5 transition duration-300 hover:-translate-y-1 hover:shadow-lg">
 
-                <div class="p-3 sm:p-4">
+                <!-- Icon -->
+                <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-[#f8f6f1] text-[#b89252] transition duration-300 group-hover:bg-[#b89252] group-hover:text-white sm:h-16 sm:w-16">
+
+                    {% if amenity.icon %}
+                        <i class="{{ amenity.icon }} text-2xl sm:text-3xl"></i>
+                    {% else %}
+                        <i class="fa-solid fa-star text-2xl sm:text-3xl"></i>
+                    {% endif %}
+
+                </div>
+
+                <!-- Content -->
+                <div class="mt-4">
+
                     <h2 class="truncate text-xs font-semibold text-gray-900 sm:text-sm">
                         {{ amenity.title }}
                     </h2>
@@ -49,12 +49,15 @@
                         <span class="h-1.5 w-1.5 rounded-full bg-[#b89252]"></span>
                         Premium Facility
                     </div>
+
                 </div>
 
             </div>
+
             {% endfor %}
 
         </div>
+
         {% else %}
 
         <div class="mt-8 rounded-2xl border border-dashed border-[#dcd5c8] bg-white p-10 text-center sm:mt-10">

@@ -16,6 +16,7 @@ from .models.website import (
     Gallery,
     USP,
     Inquiry,
+    PriceBreakupInquiry,
 )
 
 
@@ -368,6 +369,7 @@ class InquiryAdmin(admin.ModelAdmin):
     def has_add_permission(self, request):
         return False  # Leads fakta website form madhun yetil
 
+
 @admin.register(Setting)
 class SettingAdmin(admin.ModelAdmin):
 
@@ -564,3 +566,16 @@ class SettingAdmin(admin.ModelAdmin):
         return "No Logo"
 
     logo_preview.short_description = "Logo"
+
+
+@admin.register(PriceBreakupInquiry)
+class PriceBreakupInquiryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'phone', 'email', 'project', 'created_at')
+    list_filter = ('created_at', 'project')
+    search_fields = ('name', 'phone', 'email', 'message')
+    readonly_fields = ('created_at',)
+    ordering = ('-created_at',)
+
+    def has_add_permission(self, request):
+        return False
+
