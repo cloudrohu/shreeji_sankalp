@@ -1270,7 +1270,7 @@ class Header(BaseModel):
 class RERA_Info(BaseModel):
     Project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="rera")
     qr_image = models.ImageField(null=True, blank=True,upload_to='overviewimage/')
-    registration_no= models.CharField(null=True, blank=True,max_length=50)
+    registration_no = models.CharField(null=True, blank=True,max_length=50)
     project_registered = models.CharField(null=True, blank=True,max_length=50)
     government_rera_authorised_advertiser = models.CharField(null=True, blank=True,max_length=150)
     site_address  = models.CharField(null=True, blank=True,max_length=500)
