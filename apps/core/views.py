@@ -70,7 +70,7 @@ def Location(request):
 
     return render(
         request,
-        'home/Location.html',
+        'home/location.html',
         {
             'settings_obj': settings_obj,
             'project_obj': project_obj,
