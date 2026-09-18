@@ -76,76 +76,75 @@
 
     <div class="max-w-[1500px] mx-auto px-5 sm:px-7 lg:px-10">
 
-            <div class="h-[68px] lg:h-[76px] flex items-center justify-between gap-8">
+            <div class="h-[68px] lg:h-[76px] flex items-center justify-between gap-8 p-2">
 
-                <a href="/"  class="relative w-[80px] h-[76px] lg:w-[100px] lg:h-[84px] shrink-0 flex items-center justify-center overflow-visible">
-                 {% if settings_obj.logo  %}
-                    <img src="{{settings_obj.logo.url}}" alt="{{settings_obj.site_name}}" class="w-full h-full object-contain">
-                {% else %}
-                    <img src="" alt="{{settings_obj.site_name}}" class="w-full h-full object-contain">
-                {% endif %}
-                
+                <a href="/"  class="relative w-[80px] h-[76px] lg:w-[100px] lg:h-[84px] p-2 shrink-0 flex items-center justify-center overflow-visible">
+                    {% if settings_obj.logo  %}
+                        <img src="{{settings_obj.logo.url}}" alt="{{settings_obj.site_name}}" class="w-full h-full object-contain">
+                    {% else %}
+                        <img src="" alt="{{settings_obj.site_name}}" class="w-full h-full object-contain">
+                    {% endif %}
                 </a>
 
-            <nav class="hidden xl:flex items-center justify-center gap-8 2xl:gap-10 flex-1">
+                <nav class="hidden xl:flex items-center justify-center gap-8 2xl:gap-10 flex-1">
 
-                <a href="/" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800">
-                    Home
-                </a>
+                    <a href="/" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800">
+                        Home
+                    </a>
 
-                <a href="{% url "about" %}" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800">
-                    About
-                </a>
+                    <a href="{% url "about" %}" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800">
+                        About
+                    </a>
 
-                <a href="{% url "faqs" %}" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800">
-                    FAQs
-                </a>
+                    <a href="{% url "faqs" %}" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800">
+                        FAQs
+                    </a>
 
-                <a href="{{ first_project.get_absolute_url }}" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800">
-                    Project Details
-                </a>
+                    <a href="{{ first_project.get_absolute_url }}" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800">
+                        Project Details
+                    </a>
 
-                <a href="{% url "amenities" %}" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800">
-                    Amenities
-                </a>
+                    <a href="{% url "amenities" %}" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800">
+                        Amenities
+                    </a>
 
-                <a href="{% url "location" %}" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800">
-                    Location
-                </a>
+                    <a href="{% url "location" %}" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800">
+                        Location
+                    </a>
 
-                <a href="{% url "gallery" %}" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800">
-                    Gallery
-                </a>
+                    <a href="{% url "gallery" %}" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800">
+                        Gallery
+                    </a>
 
-                <a href="{% url "contact" %}" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800">
-                    Contact
-                </a>
+                    <a href="{% url "contact" %}" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800">
+                        Contact
+                    </a>
 
-            </nav>
+                </nav>
 
-            <div class="hidden md:flex items-center gap-3 shrink-0">
+                <div class="hidden md:flex items-center gap-3 shrink-0">
 
-                <a href="tel:+91{{settings_obj.phone}}" class="hidden lg:flex items-center gap-2 px-5 py-3 text-[12px] font-medium tracking-wider uppercase text-neutral-800 border border-black/10 hover:border-[#a8874b] hover:text-[#9b793f] transition-all duration-300">
+                    <a href="tel:+91{{settings_obj.phone}}" class="hidden lg:flex items-center gap-2 px-5 py-3 text-[12px] font-medium tracking-wider uppercase text-neutral-800 border border-black/10 hover:border-[#a8874b] hover:text-[#9b793f] transition-all duration-300">
 
-                    <i class="fa-solid fa-phone text-[10px]"></i>
+                        <i class="fa-solid fa-phone text-[10px]"></i>
 
-                    <span>Call Us</span>
-                </a>
+                        <span>Call Us</span>
+                    </a>
 
-                <a href="{% url "contact" %}"
-                   class="px-5 lg:px-6 py-3 bg-neutral-900 text-white text-[11px] font-medium tracking-[0.15em] uppercase hover:bg-[#a8874b] transition-all duration-300">
-                    Enquire Now
-                </a>
+                    <a href="{% url "contact" %}"
+                    class="px-5 lg:px-6 py-3 bg-neutral-900 text-white text-[11px] font-medium tracking-[0.15em] uppercase hover:bg-[#a8874b] transition-all duration-300">
+                        Enquire Now
+                    </a>
 
-            </div>
+                </div>
 
-            <button id="menuButton" type="button" aria-label="Open Menu" class="xl:hidden w-11 h-11 flex flex-col items-center justify-center gap-[5px] border border-black/10">
+                <button id="menuButton" type="button" aria-label="Open Menu" class="xl:hidden w-11 h-11 flex flex-col items-center justify-center gap-[5px] border border-black/10">
 
-                <span class="menu-line line-1 block w-5 h-[1px] bg-neutral-900"></span>
-                <span class="menu-line line-2 block w-5 h-[1px] bg-neutral-900"></span>
-                <span class="menu-line line-3 block w-5 h-[1px] bg-neutral-900"></span>
+                    <span class="menu-line line-1 block w-5 h-[1px] bg-neutral-900"></span>
+                    <span class="menu-line line-2 block w-5 h-[1px] bg-neutral-900"></span>
+                    <span class="menu-line line-3 block w-5 h-[1px] bg-neutral-900"></span>
 
-            </button>
+                </button>
 
         </div>
 
