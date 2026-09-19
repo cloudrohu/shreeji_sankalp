@@ -459,64 +459,52 @@
 
     </script>
 
-    <nav id="projectNav"
-        class="sticky top-0 z-40 border-y border-[#e5e0d6] bg-white/95 shadow-sm backdrop-blur-md">
+    <nav id="projectNav" class="sticky top-0 z-40 border-y border-[#e5e0d6] bg-white/95 shadow-sm backdrop-blur-md">
 
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="flex items-center gap-1 overflow-x-auto scrollbar-hide">
 
-                <a href="#overview"
-                class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">
+                <a href="#overview" class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">
                     Overview
                 </a>
 
-                <a href="#pricing"
-                class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">
+                <a href="#pricing" class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">
                     Pricing & Unit Plans
                 </a>
 
-                <a href="#location"
-                class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">
+                <a href="#location" class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">
                     Location
                 </a>
 
-                <a href="#video"
-                class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">
+                <a href="#video" class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">
                     Video
                 </a>
 
-                <a href="#amenities"
-                class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">
+                <a href="#amenities" class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">
                     Amenities
                 </a>
 
-                <a href="#floorplan"
-                class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">
+                <a href="#floorplan" class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">
                     Floor Plan
                 </a>
 
-                <a href="#paymentscheme"
-                class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">
+                <a href="#paymentscheme" class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">
                     Payment Scheme
                 </a>
 
-                <a href="#bank_offers"
-                class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">
+                <a href="#bank_offers" class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">
                     Bank
                 </a>
 
-                <a href="#emi_calculator"
-                class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">
+                <a href="#emi_calculator" class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">
                     EMI Calculator
                 </a>
 
-                <a href="#about_developer"
-                class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">
+                <a href="#about_developer" class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">
                     About Developer
                 </a>
 
-                <a href="#faqs"
-                class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">
+                <a href="#faqs" class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">
                     FAQs
                 </a>
 
@@ -619,7 +607,7 @@
                         {% for config in group.list %}
                         <div class="grid grid-cols-[1.2fr_1fr_1.2fr_1fr_1fr] items-center border-t border-[#e5e0d6] px-5 py-5 transition hover:bg-[#fcfbf8]">
                             <div class="font-semibold text-gray-900">{{ config.bhk_type }}</div>
-                            <div class="text-sm text-gray-600">{{ config.area_sqft }} Sq.ft</div>
+                            <div class="text-sm text-gray-600">{{ config.area_sqft }} Sq.Yd</div>
                             <div class="text-sm font-semibold text-[#9a7139]">₹ {{ config.formatted_price }}</div>
                             <div>
                                 {% if config.parking %}
@@ -649,7 +637,7 @@
 
                             <div>
                                 <p class="text-[9px] font-medium uppercase tracking-wider text-gray-400">Area</p>
-                                <p class="mt-0.5 text-xs font-semibold text-gray-700">{{ config.area_sqft }} Sq.ft</p>
+                                <p class="mt-0.5 text-xs font-semibold text-gray-700">{{ config.area_sqft }} Sq.Yd</p>
                             </div>
 
                             <div>
@@ -896,7 +884,7 @@
                         <div class="flex items-center justify-between gap-3 border-t border-[#e5e0d6] px-4 py-3.5">
                             <div>
                                 <p class="text-sm font-semibold text-gray-900">{{ config.bhk_type }}</p>
-                                <p class="mt-0.5 text-[10px] text-gray-400 sm:text-xs">{{ config.area_sqft }} Sq.ft</p>
+                                <p class="mt-0.5 text-[10px] text-gray-400 sm:text-xs">{{ config.area_sqft }} Sq.Yd</p>
                             </div>
                             <p class="text-xs font-semibold text-[#9a7139]">₹ {{ config.formatted_price }}</p>
                         </div>
@@ -994,19 +982,45 @@
                 </div>
 
                 <div class="mt-6 grid gap-6 lg:mt-8 lg:grid-cols-[1fr_1fr] lg:gap-10">
+                    
                     <div class="space-y-5">
+                        <!-- Property Price Input -->
                         <div>
                             <div class="flex items-center justify-between">
-                                <label class="text-xs font-semibold text-gray-700 sm:text-sm">Loan Amount</label>
-                                <span id="loanAmountValue" class="text-xs font-bold text-[#9a7139] sm:text-sm">₹ 50,00,000</span>
+                                <label class="text-xs font-semibold text-gray-700 sm:text-sm">Property Price</label>
+                                <span id="propertyPriceValue" class="text-xs font-bold text-[#9a7139] sm:text-sm">₹ 1,38,00,000</span>
                             </div>
-                            <input id="loanAmount" type="range" min="500000" max="50000000" step="100000" value="5000000" class="mt-3 h-1.5 w-full cursor-pointer accent-[#b89252]">
+                            <input id="propertyPrice" type="range" min="1000000" max="50000000" step="100000" value="13800000" class="mt-3 h-1.5 w-full cursor-pointer accent-[#b89252]">
                             <div class="mt-1 flex justify-between text-[10px] text-gray-400">
-                                <span>₹5 Lakh</span>
+                                <span>₹10 Lakh</span>
                                 <span>₹5 Crore</span>
                             </div>
                         </div>
 
+                        <!-- Down Payment Percentage Input -->
+                        <div>
+                            <div class="flex items-center justify-between">
+                                <label class="text-xs font-semibold text-gray-700 sm:text-sm">
+                                    Down Payment (<span id="downPaymentPercentValue">20</span>%)
+                                </label>
+                                <span id="downPaymentValue" class="text-xs font-bold text-[#9a7139] sm:text-sm">₹ 27,60,000</span>
+                            </div>
+                            <input id="downPaymentPercent" type="range" min="10" max="80" step="1" value="20" class="mt-3 h-1.5 w-full cursor-pointer accent-[#b89252]">
+                            <div class="mt-1 flex justify-between text-[10px] text-gray-400">
+                                <span>10%</span>
+                                <span>80%</span>
+                            </div>
+                        </div>
+
+                        <!-- Calculated Loan Amount Display -->
+                        <div class="rounded-lg bg-[#fcfbf9] p-3 border border-[#e5e0d6]">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-medium text-gray-600">Calculated Loan Amount</span>
+                                <span id="loanAmountValue" class="text-xs font-bold text-[#9a7139] sm:text-sm">₹ 1,10,40,000</span>
+                            </div>
+                        </div>
+
+                        <!-- Interest Rate Input -->
                         <div>
                             <div class="flex items-center justify-between">
                                 <label class="text-xs font-semibold text-gray-700 sm:text-sm">Interest Rate</label>
@@ -1019,6 +1033,7 @@
                             </div>
                         </div>
 
+                        <!-- Loan Tenure Input -->
                         <div>
                             <div class="flex items-center justify-between">
                                 <label class="text-xs font-semibold text-gray-700 sm:text-sm">Loan Tenure</label>
@@ -1521,36 +1536,50 @@
         document.body.classList.add("overflow-hidden");
     }
 
-    const loanAmount = document.getElementById("loanAmount");
+    const propertyPrice = document.getElementById("propertyPrice");
+    const downPaymentPercent = document.getElementById("downPaymentPercent");
     const interestRate = document.getElementById("interestRate");
     const loanTenure = document.getElementById("loanTenure");
 
     const formatINR = value => "₹ " + Math.round(value).toLocaleString("en-IN");
 
     function calculateEMI() {
-        const principal = Number(loanAmount.value);
+        const price = Number(propertyPrice.value);
+        const downPaymentPct = Number(downPaymentPercent.value);
+        
+        // Calculate down payment amount and loan principal
+        const downPaymentAmt = (price * downPaymentPct) / 100;
+        const principal = price - downPaymentAmt;
+
         const annualRate = Number(interestRate.value);
         const years = Number(loanTenure.value);
         const months = years * 12;
         const monthlyRate = annualRate / 12 / 100;
 
+        // Standard Amortization Formula
         const emi = monthlyRate === 0
             ? principal / months
-            : principal * monthlyRate * Math.pow(1 + monthlyRate, months) / (Math.pow(1 + monthlyRate, months) - 1);
+            : (principal * monthlyRate * Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
 
         const totalPayment = emi * months;
         const totalInterest = totalPayment - principal;
 
+        // Update Input Displays
+        document.getElementById("propertyPriceValue").textContent = formatINR(price);
+        document.getElementById("downPaymentPercentValue").textContent = downPaymentPct;
+        document.getElementById("downPaymentValue").textContent = formatINR(downPaymentAmt);
         document.getElementById("loanAmountValue").textContent = formatINR(principal);
         document.getElementById("interestValue").textContent = annualRate.toFixed(1) + "%";
         document.getElementById("tenureValue").textContent = years + (years === 1 ? " Year" : " Years");
+
+        // Update Output Cards
         document.getElementById("emiAmount").textContent = formatINR(emi);
         document.getElementById("principalAmount").textContent = formatINR(principal);
         document.getElementById("totalInterest").textContent = formatINR(totalInterest);
         document.getElementById("totalPayment").textContent = formatINR(totalPayment);
     }
 
-    [loanAmount, interestRate, loanTenure].forEach(input => {
+    [propertyPrice, downPaymentPercent, interestRate, loanTenure].forEach(input => {
         input.addEventListener("input", calculateEMI);
     });
 
