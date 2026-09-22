@@ -76,79 +76,121 @@
 
     <div class="max-w-[1500px] mx-auto px-5 sm:px-7 lg:px-10">
 
-            <div class="h-[68px] lg:h-[76px] flex items-center justify-between gap-8 p-2">
+        <div class="h-[68px] lg:h-[76px] flex items-center justify-between gap-8 p-2">
 
-                <a href="/"  class="relative w-[80px] h-[76px] lg:w-[100px] lg:h-[84px] p-2 shrink-0 flex items-center justify-center overflow-visible">
-                    {% if settings_obj.logo  %}
-                        <img src="{{settings_obj.logo.url}}" alt="{{settings_obj.site_name}}" class="w-full h-full object-contain">
-                    {% else %}
-                        <img src="" alt="{{settings_obj.site_name}}" class="w-full h-full object-contain">
-                    {% endif %}
+            <!-- Logo -->
+            <a href="/" class="relative w-[80px] h-[76px] lg:w-[100px] lg:h-[84px] p-2 shrink-0 flex items-center justify-center overflow-visible">
+                {% if settings_obj.logo %}
+                    <img src="{{settings_obj.logo.url}}" alt="{{settings_obj.site_name}}" class="w-full h-full object-contain">
+                {% else %}
+                    <img src="" alt="{{settings_obj.site_name}}" class="w-full h-full object-contain">
+                {% endif %}
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden xl:flex items-center justify-center gap-8 2xl:gap-10 flex-1">
+
+                <a href="/" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800 hover:text-[#a8874b] transition-colors">
+                    Home
                 </a>
 
-                <nav class="hidden xl:flex items-center justify-center gap-8 2xl:gap-10 flex-1">
+                <a href="{% url "about" %}" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800 hover:text-[#a8874b] transition-colors">
+                    About
+                </a>
 
-                    <a href="/" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800">
-                        Home
-                    </a>
+                <a href="{% url "faqs" %}" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800 hover:text-[#a8874b] transition-colors">
+                    FAQs
+                </a>
 
-                    <a href="{% url "about" %}" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800">
-                        About
-                    </a>
+                <!-- Dynamic Projects Dropdown (Desktop) -->
+                <div class="relative group py-6">
+                    <button type="button" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800 flex items-center gap-1.5 hover:text-[#a8874b] transition-colors">
+                        <span>Projects</span>
+                        <i class="fa-solid fa-chevron-down text-[10px] text-neutral-400 group-hover:text-[#a8874b] group-hover:rotate-180 transition-transform duration-300"></i>
+                    </button>
 
-                    <a href="{% url "faqs" %}" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800">
-                        FAQs
-                    </a>
+                    <!-- Dropdown Menu -->
+                    <div class="absolute top-full left-0 w-[280px] bg-white border border-black/[0.08] shadow-xl py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 rounded-sm">
+                        
+                        {% for proj in all_projects %}
+                            <a href="{% if proj.get_absolute_url %}{{ proj.get_absolute_url }}{% else %}#{% endif %}" class="flex items-center justify-between px-5 py-3 hover:bg-neutral-50 transition-colors group/item {% if not forloop.last %}border-b border-black/[0.04]{% endif %}">
+                                
+                                <span class="text-[13px] font-medium text-neutral-800 group-hover/item:text-[#a8874b] transition-colors">
+                                    {{ proj.project_name }}
+                                </span>
 
-                    <a href="{{ first_project.get_absolute_url }}" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800">
-                        Project Details
-                    </a>
+                                {# Dynamic Status Badge #}
+                                {% if proj.construction_status|lower == 'completed' %}
+                                    <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-200 uppercase tracking-wider">
+                                        Completed
+                                    </span>
+                                {% elif proj.construction_status|lower == 'ongoing' or proj.construction_status|lower == 'under construction' %}
+                                    <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-600 border border-amber-200 uppercase tracking-wider">
+                                        Ongoing
+                                    </span>
+                                {% else %}
+                                    <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-blue-50 text-blue-600 border border-blue-200 uppercase tracking-wider">
+                                        {{ proj.construction_status|default:"Project" }}
+                                    </span>
+                                {% endif %}
 
-                    <a href="{% url "amenities" %}" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800">
-                        Amenities
-                    </a>
+                            </a>
+                        {% empty %}
+                            <div class="px-5 py-3 text-xs text-neutral-500 text-center">
+                                No projects available
+                            </div>
+                        {% endfor %}
 
-                    <a href="{% url "location" %}" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800">
-                        Location
-                    </a>
-
-                    <a href="{% url "gallery" %}" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800">
-                        Gallery
-                    </a>
-
-                    <a href="{% url "contact" %}" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800">
-                        Contact
-                    </a>
-
-                </nav>
-
-                <div class="hidden md:flex items-center gap-3 shrink-0">
-
-                    <a href="tel:+91{{settings_obj.phone}}" class="hidden lg:flex items-center gap-2 px-5 py-3 text-[12px] font-medium tracking-wider uppercase text-neutral-800 border border-black/10 hover:border-[#a8874b] hover:text-[#9b793f] transition-all duration-300">
-
-                        <i class="fa-solid fa-phone text-[10px]"></i>
-
-                        <span>Call Us</span>
-                    </a>
-
-                    <a href="{% url "contact" %}"
-                    class="px-5 lg:px-6 py-3 bg-neutral-900 text-white text-[11px] font-medium tracking-[0.15em] uppercase hover:bg-[#a8874b] transition-all duration-300">
-                        Enquire Now
-                    </a>
-
+                    </div>
                 </div>
 
-                <button id="menuButton" type="button" aria-label="Open Menu" class="xl:hidden w-11 h-11 flex flex-col items-center justify-center gap-[5px] border border-black/10">
+                <a href="{% if project_obj %}{{ project_obj.get_absolute_url }}{% else %}#{% endif %}" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800 hover:text-[#a8874b] transition-colors">
+                    Project Details
+                </a>
 
-                    <span class="menu-line line-1 block w-5 h-[1px] bg-neutral-900"></span>
-                    <span class="menu-line line-2 block w-5 h-[1px] bg-neutral-900"></span>
-                    <span class="menu-line line-3 block w-5 h-[1px] bg-neutral-900"></span>
+                <a href="{% url "amenities" %}" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800 hover:text-[#a8874b] transition-colors">
+                    Amenities
+                </a>
 
-                </button>
+                <a href="{% url "location" %}" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800 hover:text-[#a8874b] transition-colors">
+                    Location
+                </a>
+
+                <a href="{% url "gallery" %}" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800 hover:text-[#a8874b] transition-colors">
+                    Gallery
+                </a>
+
+                <a href="{% url "contact" %}" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800 hover:text-[#a8874b] transition-colors">
+                    Contact
+                </a>
+
+            </nav>
+
+            <!-- Call & Enquiry CTA Buttons -->
+            <div class="hidden md:flex items-center gap-3 shrink-0">
+
+                <a href="tel:+91{{settings_obj.phone}}" class="hidden lg:flex items-center gap-2 px-5 py-3 text-[12px] font-medium tracking-wider uppercase text-neutral-800 border border-black/10 hover:border-[#a8874b] hover:text-[#9b793f] transition-all duration-300">
+                    <i class="fa-solid fa-phone text-[10px]"></i>
+                    <span>Call Us</span>
+                </a>
+
+                <a href="{% url "contact" %}" class="px-5 lg:px-6 py-3 bg-neutral-900 text-white text-[11px] font-medium tracking-[0.15em] uppercase hover:bg-[#a8874b] transition-all duration-300">
+                    Enquire Now
+                </a>
+
+            </div>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button id="menuButton" type="button" aria-label="Open Menu" class="xl:hidden w-11 h-11 flex flex-col items-center justify-center gap-[5px] border border-black/10">
+                <span class="menu-line line-1 block w-5 h-[1px] bg-neutral-900"></span>
+                <span class="menu-line line-2 block w-5 h-[1px] bg-neutral-900"></span>
+                <span class="menu-line line-3 block w-5 h-[1px] bg-neutral-900"></span>
+            </button>
 
         </div>
 
-        <div id="mobileMenu" class="mobile-menu xl:hidden border-t border-black/[0.06]">
+        <!-- Mobile Drawer Navigation -->
+        <div id="mobileMenu" class="mobile-menu xl:hidden border-t border-black/[0.06] hidden">
 
             <nav class="py-5">
 
@@ -162,12 +204,34 @@
                     <span class="text-[#a8874b]">02</span>
                 </a>
 
-                <a href="" class="mobile-link flex items-center justify-between py-3.5 text-sm font-medium border-b border-black/[0.06]">
-                    <span>Projects</span>
-                    <span class="text-[#a8874b]">03</span>
-                </a>
+                <!-- Projects Dynamic Accordion (Mobile) -->
+                <div class="border-b border-black/[0.06]">
+                    <button type="button" onclick="document.getElementById('mobileProjectsSubmenu').classList.toggle('hidden'); document.getElementById('mobileProjectIcon').classList.toggle('rotate-180');" class="w-full mobile-link flex items-center justify-between py-3.5 text-sm font-medium">
+                        <span class="flex items-center gap-2">
+                            Projects 
+                            <i id="mobileProjectIcon" class="fa-solid fa-chevron-down text-[10px] text-[#a8874b] transition-transform duration-300"></i>
+                        </span>
+                        <span class="text-[#a8874b]">03</span>
+                    </button>
 
-                <a href="{{ first_project.get_absolute_url }}   " class="mobile-link flex items-center justify-between py-3.5 text-sm font-medium border-b border-black/[0.06]">
+                    <!-- Dynamic Submenu -->
+                    <div id="mobileProjectsSubmenu" class="pl-4 pb-3 flex flex-col gap-2.5 hidden">
+                        {% for proj in all_projects %}
+                            <a href="{% if proj.get_absolute_url %}{{ proj.get_absolute_url }}{% else %}#{% endif %}" class="flex items-center justify-between py-2 pr-2 text-xs font-medium text-neutral-700 hover:text-[#a8874b]">
+                                <span>{{ proj.project_name }}</span>
+                                {% if proj.construction_status|lower == 'completed' %}
+                                    <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-emerald-50 text-emerald-600 border border-emerald-200 uppercase">Completed</span>
+                                {% else %}
+                                    <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-amber-50 text-amber-600 border border-amber-200 uppercase">Ongoing</span>
+                                {% endif %}
+                            </a>
+                        {% empty %}
+                            <span class="text-xs text-neutral-400">No Projects</span>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <a href="{% if project_obj %}{{ project_obj.get_absolute_url }}{% else %}#{% endif %}" class="mobile-link flex items-center justify-between py-3.5 text-sm font-medium border-b border-black/[0.06]">
                     <span>Project Details</span>
                     <span class="text-[#a8874b]">04</span>
                 </a>
@@ -189,7 +253,7 @@
 
                 <a href="{% url "contact" %}" class="mobile-link flex items-center justify-between py-3.5 text-sm font-medium">
                     <span>Contact</span>
-                    <span class="text-[#a8874b]">{{settings_obj.phone}}</span>
+                    <span class="text-[#a8874b]">08</span>
                 </a>
 
                 <div class="pt-5 grid grid-cols-2 gap-3">

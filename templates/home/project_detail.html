@@ -81,10 +81,7 @@
                     <!-- Slide 1: Main Project Image -->
                     {% if project.image %}
                     <div class="hero-slide absolute inset-0 opacity-100 transition-opacity duration-700">
-                        <img src="{{ project.image.url }}"
-                            alt="{{ project.project_name }}"
-                            data-gallery-idx="0"
-                            class="hero-trigger h-full w-full cursor-pointer object-cover">
+                        <img src="{{ project.image.url }}" alt="{{ project.project_name }}" data-gallery-idx="0" class="hero-trigger h-full w-full cursor-pointer object-cover">
                     </div>
                     {% endif %}
 
@@ -92,10 +89,7 @@
                     {% for slider in project.sliders.all %}
                         {% if slider.image %}
                         <div class="hero-slide pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700">
-                            <img src="{{ slider.image.url }}"
-                                alt="{{ slider.caption|default:project.project_name }}"
-                                data-gallery-idx="{% if project.image %}{{ forloop.counter }}{% else %}{{ forloop.counter0 }}{% endif %}"
-                                class="hero-trigger h-full w-full cursor-pointer object-cover">
+                            <img src="{{ slider.image.url }}" alt="{{ slider.caption|default:project.project_name }}" data-gallery-idx="{% if project.image %}{{ forloop.counter }}{% else %}{{ forloop.counter0 }}{% endif %}" class="hero-trigger h-full w-full cursor-pointer object-cover">
                         </div>
                         {% endif %}
                     {% endfor %}
@@ -176,7 +170,7 @@
                                 <div class="rounded-xl border border-white/15 bg-black/30 px-4 py-3 backdrop-blur-md">
                                     <p class="text-[10px] uppercase tracking-wider text-white/60">Area</p>
                                     <p class="mt-1 text-sm font-semibold text-white">
-                                        {{ project.get_carpet_area_range }} Sq. Yd
+                                        {{ project.get_carpet_area_range }}
                                     </p>
                                 </div>
                                 {% endif %}
@@ -491,10 +485,6 @@
 
                 <a href="#floorplan" class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">
                     Floor Plan
-                </a>
-
-                <a href="#paymentscheme" class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">
-                    Payment Scheme
                 </a>
 
                 <a href="#emi_calculator" class="project-nav-link shrink-0 border-b-2 border-transparent px-4 py-4 text-sm font-medium text-gray-500 hover:text-gray-900">

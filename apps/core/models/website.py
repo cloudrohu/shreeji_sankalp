@@ -65,6 +65,7 @@ class Setting(BaseModel):
     address = models.CharField(max_length=500, blank=True, null=True)
     phone = models.CharField(max_length=15, blank=True, null=True)
     whatsapp = models.CharField(max_length=15, blank=True, null=True)
+    linkexplore = models.CharField(max_length=150, blank=True, null=True)
     email = models.EmailField(max_length=100, blank=True, null=True)
     smtpserver = models.CharField(max_length=100, blank=True, null=True)
     smtpemail = models.EmailField(max_length=100, blank=True, null=True)

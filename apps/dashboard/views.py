@@ -6,7 +6,24 @@ from apps.properties.models import Project
 def dashboard(request):
 
     settings_obj = Setting.objects.first()
-    project_obj = Project.objects.first()
+
+    # 1. Dropdown ke liye SAARI projects fetch hongi (Active/Inactive, ID=1 ho ya 2, sab aayenge)
+    all_projects = Project.objects.all().order_by('id')
+
+    # 2. Home page par specific project (ID=1 aur dono active booleans filter)
+    project_obj = Project.objects.filter(
+        id=1, 
+        is_active=True,
+        featured_property=True  # Dynamic model check
+    ).first()
+
+    # Fallback: Agar ID=1 match nahi karta ya active nahi hai, safety ke liye pehla available active project utha lega
+    if not project_obj:
+        project_obj = Project.objects.filter(
+            is_active=True, 
+            featured_property=True
+        ).first() or Project.objects.filter(is_active=True).first()
+
 
     if request.method == "POST":
 
@@ -56,9 +73,7 @@ def dashboard(request):
                 return redirect("thank_you")
 
     about_obj = About.objects.filter(setting=settings_obj).first()
-
     why_choose = Why_Choose.objects.filter(setting=settings_obj).all()
-
     unique_selling_proposition = USP.objects.filter(setting=settings_obj).all()
 
     slider = (
@@ -73,10 +88,10 @@ def dashboard(request):
         {
             "settings_obj": settings_obj,
             "slider": slider,
-            "project_obj": project_obj,
+            "project_obj": project_obj,   # Home page content (ID=1 & active)
+            "all_projects": all_projects, # Dropdown List (All projects)
             "about_obj": about_obj,
             "why_choose": why_choose,
             "unique_selling_proposition": unique_selling_proposition,
         }
     )
-

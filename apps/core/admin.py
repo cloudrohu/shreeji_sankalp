@@ -488,6 +488,7 @@ class SettingAdmin(admin.ModelAdmin):
                     "instagram",
                     "twitter",
                     "youtube",
+                    "linkexplore",
                 )
             },
         ),

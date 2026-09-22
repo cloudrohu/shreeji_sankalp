@@ -1079,9 +1079,9 @@ class Project(MPTTModel, BaseModel):
         area_max = qs.aggregate(Max("area_sqft"))["area_sqft__max"]
 
         if area_min == area_max:
-            return f"{area_min} sqft"
+            return f"{area_min} sq.yd"
 
-        return f"{area_min}–{area_max} sqft"
+        return f"{area_min}–{area_max} sq.yd"
 
     def get_price_range(self):
         qs = self.configurations.all()
