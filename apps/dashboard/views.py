@@ -1,23 +1,18 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from apps.core.models import Setting , Slider , About , Why_Choose , USP, PriceBreakupInquiry,Inquiry
-from apps.properties.models import Project
+from apps.properties.models import Project , Developer
 
 
 def dashboard(request):
 
+    
+
     settings_obj = Setting.objects.first()
 
-    # 1. Dropdown ke liye SAARI projects fetch hongi (Active/Inactive, ID=1 ho ya 2, sab aayenge)
     all_projects = Project.objects.all().order_by('id')
 
-    # 2. Home page par specific project (ID=1 aur dono active booleans filter)
-    project_obj = Project.objects.filter(
-        id=1, 
-        is_active=True,
-        featured_property=True  # Dynamic model check
-    ).first()
+    project_obj = Project.objects.filter(id=1, is_active=True,featured_property=True).first()
 
-    # Fallback: Agar ID=1 match nahi karta ya active nahi hai, safety ke liye pehla available active project utha lega
     if not project_obj:
         project_obj = Project.objects.filter(
             is_active=True, 
@@ -81,6 +76,8 @@ def dashboard(request):
         if settings_obj
         else Slider.objects.all()
     )
+
+    developer = get_object_or_404(Developer.objects.select_related('city', 'locality', 'area', 'postal_code'), slug=slug)
 
     return render(
         request,

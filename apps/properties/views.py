@@ -27,9 +27,37 @@ from apps.core.models.website import Setting
 from apps.properties_utility.models import ProjectAmenities, PropertyType
 from apps.utility.models.location import Location, LocationType
 
+
 def get_settings():
     """Helper function to fetch settings object safely"""
     return Setting.objects.first()
+
+# Purane get_settings() ki jagah ye Helper Function rakhein:
+def get_common_context(extra_context=None):
+    """
+    Common variables (settings_obj, all_projects, project_obj) ko har template ke liye tayar karta hai.
+    """
+    settings_obj = Setting.objects.first()
+    all_projects = Project.objects.all().order_by('id')
+
+    project_obj = Project.objects.filter(id=1, is_active=True, featured_property=True).first()
+    if not project_obj:
+        project_obj = Project.objects.filter(
+            is_active=True, 
+            featured_property=True
+        ).first() or Project.objects.filter(is_active=True).first()
+
+    context = {
+        'settings_obj': settings_obj,
+        'all_projects': all_projects,
+        'project_obj': project_obj,
+    }
+
+    if extra_context:
+        context.update(extra_context)
+
+    return context
+
 
 def index(request):
     queryset_list = Project.objects.filter(active=True).order_by('project_name')
@@ -63,15 +91,19 @@ def index(request):
     available_localities = Locality.objects.filter(parent__isnull=True).order_by('title')
     construction_statuses = Project.Construction_Status
     
-    context = {
-        'projects': queryset_list,
-        'available_cities': available_cities,
-        "amenities": amenities,
-        'construction_statuses': construction_statuses,
-        'values': request.GET,
-    }
-    
-    return render(request, 'properties/index.html', context)
+    # get_common_context se wrapper context pass kiya
+    return render(
+        request, 
+        'properties/index.html', 
+        get_common_context({
+            'projects': queryset_list,
+            'available_cities': available_cities,
+            "amenities": amenities,
+            'construction_statuses': construction_statuses,
+            'values': request.GET,
+        })
+    )
+
 
 def get_bhk_choices():
     return [choice[0] for choice in Project.BHK_CHOICES]
@@ -82,7 +114,6 @@ def search_suggestions(request):
     results = []
 
     if q:
-
         projects = Project.objects.filter(
             project_name__icontains=q
         )[:5]
@@ -105,7 +136,6 @@ def search_suggestions(request):
 
     return JsonResponse(results, safe=False)
 
-
 def search_projects(request):
     location = request.GET.get("q", "").strip()
     city = request.GET.get("city", "").strip()
@@ -115,7 +145,6 @@ def search_projects(request):
     developer_slug = request.GET.get("developer") 
     locality_ids = request.GET.getlist("locality")
     projects = Project.objects.filter(active=True)
-
 
     # 🔍 Single Clean Search Block
     if location:
@@ -131,7 +160,6 @@ def search_projects(request):
     # 🌆 City
     if city:
         projects = projects.filter(city__name__iexact=city)
- 
 
     # 📍 Locality (MPTT)
     if locality_ids:
@@ -166,65 +194,67 @@ def search_projects(request):
             projects = projects.filter(bhk_query).distinct()
 
     # ⚡ Optimize + Pagination
-        projects = projects.select_related(
-            "city",
-            "locality",
-            "developer"
-        ).order_by("-create_at")
+    projects = projects.select_related(
+        "city",
+        "locality",
+        "developer"
+    ).order_by("-create_at")
 
     paginator = Paginator(projects, 9)
     projects_page = paginator.get_page(request.GET.get("page"))
 
-    context = {
-        "projects": projects_page,
-        "amenities": ProjectAmenities.objects.all(),
-        "construction_status": [choice[0] for choice in Project.Construction_Status],
-        "bhk_choices": get_bhk_choices(),
-        "selected_amenities": amenities,
-        "selected_status": status,
-        "selected_bhk": bhk,
-        "selected_bhk_list": selected_bhk_list,
-        "available_localities": Locality.objects.all().order_by("title"),
-        "selected_locality_ids": [str(x) for x in locality_ids],
-    }
+    return render(
+        request, 
+        "properties/residential_list.html", 
+        get_common_context({
+            "projects": projects_page,
+            "amenities": ProjectAmenities.objects.all(),
+            "construction_status": [choice[0] for choice in Project.Construction_Status],
+            "bhk_choices": get_bhk_choices(),
+            "selected_amenities": amenities,
+            "selected_status": status,
+            "selected_bhk": bhk,
+            "selected_bhk_list": selected_bhk_list,
+            "available_localities": Locality.objects.all().order_by("title"),
+            "selected_locality_ids": [str(x) for x in locality_ids],
+        })
+    )
 
-    return render(request, "properties/residential_list.html", context)
 
 def residential_projects(request):
-
     projects = (
         Project.objects
         .filter(active=True)
         .annotate(
-            min_price=Min(
-                "configurations__price_in_rupees"
-            ),
-            max_price=Max(
-                "configurations__price_in_rupees"
-            ),
+            min_price=Min("configurations__price_in_rupees"),
+            max_price=Max("configurations__price_in_rupees"),
         )
     )
 
-    context = {
-        "projects": projects,
-        "page_title": "Residential Projects",
-    }
+    return render(
+        request,
+        "projects/residential_list.html",
+        get_common_context({
+            "projects": projects,
+            "page_title": "Residential Projects",
+        })
+    )
 
-    return render(request,"projects/residential_list.html",context,)
 
 def commercial_projects(request):
-
     projects = Project.objects.filter(active=True)
 
-    context = {
-        "projects": projects,
-        "page_title": "Commercial Projects",
-    }
+    return render(
+        request,
+        "projects/commercial_list.html",
+        get_common_context({
+            "projects": projects,
+            "page_title": "Commercial Projects",
+        })
+    )
 
-    return render(request,"projects/commercial_list.html",context,)
 
 def project_details(request, id, slug):
-
     project = get_object_or_404(
         Project.objects.select_related(
             'developer',
@@ -237,7 +267,6 @@ def project_details(request, id, slug):
             'architect',
             'engineer',
         ).prefetch_related(
-
             # Main project sections
             'configurations',
             'amenities',
@@ -258,14 +287,11 @@ def project_details(request, id, slug):
             'bank_offers',
             'faqs',
             'contact_persons',
-
         ),
         id=id,
         slug=slug,
         is_active=True,
     )
-
-    settings_obj = get_settings()
 
     carpet_range = project.configurations.aggregate(
         min_area=Min("area_sqft"),
@@ -298,35 +324,23 @@ def project_details(request, id, slug):
         [:4]
     )
 
-    first_project = Project.objects.filter(is_active=True).first()
-
-    context = {
-        "project": project,
-
-        "min_carpet": carpet_range["min_area"],
-        "max_carpet": carpet_range["max_area"],
-
-        "related_projects": related_projects,
-        "more_projects": more_projects,
-        "settings_obj": settings_obj,
-        "first_project": first_project,
-    }
-
     return render(
         request,
-        "home/project_detail.html", context
+        "home/project_detail.html", 
+        get_common_context({
+            "project": project,
+            "min_carpet": carpet_range["min_area"],
+            "max_carpet": carpet_range["max_area"],
+            "related_projects": related_projects,
+            "more_projects": more_projects,
+        })
     )
 
 
 def submit_enquiry(request, id):
-
-    project = get_object_or_404(
-        Project,
-        id=id
-    )
+    project = get_object_or_404(Project, id=id)
 
     if request.method == "POST":
-
         Enquiry.objects.create(
             project=project,
             name=request.POST.get("name"),
@@ -349,17 +363,9 @@ def submit_enquiry(request, id):
     )
 
 
-
 def thank_you(request):
-    settings_obj = get_settings()
-    project_obj = Project.objects.first()
-
     return render(
         request,
         'projects/thank_you.html',
-        {
-            'settings_obj': settings_obj,
-            'project_obj': project_obj,
-        }
+        get_common_context()
     )
-

@@ -13,5 +13,5 @@ urlpatterns = [
     path('gallery/', views.GalleryView, name='gallery'),
     path('contact/', views.ContactView, name='contact'),
     path('thank-you/', views.ThankYouView, name='thank_you'),
-    
+    path('developer/', views.Developer, name='developer')    
 ]

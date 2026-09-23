@@ -105,7 +105,7 @@
                 <!-- Dynamic Projects Dropdown (Desktop) -->
                 <div class="relative group py-6">
                     <button type="button" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800 flex items-center gap-1.5 hover:text-[#a8874b] transition-colors">
-                        <span>Projects</span>
+                        <span>Project Details</span>
                         <i class="fa-solid fa-chevron-down text-[10px] text-neutral-400 group-hover:text-[#a8874b] group-hover:rotate-180 transition-transform duration-300"></i>
                     </button>
 
@@ -144,9 +144,6 @@
                     </div>
                 </div>
 
-                <a href="{% if project_obj %}{{ project_obj.get_absolute_url }}{% else %}#{% endif %}" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800 hover:text-[#a8874b] transition-colors">
-                    Project Details
-                </a>
 
                 <a href="{% url "amenities" %}" class="nav-link text-[13px] font-medium tracking-wide text-neutral-800 hover:text-[#a8874b] transition-colors">
                     Amenities
