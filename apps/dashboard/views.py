@@ -5,8 +5,6 @@ from apps.properties.models import Project , Developer
 
 def dashboard(request):
 
-    
-
     settings_obj = Setting.objects.first()
 
     all_projects = Project.objects.all().order_by('id')
