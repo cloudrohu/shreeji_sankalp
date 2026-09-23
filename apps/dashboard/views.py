@@ -75,8 +75,6 @@ def dashboard(request):
         else Slider.objects.all()
     )
 
-    developer = get_object_or_404(Developer.objects.select_related('city', 'locality', 'area', 'postal_code'), slug=slug)
-
     return render(
         request,
         "home/index.html",
