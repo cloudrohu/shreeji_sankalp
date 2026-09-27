@@ -187,18 +187,15 @@
         </div>
 
         <!-- Mobile Drawer Navigation -->
-        <div id="mobileMenu" class="mobile-menu xl:hidden border-t border-black/[0.06] hidden">
-
+        <div id="mobileMenu" class="mobile-menu xl:hidden border-t border-black/[0.06]">
             <nav class="py-5">
 
                 <a href="/" class="mobile-link flex items-center justify-between py-3.5 text-sm font-medium border-b border-black/[0.06]">
                     <span>Home</span>
-                    <span class="text-[#a8874b]">01</span>
                 </a>
 
                 <a href="{% url "about" %}" class="mobile-link flex items-center justify-between py-3.5 text-sm font-medium border-b border-black/[0.06]">
                     <span>About</span>
-                    <span class="text-[#a8874b]">02</span>
                 </a>
 
                 <!-- Projects Dynamic Accordion (Mobile) -->
@@ -208,7 +205,6 @@
                             Projects 
                             <i id="mobileProjectIcon" class="fa-solid fa-chevron-down text-[10px] text-[#a8874b] transition-transform duration-300"></i>
                         </span>
-                        <span class="text-[#a8874b]">03</span>
                     </button>
 
                     <!-- Dynamic Submenu -->
@@ -228,29 +224,20 @@
                     </div>
                 </div>
 
-                <a href="{% if project_obj %}{{ project_obj.get_absolute_url }}{% else %}#{% endif %}" class="mobile-link flex items-center justify-between py-3.5 text-sm font-medium border-b border-black/[0.06]">
-                    <span>Project Details</span>
-                    <span class="text-[#a8874b]">04</span>
-                </a>
-
                 <a href="{% url "amenities" %}" class="mobile-link flex items-center justify-between py-3.5 text-sm font-medium border-b border-black/[0.06]">
                     <span>Amenities</span>
-                    <span class="text-[#a8874b]">05</span>
                 </a>
 
                 <a href="{% url "location" %}" class="mobile-link flex items-center justify-between py-3.5 text-sm font-medium border-b border-black/[0.06]">
                     <span>Location</span>
-                    <span class="text-[#a8874b]">06</span>
                 </a>
 
                 <a href="{% url "gallery" %}" class="mobile-link flex items-center justify-between py-3.5 text-sm font-medium border-b border-black/[0.06]">
                     <span>Gallery</span>
-                    <span class="text-[#a8874b]">07</span>
                 </a>
 
                 <a href="{% url "contact" %}" class="mobile-link flex items-center justify-between py-3.5 text-sm font-medium">
                     <span>Contact</span>
-                    <span class="text-[#a8874b]">08</span>
                 </a>
 
                 <div class="pt-5 grid grid-cols-2 gap-3">
@@ -282,6 +269,7 @@
     const mobileMenu = document.getElementById("mobileMenu");
     const mobileLinks = document.querySelectorAll(".mobile-link");
 
+    // Header scroll background toggle
     window.addEventListener("scroll", () => {
         if (window.scrollY > 20) {
             header.classList.add("header-scrolled");
@@ -290,13 +278,18 @@
         }
     });
 
+    // Toggle Mobile Menu
     menuButton.addEventListener("click", () => {
         mobileMenu.classList.toggle("active");
         menuButton.classList.toggle("menu-open");
     });
 
+    // Close menu when clicking links (excluding accordion triggers)
     mobileLinks.forEach(link => {
-        link.addEventListener("click", () => {
+        link.addEventListener("click", (e) => {
+            // Prevent auto-closing if clicking the accordion toggle button
+            if (link.getAttribute("type") === "button") return;
+
             mobileMenu.classList.remove("active");
             menuButton.classList.remove("menu-open");
         });
