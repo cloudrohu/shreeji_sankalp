@@ -52,7 +52,7 @@ class SliderInline(BaseSettingInline):
         "image_preview",
     )
 
-    extra = 1
+    extra = 0
 
     def image_preview(self, obj):
         if obj and obj.image:
@@ -127,7 +127,7 @@ class AboutInline(BaseSettingInline):
         "right_image2_preview",
     )
 
-    extra = 1
+    extra = 0
 
     def image_preview(self, obj):
         if obj and obj.image:
@@ -186,7 +186,7 @@ class ContactPageInline(BaseSettingInline):
         "is_active",
     )
 
-    extra = 1
+    extra = 0
 
 
 class OurTeamInline(BaseSettingInline):
@@ -205,7 +205,7 @@ class OurTeamInline(BaseSettingInline):
         "image_preview",
     )
 
-    extra = 1
+    extra = 0
 
     def image_preview(self, obj):
         if obj and obj.image:
@@ -237,7 +237,7 @@ class TestimonialInline(BaseSettingInline):
         "image_preview",
     )
 
-    extra = 1
+    extra = 0
 
     def image_preview(self, obj):
         if obj and obj.image:
@@ -262,7 +262,7 @@ class WhyChooseInline(BaseSettingInline):
         "is_active",
     )
 
-    extra = 1
+    extra = 0
 
 class USPInline(BaseSettingInline):
     model = USP
@@ -275,7 +275,7 @@ class USPInline(BaseSettingInline):
         "is_active",
     )
 
-    extra = 1
+    extra = 0
 
 
 class FAQInline(BaseSettingInline):
@@ -287,7 +287,7 @@ class FAQInline(BaseSettingInline):
         "is_active",
     )
 
-    extra = 1
+    extra = 0
 
 
 class ImpactMetricInline(BaseSettingInline):
@@ -301,7 +301,7 @@ class ImpactMetricInline(BaseSettingInline):
         "is_active",
     )
 
-    extra = 1
+    extra = 0
 
 
 class GalleryInline(BaseSettingInline):
@@ -322,7 +322,7 @@ class GalleryInline(BaseSettingInline):
         "image_preview",
     )
 
-    extra = 1
+    extra = 0
 
     def image_preview(self, obj):
         if obj and obj.image:
@@ -353,7 +353,7 @@ class EnquiryInline(BaseSettingInline):
         "created_at",
     )
 
-    extra = 1
+    extra = 0
 
 
 
