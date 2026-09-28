@@ -115,8 +115,6 @@ class Slider(BaseModel):
     badge_title = models.CharField(max_length=300, blank=True, null=True)
     descriptions = models.CharField(max_length=1000, blank=True, null=True)
     image = models.ImageField(upload_to="hero/", blank=True, null=True)
-    button_text = models.CharField(max_length=100, blank=True, null=True)
-    button_link = models.URLField(blank=True, null=True)
     order = models.PositiveIntegerField(default=0, blank=True, null=True)
 
     class Meta:

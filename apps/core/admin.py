@@ -42,8 +42,6 @@ class SliderInline(BaseSettingInline):
         "descriptions",
         "image",
         "image_preview",
-        "button_text",
-        "button_link",
         "order",
         "is_active",
     )
