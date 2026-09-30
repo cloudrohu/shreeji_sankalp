@@ -125,4 +125,6 @@ def ThankYouView(request):
     return render(request, 'home/thank_you.html', get_common_context())
 
 def Developer(request):
+
+    
     return render(request, 'home/developer.html', get_common_context())

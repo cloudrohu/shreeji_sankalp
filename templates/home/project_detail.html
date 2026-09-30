@@ -842,42 +842,42 @@
             </div>
         </section>
 
-       <section id="floorplan" class="scroll-mt-24 py-6 sm:py-10">
-            <div class="rounded-2xl border border-[#e5e0d6] bg-white p-4 sm:p-8 lg:p-10">
-                <div>
-                    <p class="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#b89252] sm:text-xs">Floor Plans</p>
-                    <h2 class="mt-1.5 text-xl font-bold tracking-tight text-gray-900 sm:mt-2 sm:text-3xl">Explore Floor Plans</h2>
-                    <p class="mt-2 text-xs leading-5 text-gray-500 sm:mt-3 sm:text-sm">View detailed floor plans and explore the available configurations.</p>
-                </div>
+        <section id="floorplan" class="scroll-mt-24 py-6 sm:py-10">
+                <div class="rounded-2xl border border-[#e5e0d6] bg-white p-4 sm:p-8 lg:p-10">
+                    <div>
+                        <p class="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#b89252] sm:text-xs">Floor Plans</p>
+                        <h2 class="mt-1.5 text-xl font-bold tracking-tight text-gray-900 sm:mt-2 sm:text-3xl">Explore Floor Plans</h2>
+                        <p class="mt-2 text-xs leading-5 text-gray-500 sm:mt-3 sm:text-sm">View detailed floor plans and explore the available configurations.</p>
+                    </div>
 
-                {% if project.configurations.all %}
-                <div class="mt-6 grid gap-4 sm:mt-8 sm:grid-cols-2 lg:grid-cols-3">
-                    {% for config in project.configurations.all %}
-                    {% if config.unit_plan %}
-                    <div class="group overflow-hidden rounded-xl border border-[#e5e0d6] bg-white">
-                        <button type="button" onclick="openUnitPlan('{{ config.unit_plan.url }}')" class="relative block aspect-[4/3] w-full overflow-hidden bg-[#f8f6f1]">
-                            <img src="{{ config.unit_plan.url }}" alt="{{ config.bhk_type }} Floor Plan" class="h-full w-full object-contain p-3 transition duration-500 group-hover:scale-[1.03]">
-                            <span class="absolute bottom-3 right-3 rounded-lg bg-black/70 px-3 py-1.5 text-[10px] font-semibold text-white backdrop-blur-sm sm:text-xs">View Plan</span>
-                        </button>
+                    {% if project.configurations.all %}
+                    <div class="mt-6 grid gap-4 sm:mt-8 sm:grid-cols-2 lg:grid-cols-3">
+                        {% for config in project.configurations.all %}
+                        {% if config.unit_plan %}
+                        <div class="group overflow-hidden rounded-xl border border-[#e5e0d6] bg-white">
+                            <button type="button" onclick="openUnitPlan('{{ config.unit_plan.url }}')" class="relative block aspect-[4/3] w-full overflow-hidden bg-[#f8f6f1]">
+                                <img src="{{ config.unit_plan.url }}" alt="{{ config.bhk_type }} Floor Plan" class="h-full w-full object-contain p-3 transition duration-500 group-hover:scale-[1.03]">
+                                <span class="absolute bottom-3 right-3 rounded-lg bg-black/70 px-3 py-1.5 text-[10px] font-semibold text-white backdrop-blur-sm sm:text-xs">View Plan</span>
+                            </button>
 
-                        <div class="flex items-center justify-between gap-3 border-t border-[#e5e0d6] px-4 py-3.5">
-                            <div>
-                                <p class="text-sm font-semibold text-gray-900">{{ config.bhk_type }}</p>
-                                <p class="mt-0.5 text-[10px] text-gray-400 sm:text-xs">{{ config.area_sqft }} Sq.Yd</p>
+                            <div class="flex items-center justify-between gap-3 border-t border-[#e5e0d6] px-4 py-3.5">
+                                <div>
+                                    <p class="text-sm font-semibold text-gray-900">{{ config.bhk_type }}</p>
+                                    <p class="mt-0.5 text-[10px] text-gray-400 sm:text-xs">{{ config.area_sqft }} Sq.Yd</p>
+                                </div>
+                                <p class="text-xs font-semibold text-[#9a7139]">₹ {{ config.formatted_price }}</p>
                             </div>
-                            <p class="text-xs font-semibold text-[#9a7139]">₹ {{ config.formatted_price }}</p>
                         </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="mt-6 rounded-xl border border-dashed border-[#dcd5c8] p-8 text-center sm:mt-8">
+                        <p class="text-xs text-gray-500 sm:text-sm">Floor plans will be updated soon.</p>
                     </div>
                     {% endif %}
-                    {% endfor %}
                 </div>
-                {% else %}
-                <div class="mt-6 rounded-xl border border-dashed border-[#dcd5c8] p-8 text-center sm:mt-8">
-                    <p class="text-xs text-gray-500 sm:text-sm">Floor plans will be updated soon.</p>
-                </div>
-                {% endif %}
-            </div>
-       </section>
+        </section>
 
         <section id="emi_calculator" class="scroll-mt-24 py-6 sm:py-10">
             <div class="rounded-2xl border border-[#e5e0d6] bg-white p-4 sm:p-8 lg:p-10">
@@ -980,53 +980,98 @@
             </div>
         </section>
 
-        <section id="about_developer" class="scroll-mt-24 py-6 sm:py-10">
-            <div class="rounded-2xl border border-[#e5e0d6] bg-white p-4 sm:p-8 lg:p-10">
-                <div>
-                    <p class="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#b89252] sm:text-xs">About Developer</p>
-                    <h2 class="mt-1.5 text-xl font-bold tracking-tight text-gray-900 sm:mt-2 sm:text-3xl">Meet The Developer</h2>
-                    <p class="mt-2 text-xs leading-5 text-gray-500 sm:mt-3 sm:text-sm">Learn more about the developer behind {{ project.project_name }}.</p>
-                </div>
+        <section id="about_developer" class="scroll-mt-24 w-full bg-white p-3 sm:p-5 lg:p-8">
+            <div class="mx-auto max-w-7xl space-y-6">
 
-                <div class="mt-6 grid gap-6 sm:mt-8 lg:grid-cols-[220px_1fr] lg:items-center lg:gap-10">
-                    <div class="flex justify-center lg:justify-start">
-                        <div class="flex h-32 w-32 items-center justify-center overflow-hidden rounded-2xl border border-[#e5e0d6] bg-[#f8f6f1] sm:h-40 sm:w-40">
+                <!-- Top Section -->
+                <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
+
+                    <!-- Developer Information -->
+                    <div class="flex flex-col gap-5 rounded-xl border border-gray-200 p-4 sm:flex-row sm:items-center sm:p-6">
+
+                        <!-- Developer Logo -->
+                        <div class="mx-auto h-40 w-40 shrink-0 sm:mx-0 sm:h-48 sm:w-48">
                             {% if project.developer.logo %}
-                            <img src="{{ project.developer.logo.url }}" alt="{{ project.developer }}" class="h-full rounded-3xl w-full object-contain p-4">
+                            <img src="{{ project.developer.logo.url }}" alt="Developer Logo" class="h-full w-full rounded-xl object-contain">
                             {% else %}
-                            <span class="text-3xl font-bold text-[#b89252]">{{ project.developer|slice:":1" }}</span>
+                            <div class="flex h-full w-full items-center justify-center rounded-xl bg-gray-100">
+                                <i class="fa-solid fa-building text-5xl text-gray-400"></i>
+                            </div>
                             {% endif %}
+                        </div>
+
+                        <!-- Developer Details -->
+                        <div class="min-w-0 flex-1 space-y-4 text-center sm:text-left">
+                            <span class="block text-xs font-semibold uppercase tracking-[0.25em] text-[#B89252]">
+                                About Developer
+                            </span>
+
+                            <h2 class="text-2xl font-bold text-gray-900 sm:text-3xl">
+                                {{ project.developer }}
+                            </h2>
+
+                            <p class="text-sm leading-6 text-gray-500">
+                                Learn more about the developer behind
+                                {{ project.name }}.
+                            </p>
                         </div>
                     </div>
 
-                    <div>
-                        <h3 class="text-lg font-bold text-gray-900 sm:text-2xl">{{ project.developer }}</h3>
+                    <!-- Statistics and Highlights -->
+                    <div class="flex flex-col gap-5">
 
-                        {% if project.developer.about_developer %}
-                        <div class="mt-3 text-xs leading-6 text-gray-600 sm:text-sm sm:leading-7">
-                            {{ project.developer.about_developer|safe }}
+                        <!-- Statistics -->
+                        <div class="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+
+                                {% for rs in project.developer.developer_impact_metrics.all %}
+                                <div class="flex min-h-24 flex-col items-center justify-center rounded-xl border border-gray-200 p-3 text-center">
+                                    <i class="{{rs.icon}} text-xl text-[#B89252]"></i>
+                                    <h3 class="mt-2 text-xl font-bold text-gray-900">{{rs.value}}</h3>
+                                    <p class="text-xs text-gray-500">{{rs.title}}</p>
+                                </div>
+                                {% endfor %}
+
                         </div>
-                        {% else %}
-                        <p class="mt-3 text-xs leading-6 text-gray-500 sm:text-sm sm:leading-7">
-                            {{ project.developer }} is the developer behind {{ project.project_name }}.
-                        </p>
-                        {% endif %}
 
-                        <div class="mt-5 flex flex-wrap gap-3">
-                            {% if project.developer.website %}
-                            <a href="{{ project.developer.website }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center rounded-lg bg-[#b89252] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#9a7139]">
-                                Visit Website →
-                            </a>
-                            {% endif %}
-
-                           <a href="{% url "developer" %}">
-                                <span class="inline-flex items-center rounded-lg border border-[#e5e0d6] px-4 py-2 text-xs font-medium text-gray-600">
-                                    Know More →
-                                </span>
-                            </a> 
+                        <!-- Highlight Box -->
+                        <div class="flex flex-1 flex-col justify-center rounded-xl border border-gray-200 p-5 sm:p-6">
+                            <h3 class="text-lg font-bold text-gray-900">
+                                Building Trust, Creating Value
+                            </h3>
+                            <p class="mt-2 text-sm leading-6 text-gray-500">
+                                Discover the developer's vision, commitment
+                                to quality and approach to creating modern
+                                residential spaces.
+                            </p>
                         </div>
                     </div>
                 </div>
+
+                <!-- About Description -->
+                <div class="relative rounded-xl border border-gray-200 p-5 sm:p-8 lg:p-10">
+                    <div class="max-w-4xl space-y-4">
+                        <span class="text-xs font-semibold uppercase tracking-[0.25em] text-[#B89252]">
+                            Our Story
+                        </span>
+
+                        <h2 class="text-2xl font-bold text-gray-900 sm:text-3xl">
+                            About {{ project.developer.name }}
+                        </h2>
+
+                        <p class="text-sm leading-7 text-gray-600 sm:text-base">
+                            {{ project.developer.about_developer}}
+                        </p>
+                    </div>
+
+                    <!-- Button -->
+                    <div class="mt-6 flex justify-start sm:justify-end">
+                        <a href="{% url "developer" %}" class="inline-flex items-center justify-center gap-2 rounded-lg bg-[#B89252] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#9c783c]">
+                            Know More
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
             </div>
         </section>
         

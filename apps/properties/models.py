@@ -396,6 +396,27 @@ class Developer(BaseModel):
         refresh_calling_status(self)
 
 
+class DeveloperImpactMetric(BaseModel):
+
+    setting = models.ForeignKey(Developer,on_delete=models.CASCADE,related_name="developer_impact_metrics",blank=True,null=True,verbose_name="Developer",)
+
+    title = models.CharField(max_length=255,blank=True,null=True,verbose_name="Metric Title",help_text='Example: "Completed Projects"',)
+
+    value = models.CharField(max_length=100,blank=True,null=True,verbose_name="Metric Value",help_text='Example: "25+", "10,000+" or "95%"',)
+
+    icon = models.CharField(max_length=500,blank=True,null=True,verbose_name="Font Awesome Icon",help_text='Example: "fa-solid fa-building"',)
+
+    order = models.PositiveIntegerField(default=0,blank=True,null=True,verbose_name="Display Order",)
+
+    class Meta:
+        ordering = ["order", "-created_at"]
+        verbose_name = "Impact Metric"
+        verbose_name_plural = "Developer Impact Metrics"
+
+    def __str__(self):
+        return f"{self.title or 'Metric'}: {self.value or 'N/A'}"
+
+
 
 class Architects(BaseModel):
 

@@ -39,6 +39,7 @@ from .models import (
     Visit,
     Followup,
     Meeting,
+    DeveloperImpactMetric
 )
 
 NO_IMAGE = "https://via.placeholder.com/70x70?text=No+Image"
@@ -126,14 +127,6 @@ class LogoPreviewMixin:
     logo_preview.short_description = "Logo"
 
 
-# =====================================================
-# BASE ADMIN
-# =====================================================
-
-# =====================================================
-# BASE CRM INLINE
-# =====================================================
-
 class BaseCRMInline(admin.TabularInline):
     extra = 1
 
@@ -152,10 +145,6 @@ class BaseCRMInline(admin.TabularInline):
 
         return tuple(exclude)
 
-
-# =====================================================
-# BASE CRM ADMIN
-# =====================================================
 
 class BaseCRMAdmin(ImportExportModelAdmin):
 
@@ -215,11 +204,6 @@ class BaseCRMAdmin(ImportExportModelAdmin):
         return "-"
 
     logo_preview.short_description = "Logo"
-
-# =====================================================
-# INLINE
-# =====================================================
-
 
 class CommentDeveloperInline(BaseCRMInline):
     model = Comment
@@ -436,6 +420,24 @@ class FAQInline(BaseCRMInline):
     model = ProjectFAQ
     extra = 1
 
+class DeveloperImpactMetricInline(admin.TabularInline):
+    model = DeveloperImpactMetric
+    fk_name = "setting"
+
+    min_num = 0
+    can_delete = True
+
+    fields = (
+        "title",
+        "value",
+        "icon",
+        "order",
+    )
+
+    ordering = ("order",)
+    show_change_link = False
+
+
 
 class ContactPersonInline(BaseCRMInline):
     model = ProjectContactPerson
@@ -454,9 +456,6 @@ class EnquiryInline(BaseCRMInline):
         "contacted_on",
     )
 
-# =====================================================
-# DEVELOPER ADMIN ImportExportModelAdmin
-# =====================================================
 @admin.register(Developer)
 class DeveloperAdmin(
     BaseAdmin,
@@ -525,6 +524,7 @@ class DeveloperAdmin(
         VoiceDeveloperInline,
         VisitDeveloperInline,
         FollowupDeveloperInline,
+        DeveloperImpactMetricInline,
         MeetingDeveloperInline,
     ]
 
@@ -733,9 +733,8 @@ class DeveloperAdmin(
             request,
             obj,
         )
-# =====================================================
-# ARCHITECT ADMIN ImportExportModelAdmin,
-# =====================================================
+
+
 @admin.register(Architects)
 class ArchitectAdmin(
     BaseAdmin,
@@ -1697,6 +1696,7 @@ class MeetingAdmin(
 # =====================================================
 # BASE ADMIN
 # =====================================================
+
 
 
 
