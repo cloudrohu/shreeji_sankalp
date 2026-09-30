@@ -563,6 +563,7 @@ class DeveloperAdmin(
             "fields": (
                 "keywords",
                 "about_developer",
+                "read_more",
                 "note",
             )
         }),
