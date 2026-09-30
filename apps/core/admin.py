@@ -470,6 +470,7 @@ class SettingAdmin(admin.ModelAdmin):
             {
                 "fields": (
                     "googletagmanager",
+                    "google_label",
                     "smtpserver",
                     "smtpemail",
                     "smtppassword",
