@@ -1,5 +1,9 @@
 {% extends 'home/base.html' %}
 
+{% block meta_robots %}
+<meta name="robots" content="noindex, nofollow">
+{% endblock meta_robots %}
+
 {% block content %}
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Cinzel:wght@600;700;800&display=swap');
@@ -15,19 +19,19 @@
     --th-muted: #8492a6;
   }
 
-    .th-wrapper {
-      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-      background: var(--th-bg);
-      color: #ffffff;
-      min-height: calc(100vh - 100px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 130px 24px 70px; /* Upar 130px padding header se overlap hone se bachaegi */
-      box-sizing: border-box;
-      position: relative;
-      overflow: hidden;
-    }
+  .th-wrapper {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    background: var(--th-bg);
+    color: #ffffff;
+    min-height: calc(100vh - 100px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 130px 24px 70px; /* Upar 130px padding header se overlap hone se bachaegi */
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+  }
 
   .th-ambient-glow {
     position: absolute;
