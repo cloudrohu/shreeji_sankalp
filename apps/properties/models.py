@@ -704,7 +704,7 @@ class Project(MPTTModel, BaseModel):
     BHK_CHOICES = (
         ('1 BHK', '1 BHK'), ('2 BHK', '2 BHK'), ('3 BHK', '3 BHK'), ('4 BHK', '4 BHK'),('5 BHK', '5 BHK'), 
         ('6 BHK', '6 BHK'), ('7 BHK', '7 BHK'), ('8 BHK', '8 BHK'), ('9 BHK', '9 BHK'),
-        ('10 BHK', '10 BHK'), ('10+ BHK', '10+ BHK'),
+        ('10 BHK', '10 BHK'), ('10+ BHK', '10+ BHK'), ('Shop', 'Shop'),
     )
 
     CONSTRUCTION_STATUS_CHOICES = (
