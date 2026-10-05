@@ -676,134 +676,132 @@
 
   <main class="loc-main">
 
-    <!-- 2. 360° AERIAL HORIZON SPHERE (WITH 3D TILT & DAY/NIGHT FILTER) -->
-        {% if settings_obj.virtual_360_url %}
-            <div class="loc-block-header">
-                <div>
-                    <h2>{{ settings_obj.virtual_360_title|default:"360° Airspace Panorama" }}</h2>
-                    <p>Interactive drone sphere & panoramic aerial view</p>
-                </div>
+      <!-- 2. 360° AERIAL HORIZON SPHERE (WITH 3D TILT & DAY/NIGHT FILTER) -->
+      {% if settings_obj.virtual_360_url %}
+          <div class="loc-block-header">
+              <div>
+                  <h2>{{ settings_obj.virtual_360_title|default:"360° Airspace Panorama" }}</h2>
+                  <p>Interactive drone sphere & panoramic aerial view</p>
+              </div>
 
-                <!-- Atmosphere Lighting Controller -->
-                <div class="lighting-controls">
-                    <button class="light-shift-btn active" onclick="setAtmosphere('noon', this)">Day</button>
-                    <button class="light-shift-btn" onclick="setAtmosphere('sunset', this)">Golden Hour</button>
-                    <button class="light-shift-btn" onclick="setAtmosphere('night', this)">Night Sky</button>
-                </div>
-            </div>
+              <!-- Atmosphere Lighting Controller -->
+              <div class="lighting-controls">
+                  <button class="light-shift-btn active" onclick="setAtmosphere('noon', this)">Day</button>
+                  <button class="light-shift-btn" onclick="setAtmosphere('sunset', this)">Golden Hour</button>
+                  <button class="light-shift-btn" onclick="setAtmosphere('night', this)">Night Sky</button>
+              </div>
+          </div>
 
-            <div class="lux-interactive-box tilt-element">
-                <div class="lux-card-inner ambient-noon" id="aerialViewportContainer">
-                    <div class="lux-pill-indicator">
-                    <svg class="rotate-symbol" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
-                        <path d="M2 12h20"></path>
-                    </svg>
-                    <span>Drag 360° View</span>
-                    </div>
+          <div class="lux-interactive-box tilt-element">
+              <div class="lux-card-inner ambient-noon" id="aerialViewportContainer">
+                  <div class="lux-pill-indicator">
+                  <svg class="rotate-symbol" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                      <path d="M2 12h20"></path>
+                  </svg>
+                  <span>Drag 360° View</span>
+                  </div>
 
-                    <div class="lux-viewport">
-                    <iframe 
-                        src="{{ settings_obj.virtual_360_url }}"
-                        allowfullscreen="" 
-                        loading="lazy">
-                    </iframe>
-                    </div>
-                </div>
-            </div>
-        {% endif %}
+                  <div class="lux-viewport">
+                  <iframe 
+                      src="{{ settings_obj.virtual_360_url }}"
+                      allowfullscreen="" 
+                      loading="lazy">
+                  </iframe>
+                  </div>
+              </div>
+          </div>
+      {% endif %}
 
    
-        <!-- 3. CONNECTIVITY RADAR CONSOLE (WITH RADAR-TO-LIST SYNC & COMMUTE SWITCHER) -->
-        <div class="loc-block-header">
-        <div>
-            <h2>Transit Proximity Telemetry</h2>
-            <p>Live calculated transit matrix with real-time route analysis</p>
-        </div>
-        </div>
+      <div class="loc-block-header">
+      <div>
+          <h2>Transit Proximity Telemetry</h2>
+          <p>Live calculated transit matrix with real-time route analysis</p>
+      </div>
+      </div>
 
-        <div class="lux-radar-console">
-        
-        <!-- Left: Real-Time Canvas Radar & Mode Picker -->
-        <div class="radar-hub-pane">
-            <canvas id="dynamicRadar" width="270" height="270"></canvas>
+      <div class="lux-radar-console">
+      
+      <!-- Left: Real-Time Canvas Radar & Mode Picker -->
+      <div class="radar-hub-pane">
+          <canvas id="dynamicRadar" width="270" height="270"></canvas>
 
-            <!-- Drive / Transit / Walk Switcher -->
-            <div class="mode-switch-bar">
-            <button class="mode-btn active" data-mode="drive">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.5 2.8C2.1 11.2 2 11.6 2 12v4c0 .6.4 1 1 1h2"></path><circle cx="7" cy="17" r="2"></circle><circle cx="17" cy="17" r="2"></circle></svg>
-                Drive
-            </button>
-            <button class="mode-btn" data-mode="metro">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="16" rx="2"></rect><path d="M4 11h16"></path><path d="M12 3v8"></path></svg>
-                Metro
-            </button>
-            <button class="mode-btn" data-mode="walk">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m13 4 2 2-3 4-2-2-4 4"></path><circle cx="14" cy="4" r="1"></circle><path d="m7 21 3-6 4 2 2 4"></path></svg>
-                Walk
-            </button>
-            </div>
+          <!-- Drive / Transit / Walk Switcher -->
+          <div class="mode-switch-bar">
+          <button class="mode-btn active" data-mode="drive">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.5 2.8C2.1 11.2 2 11.6 2 12v4c0 .6.4 1 1 1h2"></path><circle cx="7" cy="17" r="2"></circle><circle cx="17" cy="17" r="2"></circle></svg>
+              Drive
+          </button>
+          <button class="mode-btn" data-mode="metro">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="16" rx="2"></rect><path d="M4 11h16"></path><path d="M12 3v8"></path></svg>
+              Metro
+          </button>
+          <button class="mode-btn" data-mode="walk">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m13 4 2 2-3 4-2-2-4 4"></path><circle cx="14" cy="4" r="1"></circle><path d="m7 21 3-6 4 2 2 4"></path></svg>
+              Walk
+          </button>
+          </div>
 
-            <!-- Live Telemetry Readout -->
-            {% with first_item=connectivities.first %}
-            <div class="route-readout">
-            <div class="route-readout-top">
-                <span class="route-dest-name" id="routeDestName">{{ first_item.title|default:"Select Location" }}</span>
-                <span class="route-dest-time" id="routeDestTime">{{ first_item.drive_time|default:"-- Mins" }}</span>
-            </div>
-            <div class="route-bar-bg">
-                <div class="route-bar-fill" id="routeBarFill" style="width: {{ first_item.progress_percent|default:'25' }}%;"></div>
-            </div>
-            </div>
-            {% endwith %}
-        </div>
+          <!-- Live Telemetry Readout -->
+          {% with first_item=connectivities.first %}
+          <div class="route-readout">
+          <div class="route-readout-top">
+              <span class="route-dest-name" id="routeDestName">{{ first_item.title|default:"Select Location" }}</span>
+              <span class="route-dest-time" id="routeDestTime">{{ first_item.drive_time|default:"-- Mins" }}</span>
+          </div>
+          <div class="route-bar-bg">
+              <div class="route-bar-fill" id="routeBarFill" style="width: {{ first_item.progress_percent|default:'25' }}%;"></div>
+          </div>
+          </div>
+          {% endwith %}
+      </div>
 
-        <!-- Right: Dynamic Transit Stream -->
-        <div class="transit-stream-list" id="transitStreamList">
-            {% for item in connectivities %}
-            <div class="transit-row {% if forloop.first %}active{% endif %}" 
-                data-index="{{ forloop.counter0 }}" 
-                data-name="{{ item.title }}" 
-                data-drive="{{ item.drive_time }}" 
-                data-metro="{{ item.metro_time }}" 
-                data-walk="{{ item.walk_time }}" 
-                data-pct="{{ item.progress_percent }}"
-                data-radar-r="{{ item.radar_radius|default:'50' }}"
-                data-radar-theta="{{ item.radar_angle|default:'1.5' }}">
-            <div class="transit-info-group">
-                <div class="transit-bullet-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19L8 5"></path><path d="M20 19l-4-14"></path><path d="M12 8v2"></path><path d="M12 14v2"></path></svg>
-                </div>
-                <div>
-                <div class="transit-row-title">{{ item.title }} {% if item.km %}<small style="color: var(--lux-gold); font-size: 0.8rem; margin-left: 6px;">({{ item.km }})</small>{% endif %}</div>
-                <div class="transit-row-sub">{{ item.subtitle|default:"Prime Connectivity Hub" }}</div>
-                </div>
-            </div>
-            <div class="transit-time-tag">{{ item.drive_time }}</div>
-            </div>
-            {% empty %}
-            <p style="text-align: center; color: var(--lux-muted); padding: 40px 0;">No connectivity data added yet.</p>
-            {% endfor %}
-        </div>
+      <!-- Right: Dynamic Transit Stream -->
+      <div class="transit-stream-list" id="transitStreamList">
+          {% for item in connectivities %}
+          <div class="transit-row {% if forloop.first %}active{% endif %}" 
+              data-index="{{ forloop.counter0 }}" 
+              data-name="{{ item.title }}" 
+              data-drive="{{ item.drive_time }}" 
+              data-metro="{{ item.metro_time }}" 
+              data-walk="{{ item.walk_time }}" 
+              data-pct="{{ item.progress_percent }}"
+              data-radar-r="{{ item.radar_radius|default:'50' }}"
+              data-radar-theta="{{ item.radar_angle|default:'1.5' }}">
+          <div class="transit-info-group">
+              <div class="transit-bullet-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19L8 5"></path><path d="M20 19l-4-14"></path><path d="M12 8v2"></path><path d="M12 14v2"></path></svg>
+              </div>
+              <div>
+              <div class="transit-row-title">{{ item.title }} {% if item.km %}<small style="color: var(--lux-gold); font-size: 0.8rem; margin-left: 6px;">({{ item.km }})</small>{% endif %}</div>
+              <div class="transit-row-sub">{{ item.subtitle|default:"Prime Connectivity Hub" }}</div>
+              </div>
+          </div>
+          <div class="transit-time-tag">{{ item.drive_time }}</div>
+          </div>
+          {% empty %}
+          <p style="text-align: center; color: var(--lux-muted); padding: 40px 0;">No connectivity data added yet.</p>
+          {% endfor %}
+      </div>
 
-        </div>
+      </div>
 
-        <!-- 4. GOOGLE MAP SECTION (WITH 3D TILT EFFECT) -->
-        <div class="loc-block-header">
+      <div class="loc-block-header">
         <div>
             <h2>Cartographic Precision</h2>
             <p>Live GPS satellite navigation & neighborhood contours</p>
         </div>
-        </div>
+      </div>
 
-        <div class="lux-interactive-box tilt-element">
+      <div class="lux-interactive-box tilt-element">
         <div class="lux-card-inner">
             <div class="lux-viewport">
             {{settings_obj.google_map|safe}}
             </div>
         </div>
-        </div>
+      </div>
 
   </main>
   
