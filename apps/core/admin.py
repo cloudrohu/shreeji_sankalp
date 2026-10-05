@@ -450,6 +450,8 @@ class SettingAdmin(admin.ModelAdmin):
                     "google_map",
                     "virtual_360_url",
                     "virtual_360_title",
+                    "footer_link_text",
+
 
                 )
             },
