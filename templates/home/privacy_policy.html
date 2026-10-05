@@ -2,7 +2,216 @@
 
 {% block content %}
 
-<section class="py-8 sm:py-12">
+<style>
+    .privacy-policy-content {
+        color: #475569;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 15px;
+        line-height: 1.9;
+        overflow-wrap: anywhere;
+        word-break: normal;
+    }
+
+    /* Main headings */
+    .privacy-policy-content h1 {
+        font-size: clamp(28px, 4vw, 40px);
+        font-weight: 800;
+        color: #172033;
+        line-height: 1.25;
+        margin: 40px 0 20px;
+        letter-spacing: -0.8px;
+    }
+
+    .privacy-policy-content h2 {
+        font-size: clamp(22px, 3vw, 30px);
+        font-weight: 750;
+        color: #172033;
+        line-height: 1.35;
+        margin: 38px 0 16px;
+        padding-left: 16px;
+        border-left: 4px solid #c89b2c;
+    }
+
+    .privacy-policy-content h3 {
+        font-size: 20px;
+        font-weight: 700;
+        color: #273449;
+        margin: 28px 0 12px;
+        line-height: 1.5;
+    }
+
+    .privacy-policy-content h4,
+    .privacy-policy-content h5,
+    .privacy-policy-content h6 {
+        color: #273449;
+        font-weight: 700;
+        margin: 24px 0 10px;
+    }
+
+    /* Paragraphs */
+    .privacy-policy-content p {
+        margin: 0 0 18px;
+        color: #596579;
+    }
+
+    .privacy-policy-content strong,
+    .privacy-policy-content b {
+        color: #263348;
+        font-weight: 700;
+    }
+
+    /* Lists */
+    .privacy-policy-content ul,
+    .privacy-policy-content ol {
+        margin: 18px 0 24px;
+        padding-left: 28px;
+        color: #596579;
+    }
+
+    .privacy-policy-content ul {
+        list-style-type: disc;
+    }
+
+    .privacy-policy-content ol {
+        list-style-type: decimal;
+    }
+
+    .privacy-policy-content li {
+        padding-left: 5px;
+        margin-bottom: 10px;
+    }
+
+    .privacy-policy-content li::marker {
+        color: #c89b2c;
+        font-weight: 700;
+    }
+
+    .privacy-policy-content li > p {
+        margin-bottom: 8px;
+    }
+
+    /* Links */
+    .privacy-policy-content a {
+        color: #a77b13;
+        text-decoration: underline;
+        text-underline-offset: 4px;
+        overflow-wrap: anywhere;
+        transition: color .2s ease;
+    }
+
+    .privacy-policy-content a:hover {
+        color: #78570b;
+    }
+
+    /* Images */
+    .privacy-policy-content img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        border-radius: 14px;
+        margin: 24px auto;
+        box-shadow: 0 8px 28px rgba(15, 23, 42, .09);
+    }
+
+    /* Tables */
+    .privacy-policy-content table {
+        width: 100%;
+        max-width: 100%;
+        border-collapse: collapse;
+        margin: 24px 0;
+        font-size: 14px;
+        overflow-wrap: anywhere;
+    }
+
+    .privacy-policy-content th {
+        background: #f5f1e7;
+        color: #273449;
+        font-weight: 700;
+        text-align: left;
+    }
+
+    .privacy-policy-content th,
+    .privacy-policy-content td {
+        border: 1px solid #e5e7eb;
+        padding: 12px 15px;
+        vertical-align: top;
+    }
+
+    .privacy-policy-content tr:nth-child(even) td {
+        background: #fafaf9;
+    }
+
+    /* Blockquote */
+    .privacy-policy-content blockquote {
+        margin: 28px 0;
+        padding: 22px 24px;
+        border-left: 4px solid #c89b2c;
+        border-radius: 0 12px 12px 0;
+        background: #faf7ef;
+        color: #475569;
+        font-size: 16px;
+        font-style: italic;
+    }
+
+    .privacy-policy-content blockquote p:last-child {
+        margin-bottom: 0;
+    }
+
+    /* Horizontal line */
+    .privacy-policy-content hr {
+        border: 0;
+        border-top: 1px solid #e5e7eb;
+        margin: 32px 0;
+    }
+
+    /* CKEditor alignment */
+    .privacy-policy-content .text-align-center,
+    .privacy-policy-content [style*="text-align: center"] {
+        text-align: center;
+    }
+
+    .privacy-policy-content [style*="text-align: right"] {
+        text-align: right;
+    }
+
+    .privacy-policy-content [style*="text-align: justify"] {
+        text-align: justify;
+    }
+
+    /* Mobile */
+    @media (max-width: 640px) {
+        .privacy-policy-content {
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .privacy-policy-content h1 {
+            margin-top: 28px;
+        }
+
+        .privacy-policy-content h2 {
+            margin-top: 30px;
+            padding-left: 12px;
+        }
+
+        .privacy-policy-content h3 {
+            font-size: 18px;
+        }
+
+        .privacy-policy-content table {
+            display: block;
+            overflow-x: auto;
+        }
+
+        .privacy-policy-content th,
+        .privacy-policy-content td {
+            padding: 10px;
+            min-width: 110px;
+        }
+    }
+</style>
+
+<section class="py-8 sm:py-12 mt-14">
     <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <div class="rounded-2xl border border-[#e5e0d6] bg-white p-5 sm:p-8 lg:p-10">
             <div class="border-b border-[#e5e0d6] pb-6 sm:pb-8">
@@ -12,7 +221,7 @@
                 </h1>
             </div>
 
-            <div class="prose prose-sm mt-6 max-w-none text-gray-600 sm:prose-base sm:mt-8">
+            <div class="privacy-policy-content prose prose-sm mt-6 max-w-none text-gray-600 sm:prose-base sm:mt-8">
                 {{ settings_obj.privacy_policy_content|safe }}
             </div>
         </div>

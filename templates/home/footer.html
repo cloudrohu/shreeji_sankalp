@@ -17,7 +17,11 @@
       <div class="flex flex-col truncate">
         <div class="flex items-center gap-1.5">
           <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-          <span class="text-[10px] font-semibold uppercase tracking-wider text-amber-400/90">3D Virtual Tour</span>
+          {% if settings_obj.footer_link_text %}
+            <span class="text-[10px] font-semibold uppercase tracking-wider text-amber-400/90">{{ settings_obj.footer_link_text }}</span>
+          {% else %}
+            <span class="text-[10px] font-semibold uppercase tracking-wider text-amber-400/90">3D Virtual Tour</span>
+          {% endif %}
         </div>
         <span class="text-xs font-bold text-slate-100 truncate group-hover:text-amber-300 transition-colors">
           {{project_obj.project_name}}
