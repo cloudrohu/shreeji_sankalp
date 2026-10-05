@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>404 - Page Not Found</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        body {
+            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont,
+                         "Segoe UI", sans-serif;
+        }
+
+        .float {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .float-delay {
+            animation: float 5s ease-in-out infinite;
+            animation-delay: 1s;
+        }
+
+        .bounce-soft {
+            animation: bounceSoft 2s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        @keyframes bounceSoft {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-7px);
+            }
+        }
+
+        .glass {
+            background: rgba(255,255,255,0.72);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+
+        .shadow-premium {
+            box-shadow:
+                0 25px 70px rgba(0,0,0,0.08),
+                0 5px 20px rgba(0,0,0,0.04);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-[#f7f4ef] text-[#29251f]">
+
+    <!-- Decorative Background -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+
+        <div class="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-[#d8c4aa]/30 blur-3xl">
+        </div>
+
+        <div class="absolute top-1/2 -right-32 w-96 h-96 rounded-full bg-[#e6d7c4]/40 blur-3xl">
+        </div>
+
+        <div class="absolute bottom-0 left-1/3 w-80 h-80 rounded-full bg-[#c9b79f]/20 blur-3xl">
+        </div>
+
+    </div>
+
+
+    <!-- Main -->
+    <main class="relative min-h-screen flex items-center justify-center px-5 py-12">
+
+        <div class="w-full max-w-6xl mx-auto">
+
+            <!-- Card -->
+            <div class="glass shadow-premium rounded-[2rem] border border-white/70 overflow-hidden">
+
+                <div class="grid lg:grid-cols-2 items-center">
+
+                    <!-- LEFT CONTENT -->
+                    <div class="p-8 sm:p-12 lg:p-16 text-center lg:text-left">
+
+                        <!-- Small Badge -->
+                        <div class="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full bg-[#29251f] text-white text-xs sm:text-sm font-semibold">
+
+                            <span class="w-2 h-2 bg-green-400 rounded-full"></span>
+
+                            Looks like you're lost
+                        </div>
+
+
+                        <!-- 404 -->
+                        <div class="relative inline-block">
+
+                            <h1 class="text-[110px] sm:text-[150px] lg:text-[175px] leading-none font-black tracking-[-0.08em] text-[#29251f]">
+
+                                404
+
+                            </h1>
+
+                            <!-- Funny Eye -->
+                            <div class="absolute top-[32%] left-[25%] flex gap-2">
+
+                                <span class="w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-[#d19a55] animate-pulse">
+                                </span>
+
+                                <span class="w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-[#d19a55] animate-pulse">
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Heading -->
+                        <h2 class="mt-5 text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight">
+
+                            Oops! You Took a
+                            <span class="text-[#a47745]">
+                                Wrong Turn.
+                            </span>
+
+                        </h2>
+
+
+                        <!-- Description -->
+                        <p class="mt-5 max-w-xl mx-auto lg:mx-0 text-gray-600 text-base sm:text-lg leading-relaxed">
+
+                            The page you're looking for has disappeared,
+                            gone on vacation, or simply decided to play
+                            hide-and-seek.
+
+                        </p>
+
+
+                        <!-- Funny line -->
+                        <p class="mt-3 text-sm font-medium text-gray-500">
+
+                            Don't worry...
+                            <span class="text-[#a47745]">
+                                Even Google gets lost sometimes. 😎
+                            </span>
+
+                        </p>
+
+
+                        <!-- Buttons -->
+                        <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+
+                            <a href="/" class="group inline-flex items-center justify-center gap-3 px-7 py-4 rounded-xl bg-[#29251f] text-white font-semibold transition-all duration-300 hover:bg-[#a47745] hover:-translate-y-1 shadow-lg">
+
+                                <i class="fa-solid fa-house"></i>
+
+                                Back to Homepage
+
+                                <i class="fa-solid fa-arrow-right transition-transform group-hover:translate-x-1">
+                                </i>
+
+                            </a>
+
+
+                            <button onclick="history.back()" class="inline-flex items-center justify-center gap-3 px-7 py-4 rounded-xl border border-gray-300 bg-white/70 text-[#29251f] font-semibold transition-all duration-300 hover:bg-white hover:-translate-y-1">
+
+                                <i class="fa-solid fa-arrow-left"></i>
+
+                                Go Back
+
+                            </button>
+
+                        </div>
+
+
+                        <!-- Search -->
+                        <div class="mt-8 max-w-md mx-auto lg:mx-0">
+
+                            <div class="flex items-center bg-white border border-gray-200 rounded-xl p-1.5 shadow-sm">
+
+                                <i class="fa-solid fa-magnifying-glass text-gray-400 ml-3">
+                                </i>
+
+                                <input type="text" id="searchInput" placeholder="Search for something..." class="flex-1 px-3 py-3 outline-none text-sm bg-transparent">
+
+                                <button onclick="searchSite()" class="px-5 py-3 rounded-lg bg-[#a47745] text-white font-semibold text-sm hover:bg-[#29251f] transition">
+
+                                    Search
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- RIGHT ILLUSTRATION -->
+                    <div class="relative min-h-[420px] lg:min-h-[620px] flex items-center justify-center bg-[#eee7dd]">
+
+                        <!-- Floating shapes -->
+
+                        <div class="absolute top-14 left-10 w-12 h-12 rounded-2xl bg-white shadow-lg flex items-center justify-center text-[#a47745] float">
+
+                            <i class="fa-solid fa-location-dot"></i>
+
+                        </div>
+
+
+                        <div class="absolute top-24 right-12 w-10 h-10 rounded-full bg-[#29251f] text-white flex items-center justify-center float-delay">
+
+                            <i class="fa-solid fa-question text-sm"></i>
+
+                        </div>
+
+
+                        <!-- Illustration -->
+                        <div class="relative w-72 sm:w-80">
+
+                            <!-- Shadow -->
+                            <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-56 h-8 bg-black/10 blur-xl rounded-full">
+                            </div>
+
+
+                            <!-- Person -->
+                            <div class="relative w-40 h-40 mx-auto rounded-full bg-[#d9c0a1] border-[10px] border-white shadow-xl flex items-center justify-center bounce-soft">
+
+                                <!-- Face -->
+                                <div class="relative">
+
+                                    <!-- Eyes -->
+                                    <div class="flex gap-7 justify-center">
+
+                                        <span class="w-3 h-5 bg-[#29251f] rounded-full"></span>
+
+                                        <span class="w-3 h-5 bg-[#29251f] rounded-full"></span>
+
+                                    </div>
+
+                                    <!-- Mouth -->
+                                    <div class="mt-5 w-10 h-5 border-b-4 border-[#29251f] rounded-full">
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Body -->
+                            <div class="relative w-48 h-40 mx-auto -mt-3 rounded-t-[5rem] bg-[#29251f] shadow-xl">
+
+                                <!-- Tie -->
+                                <div class="absolute left-1/2 -translate-x-1/2 top-4 w-5 h-28 bg-[#a47745] clip-path">
+                                </div>
+
+                            </div>
+
+
+                            <!-- Magnifying Glass -->
+                            <div class="absolute -right-4 top-28 rotate-[-18deg]">
+
+                                <div class="w-24 h-24 rounded-full border-[10px] border-[#29251f] bg-white/50 flex items-center justify-center">
+
+                                    <div class="text-[#a47745] text-xl">
+
+                                        ?
+
+                                    </div>
+
+                                </div>
+
+                                <div class="w-5 h-24 bg-[#29251f] rounded-full mx-auto -mt-2 rotate-[-35deg]">
+                                </div>
+
+                            </div>
+
+
+                            <!-- Speech Bubble -->
+                            <div class="absolute -top-10 -right-8 bg-white px-5 py-3 rounded-2xl shadow-xl text-sm font-bold whitespace-nowrap">
+
+                                "Where am I?" 🤔
+
+                                <div class="absolute bottom-[-7px] left-8 w-4 h-4 bg-white rotate-45"></div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Bottom Message -->
+                        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap text-xs sm:text-sm text-gray-500">
+
+                            <i class="fa-solid fa-compass mr-1"></i>
+
+                            Lost? Don't worry, we've got you.
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Footer -->
+            <div class="text-center mt-7">
+
+                <p class="text-sm text-gray-500">
+
+                    <span class="mx-2">•</span>
+
+                    <span class="text-[#a47745]">
+                        404 Department is working on it. ☕
+                    </span>
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <script>
+
+        // Current Year
+        document.getElementById("year").textContent =
+            new Date().getFullYear();
+
+
+        // Search
+        function searchSite() {
+
+            const input =
+                document.getElementById("searchInput").value.trim();
+
+            if (!input) {
+                document.getElementById("searchInput").focus();
+                return;
+            }
+
+            // Change this URL according to your website
+            window.location.href =
+                "/search/?q=" + encodeURIComponent(input);
+
+        }
+
+
+        // Enter key search
+        document.getElementById("searchInput")
+            .addEventListener("keydown", function(event) {
+
+                if (event.key === "Enter") {
+                    searchSite();
+                }
+
+            });
+
+    </script>
+
+</body>
+</html>
