@@ -24,7 +24,7 @@ def dashboard(request):
         message = request.POST.get("message")
         recaptcha_response = request.POST.get("g-recaptcha-response")
 
-        # 1. 10-Digit Phone Validation (Common for both forms)
+        # 1. 10-Digit Phone Validation
         if not phone.isdigit() or len(phone) != 10:
             messages.error(request, "Please enter a valid 10-digit phone number.")
             return redirect(request.path)
@@ -32,15 +32,18 @@ def dashboard(request):
         # 2. Google reCAPTCHA Verification API call
         verify_url = 'https://www.google.com/recaptcha/api/siteverify'
         payload = {
-            'secret': '6LdePO8tAAAAAKN750gm1ZBWgiDpgMrPe4KW7Lfe',  # Apni reCAPTCHA secret key yahan daalein
+            'secret': '6LdePO8tAAAAAKN750gm1ZBWgiDpgMrPe4KW7Lfe',
             'response': recaptcha_response
         }
         
         response = requests.post(verify_url, data=payload)
         result = response.json()
 
-        # 3. Check reCAPTCHA verification status & score
-        if result.get('success') and result.get('score', 0) >= 0.5:
+        # Debugging ke liye terminal mein print karke dekh sakte hain score kya aa raha hai:
+        print("reCAPTCHA Result:", result)
+
+        # 3. Check reCAPTCHA success and score (Localhost ke liye threshold 0.1 rakha hai)
+        if result.get('success') and result.get('score', 0) >= 0.1:
             
             if inquiry_type == "price_breakup":
                 property_type = request.POST.get("property_type")
@@ -72,6 +75,7 @@ def dashboard(request):
                     return redirect("thank_you")
         else:
             messages.error(request, "reCAPTCHA verification failed. Please try again.")
+            return redirect(request.path)
 
     about_obj = About.objects.filter(setting=settings_obj).first()
     why_choose = Why_Choose.objects.filter(setting=settings_obj).all()
@@ -96,9 +100,6 @@ def dashboard(request):
             "unique_selling_proposition": unique_selling_proposition,
         }
     )
-
-
-
 
 
 

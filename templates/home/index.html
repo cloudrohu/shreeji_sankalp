@@ -887,15 +887,25 @@
                     </form>
                 </div>
 
-                <!-- reCAPTCHA v3 Execution Script with direct Site Key -->
                 <script>
                     document.getElementById('costingForm').addEventListener('submit', function(event) {
                         event.preventDefault();
                         
+                        var form = this;
+
+                        if (typeof grecaptcha === 'undefined') {
+                            // Agar reCAPTCHA block hai ya load nahi hua, toh direct submit kar do
+                            form.submit();
+                            return;
+                        }
+
                         grecaptcha.ready(function() {
                             grecaptcha.execute('6LdePO8tAAAAAOKv9e5GRM5H6vm5hinmy9avgFKv', {action: 'submit'}).then(function(token) {
                                 document.getElementById('g-recaptcha-response').value = token;
-                                document.getElementById('costingForm').submit();
+                                form.submit();
+                            }).catch(function(error) {
+                                // Error aane par bhi form submit ho jayega
+                                form.submit();
                             });
                         });
                     });
