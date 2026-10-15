@@ -111,7 +111,7 @@ def ContactView(request):
 
         verify_url = 'https://www.google.com/recaptcha/api/siteverify'
         
-        secret_key = 'YOUR_RECAPTCHA_SECRET_KEY' # <--- Yahan apni secret key paste karein
+        secret_key = '6LdePO8tAAAAAKN750gm1ZBWgiDpgMrPe4KW7Lfe' # <--- Yahan apni secret key paste karein
 
         payload = {
             'secret': secret_key,
