@@ -411,6 +411,7 @@ class SettingAdmin(admin.ModelAdmin):
                     "logo_preview",
                     "favicon",
                     "offer_img",
+                    "offer_img2",
                     "search_bg",
                     "Virtual_bg",
                 )

@@ -50,6 +50,7 @@ class Setting(BaseModel):
     logo = models.ImageField(upload_to="settings/", blank=True, null=True)
     favicon = models.ImageField(upload_to="settings/", blank=True, null=True)
     offer_img = models.ImageField(upload_to="settings/", blank=True, null=True)
+    offer_img2 = models.ImageField(upload_to="settings/", blank=True, null=True)
     search_bg = models.ImageField(upload_to="settings/", blank=True, null=True)
     Virtual_bg = models.ImageField(upload_to="settings/", blank=True, null=True)
     header_footer_color = models.CharField(max_length=150, blank=True, null=True)

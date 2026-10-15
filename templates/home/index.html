@@ -2741,8 +2741,8 @@
 
         <!-- Left Column: 50% Image & Offer -->
         <div class="popup-left">
-            {% if offer_img %}
-                <img src="{{ offer_img.url }}" alt="Special Offer">
+            {% if settings_obj.offer_img2 %}
+                <img src="{{ settings_obj.offer_img2.url }}" alt="Special Offer">
             {% else %}
                 <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=900&q=80" alt="Exclusive Offer">
             {% endif %}
