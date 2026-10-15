@@ -839,78 +839,285 @@
 
                 </div>
 
-                <!-- Right Column: Form -->
-                <div class="rounded-lg border border-neutral-200 bg-white p-5 sm:p-6 shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
-                    <div class="mb-5">
-                        <h3 class="text-xl font-semibold text-neutral-900">
-                            Get Costing Details
-                        </h3>
-                        <p class="mt-1 text-sm text-neutral-500">
-                            Fill in your details and our team will get back to you shortly.
-                        </p>
+                <div id="priceModal" class="fixed inset-0 z-[99999] hidden items-center justify-center bg-black/60 p-4" onclick="closePriceModal(event)">
+
+                    <div class="relative w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-2xl bg-white p-5 shadow-2xl sm:p-6" onclick="event.stopPropagation()" >
+
+                        <!-- Header -->
+                        <div class="flex items-start justify-between gap-4">
+                            <div>
+                                <p class="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#c7964a]">
+                                    Price Details
+                                </p>
+                                <h3 id="modalType" class="mt-1 text-xl font-semibold text-neutral-900 sm:text-2xl"></h3>
+                            </div>
+
+                            <!-- Close -->
+                            <button type="button" onclick="closePriceModal()" class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-neutral-100 text-neutral-600 transition hover:bg-neutral-200">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+
+                        <!-- Selected Property Details -->
+                        <div class="mt-4 grid grid-cols-2 gap-3">
+                            <!-- Carpet Area -->
+                            <div class="rounded-lg border border-neutral-200 bg-neutral-50 p-3">
+                                <p class="text-xs text-neutral-500">Carpet Area</p>
+                                <p id="modalArea" class="mt-1 text-sm font-semibold text-neutral-900"></p>
+                            </div>
+
+                            <!-- Price -->
+                            <div class="rounded-lg border border-neutral-200 bg-neutral-50 p-3">
+                                <p class="text-xs text-neutral-500">Starting Price</p>
+                                <p id="modalPrice" class="mt-1 text-sm font-semibold text-[#bd8429]"></p>
+                            </div>
+                        </div>
+
+                        <!-- Form Heading -->
+                        <div class="mt-5 mb-4">
+                            <h4 class="text-lg font-semibold text-neutral-900">
+                                Get Detailed Price
+                            </h4>
+                            <p class="mt-1 text-sm text-neutral-500">
+                                Share your details and our property expert will contact you.
+                            </p>
+                        </div>
+
+                        <!-- Enquiry Form -->
+                        <form id="modalPriceForm" action="" method="POST" class="space-y-3.5">
+                            {% csrf_token %}
+
+                            <input type="hidden" name="inquiry_type" value="price_breakup">
+                            <!-- reCAPTCHA Hidden Input -->
+                            <input type="hidden" name="g-recaptcha-response" id="modal-g-recaptcha-response">
+
+                            <!-- Name -->
+                            <div>
+                                <label for="modalName" class="mb-1.5 block text-xs font-medium text-neutral-700">Name</label>
+                                <input type="text" id="modalName" name="name" placeholder="Enter your name" required class="w-full rounded-md border border-neutral-200 bg-white px-3.5 py-2.5 text-sm text-neutral-800 outline-none transition placeholder:text-neutral-400 focus:border-[#c7964a] focus:ring-1 focus:ring-[#c7964a]">
+                            </div>
+
+                            <!-- Email -->
+                            <div>
+                                <label for="modalEmail" class="mb-1.5 block text-xs font-medium text-neutral-700">Email</label>
+                                <input type="email" id="modalEmail" name="email" placeholder="Enter your email" required class="w-full rounded-md border border-neutral-200 bg-white px-3.5 py-2.5 text-sm text-neutral-800 outline-none transition placeholder:text-neutral-400 focus:border-[#c7964a] focus:ring-1 focus:ring-[#c7964a]">
+                            </div>
+
+                            <!-- Phone (With 10-digit validation, minlength, maxlength) -->
+                            <div>
+                                <label for="modalPhone" class="mb-1.5 block text-xs font-medium text-neutral-700">Phone</label>
+                                <input type="tel" id="modalPhone" name="phone" placeholder="Enter 10-digit phone number" required maxlength="10" minlength="10" pattern="[0-9]{10}" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);" class="w-full rounded-md border border-neutral-200 bg-white px-3.5 py-2.5 text-sm text-neutral-800 outline-none transition placeholder:text-neutral-400 focus:border-[#c7964a] focus:ring-1 focus:ring-[#c7964a]">
+                            </div>
+
+                            <!-- Message -->
+                            <div>
+                                <label for="modalMessage" class="mb-1.5 block text-xs font-medium text-neutral-700">Message</label>
+                                <textarea id="modalMessage" name="message" rows="3" placeholder="I'm interested in this property..." class="w-full resize-none rounded-md border border-neutral-200 bg-white px-3.5 py-2.5 text-sm text-neutral-800 outline-none transition placeholder:text-neutral-400 focus:border-[#c7964a] focus:ring-1 focus:ring-[#c7964a]"></textarea>
+                            </div>
+
+                            <!-- Hidden Property Details -->
+                            <input type="hidden" id="modalPropertyType" name="property_type">
+                            <input type="hidden" id="modalPropertyArea" name="property_area">
+                            <input type="hidden" id="modalPropertyPrice" name="property_price">
+
+                            <!-- Submit -->
+                            <button type="submit" class="flex h-11 w-full items-center justify-center rounded-md bg-[#c7964a] px-5 text-sm font-semibold text-white transition hover:bg-[#b78336]">
+                                Get Price Breakup
+                            </button>
+                        </form>
+
                     </div>
-
-                    <!-- Google reCAPTCHA v3 Script with your Site Key -->
-                    <script src="https://www.google.com/recaptcha/api.js?render=6LdePO8tAAAAAOKv9e5GRM5H6vm5hinmy9avgFKv"></script>
-
-                    <form id="costingForm" action="" method="POST" class="space-y-3.5">
-                        
-                        {% csrf_token %}
-
-                        <input type="hidden" name="inquiry_type" value="virtual_tour">
-                        <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
-
-                        <div>
-                            <label for="name" class="mb-1.5 block text-xs font-medium text-neutral-700">Name</label>
-                            <input type="text" id="name" name="name" placeholder="Enter your name" required class="w-full rounded-md border border-neutral-200 bg-white px-3.5 py-2.5 text-sm text-neutral-800 outline-none transition placeholder:text-neutral-400 focus:border-[#c7964a] focus:ring-1 focus:ring-[#c7964a]">
-                        </div>
-
-                        <div>
-                            <label for="email" class="mb-1.5 block text-xs font-medium text-neutral-700">Email</label>
-                            <input type="email" id="email" name="email" placeholder="Enter your email" required class="w-full rounded-md border border-neutral-200 bg-white px-3.5 py-2.5 text-sm text-neutral-800 outline-none transition placeholder:text-neutral-400 focus:border-[#c7964a] focus:ring-1 focus:ring-[#c7964a]">
-                        </div>
-
-                        <div>
-                            <label for="phone" class="mb-1.5 block text-xs font-medium text-neutral-700">Phone</label>
-                            <!-- 10-digit validation -->
-                            <input type="tel" id="phone" name="phone" placeholder="Enter 10-digit phone number" required maxlength="10" minlength="10" pattern="[0-9]{10}" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);" class="w-full rounded-md border border-neutral-200 bg-white px-3.5 py-2.5 text-sm text-neutral-800 outline-none transition placeholder:text-neutral-400 focus:border-[#c7964a] focus:ring-1 focus:ring-[#c7964a]">
-                        </div>
-
-                        <div>
-                            <label for="message" class="mb-1.5 block text-xs font-medium text-neutral-700">Message</label>
-                            <textarea id="message" name="message" rows="3" placeholder="Enter your message" required class="w-full resize-none rounded-md border border-neutral-200 bg-white px-3.5 py-2.5 text-sm text-neutral-800 outline-none transition placeholder:text-neutral-400 focus:border-[#c7964a] focus:ring-1 focus:ring-[#c7964a]"></textarea>
-                        </div>
-
-                        <button type="submit" class="mt-1 flex h-11 w-full items-center justify-center rounded-md bg-[#c7964a] px-5 text-sm font-medium text-white shadow-sm transition hover:bg-[#b78336]">
-                            Get Costing Details
-                        </button>
-                    </form>
                 </div>
 
                 <script>
-                    document.getElementById('costingForm').addEventListener('submit', function(event) {
+                    function openPriceModal(type, area, price) {
+                        document.getElementById("modalType").textContent = type;
+                        document.getElementById("modalArea").textContent = area;
+                        document.getElementById("modalPrice").textContent = price;
+
+                        document.getElementById("modalPropertyType").value = type;
+                        document.getElementById("modalPropertyArea").value = area;
+                        document.getElementById("modalPropertyPrice").value = price;
+
+                        const modal = document.getElementById("priceModal");
+                        modal.classList.remove("hidden");
+                        modal.classList.add("flex");
+
+                        document.body.classList.add("overflow-hidden");
+                    }
+
+                    function closePriceModal(e) {
+                        const modal = document.getElementById("priceModal");
+
+                        if (e && e.target !== modal) {
+                            return;
+                        }
+
+                        modal.classList.add("hidden");
+                        modal.classList.remove("flex");
+
+                        document.body.classList.remove("overflow-hidden");
+                    }
+
+                    // Modal Form ke liye reCAPTCHA Submission Handling
+                    document.getElementById('modalPriceForm').addEventListener('submit', function(event) {
                         event.preventDefault();
                         
                         var form = this;
 
                         if (typeof grecaptcha === 'undefined') {
-                            // Agar reCAPTCHA block hai ya load nahi hua, toh direct submit kar do
                             form.submit();
                             return;
                         }
 
                         grecaptcha.ready(function() {
                             grecaptcha.execute('6LdePO8tAAAAAOKv9e5GRM5H6vm5hinmy9avgFKv', {action: 'submit'}).then(function(token) {
-                                document.getElementById('g-recaptcha-response').value = token;
+                                document.getElementById('modal-g-recaptcha-response').value = token;
                                 form.submit();
                             }).catch(function(error) {
-                                // Error aane par bhi form submit ho jayega
                                 form.submit();
                             });
                         });
                     });
                 </script>
 
+                <div class="rounded-lg border border-neutral-200 bg-white p-5 sm:p-6 shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
+
+                    <div class="mb-5">
+
+                        <h3 class="text-xl font-semibold text-neutral-900">
+
+                            Get Costing Details
+
+                        </h3>
+
+                        <p class="mt-1 text-sm text-neutral-500">
+
+                            Fill in your details and our team will get back to you shortly.
+
+                        </p>
+
+                    </div>
+
+
+
+                    <!-- Google reCAPTCHA v3 Script with your Site Key -->
+
+                    <script src="https://www.google.com/recaptcha/api.js?render=6LdePO8tAAAAAOKv9e5GRM5H6vm5hinmy9avgFKv"></script>
+
+
+
+                    <form id="costingForm" action="" method="POST" class="space-y-3.5">
+
+                       
+
+                        {% csrf_token %}
+
+
+
+                        <input type="hidden" name="inquiry_type" value="virtual_tour">
+
+                        <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
+
+
+
+                        <div>
+
+                            <label for="name" class="mb-1.5 block text-xs font-medium text-neutral-700">Name</label>
+
+                            <input type="text" id="name" name="name" placeholder="Enter your name" required class="w-full rounded-md border border-neutral-200 bg-white px-3.5 py-2.5 text-sm text-neutral-800 outline-none transition placeholder:text-neutral-400 focus:border-[#c7964a] focus:ring-1 focus:ring-[#c7964a]">
+
+                        </div>
+
+
+
+                        <div>
+
+                            <label for="email" class="mb-1.5 block text-xs font-medium text-neutral-700">Email</label>
+
+                            <input type="email" id="email" name="email" placeholder="Enter your email" required class="w-full rounded-md border border-neutral-200 bg-white px-3.5 py-2.5 text-sm text-neutral-800 outline-none transition placeholder:text-neutral-400 focus:border-[#c7964a] focus:ring-1 focus:ring-[#c7964a]">
+
+                        </div>
+
+
+
+                        <div>
+
+                            <label for="phone" class="mb-1.5 block text-xs font-medium text-neutral-700">Phone</label>
+
+                            <!-- 10-digit validation -->
+
+                            <input type="tel" id="phone" name="phone" placeholder="Enter 10-digit phone number" required maxlength="10" minlength="10" pattern="[0-9]{10}" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);" class="w-full rounded-md border border-neutral-200 bg-white px-3.5 py-2.5 text-sm text-neutral-800 outline-none transition placeholder:text-neutral-400 focus:border-[#c7964a] focus:ring-1 focus:ring-[#c7964a]">
+
+                        </div>
+
+
+
+                        <div>
+
+                            <label for="message" class="mb-1.5 block text-xs font-medium text-neutral-700">Message</label>
+
+                            <textarea id="message" name="message" rows="3" placeholder="Enter your message" required class="w-full resize-none rounded-md border border-neutral-200 bg-white px-3.5 py-2.5 text-sm text-neutral-800 outline-none transition placeholder:text-neutral-400 focus:border-[#c7964a] focus:ring-1 focus:ring-[#c7964a]"></textarea>
+
+                        </div>
+
+
+
+                        <button type="submit" class="mt-1 flex h-11 w-full items-center justify-center rounded-md bg-[#c7964a] px-5 text-sm font-medium text-white shadow-sm transition hover:bg-[#b78336]">
+
+                            Get Costing Details
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+                <script>
+
+                    document.getElementById('costingForm').addEventListener('submit', function(event) {
+
+                        event.preventDefault();
+
+                       
+
+                        var form = this;
+
+
+
+                        if (typeof grecaptcha === 'undefined') {
+
+                            // Agar reCAPTCHA block hai ya load nahi hua, toh direct submit kar do
+
+                            form.submit();
+
+                            return;
+
+                        }
+
+
+
+                        grecaptcha.ready(function() {
+
+                            grecaptcha.execute('6LdePO8tAAAAAOKv9e5GRM5H6vm5hinmy9avgFKv', {action: 'submit'}).then(function(token) {
+
+                                document.getElementById('g-recaptcha-response').value = token;
+
+                                form.submit();
+
+                            }).catch(function(error) {
+
+                                // Error aane par bhi form submit ho jayega
+
+                                form.submit();
+
+                            });
+
+                        });
+
+                    });
+
+                </script>
 
             </div>
 
@@ -1076,7 +1283,7 @@
                 </p>
             </div>
 
-            <!-- Right Form Column -->
+          <!-- Right Form Column -->
             <div class="lg:col-span-6">
                 <div class="rounded-2xl border border-white/15 bg-white/[0.08] backdrop-blur-xl p-5 sm:p-7 shadow-2xl">
                     <div class="mb-4">
@@ -1084,10 +1291,15 @@
                         <p class="text-xs text-neutral-400 mt-1">Please share your details to launch the 3D walkthrough immediately.</p>
                     </div>
 
-                    <form action="" method="POST" class="space-y-3.5">
+                    <!-- Google reCAPTCHA v3 Script (Agar aapne page pe pehle hi import kar rakha hai toh dobara lagane ki zaroorat nahi hai) -->
+                    <script src="https://www.google.com/recaptcha/api.js?render=6LdePO8tAAAAAOKv9e5GRM5H6vm5hinmy9avgFKv"></script>
+
+                    <form id="virtualTourForm" action="" method="POST" class="space-y-3.5">
                         {% csrf_token %}
 
                         <input type="hidden" name="inquiry_type" value="virtual_tour">
+                        <!-- reCAPTCHA Hidden Input -->
+                        <input type="hidden" name="g-recaptcha-response" id="tour-g-recaptcha-response">
 
                         <div>
                             <label for="tour_name" class="block text-xs font-medium text-neutral-300 mb-1">Full Name</label>
@@ -1097,7 +1309,8 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <div>
                                 <label for="tour_phone" class="block text-xs font-medium text-neutral-300 mb-1">Phone Number</label>
-                                <input type="tel" id="tour_phone" name="phone" required placeholder="Your Phone Here" class="w-full rounded-lg border border-white/15 bg-white/10 px-3.5 py-2.5 text-sm text-white placeholder-neutral-400 outline-none transition focus:border-[#c7964a] focus:bg-white/15 focus:ring-1 focus:ring-[#c7964a]">
+                                <!-- 10-digit validation added here -->
+                                <input type="tel" id="tour_phone" name="phone" required placeholder="Your Phone Here" maxlength="10" minlength="10" pattern="[0-9]{10}" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);" class="w-full rounded-lg border border-white/15 bg-white/10 px-3.5 py-2.5 text-sm text-white placeholder-neutral-400 outline-none transition focus:border-[#c7964a] focus:bg-white/15 focus:ring-1 focus:ring-[#c7964a]">
                             </div>
                             <div>
                                 <label for="tour_email" class="block text-xs font-medium text-neutral-300 mb-1">Email Address</label>
@@ -1116,6 +1329,28 @@
                     </form>
                 </div>
             </div>
+
+            <script>
+                document.getElementById('virtualTourForm').addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    
+                    var form = this;
+
+                    if (typeof grecaptcha === 'undefined') {
+                        form.submit();
+                        return;
+                    }
+
+                    grecaptcha.ready(function() {
+                        grecaptcha.execute('6LdePO8tAAAAAOKv9e5GRM5H6vm5hinmy9avgFKv', {action: 'submit'}).then(function(token) {
+                            document.getElementById('tour-g-recaptcha-response').value = token;
+                            form.submit();
+                        }).catch(function(error) {
+                            form.submit();
+                        });
+                    });
+                });
+            </script>
 
         </div>
 
@@ -2174,7 +2409,7 @@
 </script>
 
 <style>
-    /* ================= POPUP ================= */
+    /* ================= POPUP OVERLAY ================= */
     .popup-overlay {
         position: fixed;
         inset: 0;
@@ -2183,10 +2418,9 @@
         align-items: center;
         justify-content: center;
         padding: 15px;
-        background: rgba(0, 0, 0, 0.65);
-        backdrop-filter: blur(5px);
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(6px);
 
-        /* IMPORTANT */
         opacity: 0;
         visibility: hidden;
         pointer-events: none;
@@ -2199,23 +2433,24 @@
         pointer-events: auto;
     }
 
+    /* ================= POPUP CONTAINER (50/50 Split, No Radius) ================= */
     .popup-content {
         position: relative;
         width: 100%;
-        max-width: 430px;
-        max-height: 92vh;
-        overflow-y: auto;
-        background: #fff;
-        border-radius: 16px;
-        padding: 24px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
-        animation: popupIn 0.25s ease;
+        max-width: 980px;
+        max-height: 90vh;
+        background: #ffffff;
+        border-radius: 0;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
+        animation: popupIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        display: flex;
+        overflow: hidden;
     }
 
     @keyframes popupIn {
         from {
             opacity: 0;
-            transform: translateY(15px) scale(.97);
+            transform: translateY(20px) scale(0.96);
         }
         to {
             opacity: 1;
@@ -2223,187 +2458,279 @@
         }
     }
 
-    /* Close */
+    /* Close Button */
     .close-btn {
         position: absolute;
-        top: 12px;
-        right: 14px;
-        width: 32px;
-        height: 32px;
+        top: 16px;
+        right: 16px;
+        width: 36px;
+        height: 36px;
         border: 0;
         border-radius: 50%;
-        background: #f3f3f3;
-        color: #555;
-        font-size: 22px;
+        background: rgba(0, 0, 0, 0.06);
+        color: #444;
+        font-size: 20px;
         line-height: 1;
         cursor: pointer;
-        transition: .2s;
+        transition: all 0.2s ease;
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .close-btn:hover {
-        background: #111;
+        background: #000;
         color: #fff;
     }
 
-    /* Header */
-    .popup-header {
-        padding-right: 35px;
-        margin-bottom: 18px;
+    /* ================= LEFT COLUMN: IMAGE (50%) ================= */
+    .popup-left {
+        flex: 0 0 50%;
+        max-width: 50%;
+        position: relative;
+        background: #111;
+        min-height: 480px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
-    .badge {
-        display: inline-block;
-        padding: 5px 10px;
-        margin-bottom: 8px;
-        border-radius: 20px;
-        background: #f5efe5;
-        color: #9a722f;
-        font-size: 11px;
+    .popup-left img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .offer-overlay-badge {
+        position: absolute;
+        bottom: 24px;
+        left: 24px;
+        right: 24px;
+        background: rgba(15, 15, 15, 0.75);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: #fff;
+        padding: 16px;
+        backdrop-filter: blur(8px);
+    }
+
+    .offer-overlay-badge h3 {
+        margin: 0 0 4px;
+        font-size: 15px;
         font-weight: 600;
-        letter-spacing: .5px;
-        text-transform: uppercase;
+        color: #f3c669;
+        letter-spacing: 0.5px;
+    }
+
+    .offer-overlay-badge p {
+        margin: 0;
+        font-size: 12px;
+        color: #bbb;
+    }
+
+    /* ================= RIGHT COLUMN: FORM (50%) ================= */
+    .popup-right {
+        flex: 0 0 50%;
+        max-width: 50%;
+        padding: 35px 32px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        box-sizing: border-box;
+        overflow-y: auto;
+        background: #ffffff;
+    }
+
+    .popup-header {
+        margin-bottom: 18px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .popup-header img.brand-logo {
+        height: 36px;
+        width: auto;
+        margin-bottom: 10px;
+        object-fit: contain;
     }
 
     .popup-header h2 {
-        margin: 0 0 6px;
-        color: #1a1a1a;
-        font-size: 24px;
-        line-height: 1.25;
+        margin: 0 0 4px;
+        color: #111111;
+        font-size: 20px;
         font-weight: 700;
     }
 
     .popup-header p {
         margin: 0;
-        color: #777;
-        font-size: 13px;
-        line-height: 1.5;
+        color: #666666;
+        font-size: 12px;
+        line-height: 1.4;
     }
 
-    /* Form */
-    .form-group {
+    /* Form Layout as per Image */
+    .form-row {
+        display: flex;
+        gap: 12px;
         margin-bottom: 12px;
     }
 
-    .form-group label {
-        display: block;
-        margin-bottom: 5px;
-        color: #333;
-        font-size: 13px;
-        font-weight: 600;
+    .form-group {
+        position: relative;
+        width: 100%;
+        margin-bottom: 12px;
     }
 
+    .form-row .form-group {
+        margin-bottom: 0;
+    }
+
+    /* Floating / Minimal Input Style matching image */
     .form-group input,
     .form-group textarea {
         width: 100%;
-        border: 1px solid #ddd;
-        border-radius: 9px;
-        background: #fafafa;
-        padding: 10px 12px;
-        color: #222;
-        font-size: 13px;
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid #ccc;
+        padding: 8px 0;
+        color: #333;
+        font-size: 14px;
+        font-family: inherit;
         outline: none;
-        transition: .2s;
+        transition: all 0.2s ease;
         box-sizing: border-box;
     }
 
-    .form-group input {
-        height: 42px;
-    }
-
     .form-group textarea {
-        min-height: 75px;
-        max-height: 120px;
+        min-height: 50px;
+        max-height: 80px;
         resize: vertical;
+        border: 1px solid #ccc;
+        padding: 8px 10px;
+        border-radius: 4px;
+        background: #fafafa;
     }
 
-    .form-group input:focus,
+    .form-group input:focus {
+        border-bottom-color: #2e6930;
+    }
+
     .form-group textarea:focus {
-        border-color: #b89252;
+        border-color: #2e6930;
         background: #fff;
-        box-shadow: 0 0 0 3px rgba(184, 146, 82, .10);
     }
 
-    .submit-btn {
+    /* Phone Input with Country Code/Flag */
+    .phone-input-wrapper {
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 2px;
+    }
+
+    .country-code {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding-right: 8px;
+        font-size: 14px;
+        color: #333;
+        border-right: 1px solid #eee;
+        margin-right: 8px;
+    }
+
+    .country-code img {
+        width: 20px;
+        height: auto;
+    }
+
+    .phone-input-wrapper input {
+        border: none !important;
+        padding: 8px 0 !important;
+    }
+
+    /* Checkboxes */
+    .checkbox-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin: 14px 0;
+    }
+
+    .checkbox-label {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        font-size: 11px;
+        color: #555;
+        line-height: 1.35;
+        cursor: pointer;
+    }
+
+    .checkbox-label input[type="checkbox"] {
+        margin-top: 2px;
+        accent-color: #2e6930;
+    }
+
+    .checkbox-label a {
+        color: #2e6930;
+        text-decoration: underline;
+    }
+
+    /* Enquire Now Button matching image */
+    .enquire-btn {
         width: 100%;
         height: 44px;
-        margin-top: 4px;
-        border: 0;
-        border-radius: 9px;
-        background: linear-gradient(135deg, #b89252, #9d753b);
-        color: #fff;
+        border: 1px solid #d4af37;
+        background: linear-gradient(135deg, #7cb342 0%, #2e6930 100%);
+        color: #ffffff;
         font-size: 14px;
-        font-weight: 600;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
         cursor: pointer;
-        transition: .25s;
+        transition: all 0.25s ease;
+        box-shadow: 0 4px 15px rgba(46, 105, 48, 0.2);
     }
 
-    .submit-btn:hover {
+    .enquire-btn:hover {
+        opacity: 0.95;
         transform: translateY(-1px);
-        box-shadow: 0 8px 20px rgba(157, 117, 59, .25);
     }
 
-    /* ================= MOBILE ================= */
-    @media (max-width: 480px) {
-        .popup-overlay {
-            padding: 10px;
-            align-items: center;
-        }
-
+    /* ================= MOBILE RESPONSIVE ================= */
+    @media (max-width: 768px) {
         .popup-content {
+            flex-direction: column;
+            max-width: 440px;
+            max-height: 92vh;
+            overflow-y: auto;
+        }
+
+        .popup-left,
+        .popup-right {
+            flex: 100%;
             max-width: 100%;
-            max-height: 94vh;
-            padding: 20px 17px;
-            border-radius: 14px;
         }
 
-        .popup-header {
-            margin-bottom: 15px;
-            padding-right: 32px;
+        .popup-left {
+            min-height: 180px;
+            max-height: 200px;
         }
 
-        .popup-header h2 {
-            font-size: 20px;
+        .popup-right {
+            padding: 24px 20px;
         }
 
-        .popup-header p {
-            font-size: 12px;
-        }
-
-        .form-group {
-            margin-bottom: 10px;
-        }
-
-        .form-group label {
-            font-size: 12px;
-            margin-bottom: 4px;
-        }
-
-        .form-group input {
-            height: 40px;
-            padding: 8px 10px;
-            font-size: 12px;
-        }
-
-        .form-group textarea {
-            min-height: 65px;
-            font-size: 12px;
-        }
-
-        .submit-btn {
-            height: 42px;
-            font-size: 13px;
-        }
-
-        .close-btn {
-            top: 10px;
-            right: 10px;
-            width: 29px;
-            height: 29px;
-            font-size: 20px;
+        .form-row {
+            flex-direction: column;
+            gap: 12px;
         }
     }
 </style>
-
 
 <div class="popup-overlay" id="popupModal">
     <div class="popup-content">
@@ -2412,54 +2739,84 @@
             &times;
         </button>
 
-        <div class="popup-header">
-            <span class="badge">Project Enquiry</span>
+        <!-- Left Column: 50% Image & Offer -->
+        <div class="popup-left">
+            {% if offer_img %}
+                <img src="{{ offer_img.url }}" alt="Special Offer">
+            {% else %}
+                <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=900&q=80" alt="Exclusive Offer">
+            {% endif %}
 
-            <h2>
-                Enquire for {{ project_obj.project_name }}
-            </h2>
-
-            <p>
-                Fill in your details and our team will get back to you shortly.
-            </p>
+            <div class="offer-overlay-badge">
+                <h3>Exclusive Offer</h3>
+                <p>Schedule a virtual walkthrough to unlock special benefits.</p>
+            </div>
         </div>
 
-        <form id="contactForm" method="POST" action="">
-            {% csrf_token %}
-
-            <input type="hidden" name="inquiry_type" value="virtual_tour">
-
-            <div class="form-group">
-                <label for="name">Full Name</label>
-                <input type="text" id="name" name="name" required placeholder="Your Name">
+        <!-- Right Column: 50% Form matching requested image layout -->
+        <div class="popup-right">
+            <div class="popup-header">
+                {% if settings_obj.logo %}
+                    <img src="{{ settings_obj.logo.url }}" alt="Logo" class="brand-logo">
+                {% endif %}
+                <h2>Enquire for {{ project_obj.project_name }}</h2>
+                <p>Fill in your details below and our team will connect shortly.</p>
             </div>
 
-            <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" required placeholder="{{ settings_obj.email|default:'name@example.com' }}">
-            </div>
+            <form id="contactForm" method="POST" action="">
+                {% csrf_token %}
+                <input type="hidden" name="inquiry_type" value="virtual_tour">
 
-            <div class="form-group">
-                <label for="phone">Phone Number</label>
-                <input type="tel" id="phone" name="phone" required maxlength="10" inputmode="numeric" placeholder="{{ settings_obj.phone|default:'Enter 10 digit number' }}">
-            </div>
+                <!-- Row 1: Name & Email -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" required placeholder="Name *">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" required placeholder="Email *">
+                    </div>
+                </div>
 
-            <div class="form-group">
-                <label for="message">Message / Questions</label>
-                <textarea id="message" name="message" required placeholder="Tell us what you're looking for..."></textarea>
-            </div>
+                <!-- Row 2: Mobile with Country Flag -->
+                <div class="form-group">
+                    <div class="phone-input-wrapper">
+                        <div class="country-code">
+                            <img src="https://flagcdn.com/w40/in.png" alt="IN">
+                            <span>▼</span>
+                        </div>
+                        <input type="tel" id="phone" name="phone" required maxlength="10" inputmode="numeric" placeholder="Mobile *">
+                    </div>
+                </div>
 
-            <button type="submit" class="submit-btn">
-                Send Enquiry
-            </button>
+                <!-- Optional Message Box -->
+                <div class="form-group" style="margin-top: 12px;">
+                    <textarea id="message" name="message" placeholder="Message / Questions (Optional)"></textarea>
+                </div>
 
-        </form>
+                <!-- Checkboxes matching image layout -->
+                <div class="checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" checked required>
+                        <span>I authorise Delta Meadows & its representatives to contact me with updates and notifications via Email/SMS/WhatsApp/Call. This will override on DND/NDNC.</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" checked required>
+                        <span>I consent to the processing of my personal data according to <a href="#" target="_blank">Privacy Policy</a>.</span>
+                    </label>
+                </div>
+
+                <!-- Styled Enquire Button -->
+                <button type="submit" class="enquire-btn">
+                    ENQUIRE NOW
+                </button>
+            </form>
+        </div>
+
     </div>
 </div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-
         const popup = document.getElementById('popupModal');
         const close = document.getElementById('closeBtn');
 
@@ -2470,7 +2827,7 @@
             popup.classList.add('active');
         }, 7000);
 
-        // Close button
+        // Close button action
         close.addEventListener('click', function (e) {
             e.preventDefault();
             popup.classList.remove('active');
@@ -2483,14 +2840,12 @@
             }
         });
 
-        // ESC key
+        // ESC key listener
         document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape') {
                 popup.classList.remove('active');
             }
         });
-
     });
 </script>
-
 {% endblock %}
