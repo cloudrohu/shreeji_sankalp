@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
+import requests
 from django.core.paginator import Paginator
 from django.db.models import Q, Min, Max
 from django.contrib import messages
@@ -338,29 +339,46 @@ def project_details(request, id, slug):
 
 
 def submit_enquiry(request, id):
-    project = get_object_or_404(Project, id=id)
+    project = get_object_app_or_404 = get_object_or_404(Project, id=id) if 'Project' in globals() else get_object_or_404(Project, id=id)
 
     if request.method == "POST":
-        Enquiry.objects.create(
-            project=project,
-            name=request.POST.get("name"),
-            email=request.POST.get("email"),
-            phone=request.POST.get("phone"),
-            message=request.POST.get("message"),
-        )
+        name = request.POST.get("name")
+        email = request.POST.get("email")
+        phone = request.POST.get("phone", "").strip()
+        message = request.POST.get("message")
+        recaptcha_response = request.POST.get("g-recaptcha-response")
 
-        messages.success(
-            request,
-            "Enquiry Submitted Successfully"
-        )
+        # 1. 10-Digit Phone Validation
+        if not phone.isdigit() or len(phone) != 10:
+            messages.error(request, "Please enter a valid 10-digit phone number.")
+            return redirect("project_details", id=project.id, slug=project.slug)
 
-        return redirect("thank_you")
+        # 2. Google reCAPTCHA Verification
+        verify_url = 'https://www.google.com/recaptcha/api/siteverify'
+        payload = {
+            'secret': '6LdePO8tAAAAAKN750gm1ZBWgiDpgMrPe4KW7Lfe',  # Apni reCAPTCHA secret key yahan daalein
+            'response': recaptcha_response
+        }
+        
+        response = requests.post(verify_url, data=payload)
+        result = response.json()
 
-    return redirect(
-        "project_details",
-        id=project.id,
-        slug=project.slug,
-    )
+        # 3. Check reCAPTCHA success and score
+        if result.get('success') and result.get('score', 0) >= 0.5:
+            if name and phone:
+                Enquiry.objects.create(
+                    project=project,
+                    name=name,
+                    email=email,
+                    phone=phone,
+                    message=message,
+                )
+                messages.success(request, "Enquiry Submitted Successfully")
+                return redirect("thank_you")
+        else:
+            messages.error(request, "reCAPTCHA verification failed. Please try again.")
+
+    return redirect("project_details", id=project.id, slug=project.slug)
 
 
 def thank_you(request):

@@ -11,11 +11,10 @@ env = environ.Env(
     DEBUG=(bool, True),
 )
 
-environ.Env.read_env(BASE_DIR / ".env")
+RECAPTCHA_PUBLIC_KEY = '6LdePO8tAAAAAOKv9e5GRM5H6vm5hinmy9avgFKv'
+RECAPTCHA_PRIVATE_KEY = '6LdePO8tAAAAAKN750gm1ZBWgiDpgMrPe4KW7Lfe'
 
-# ------------------------------------------------------------------------------
-# SECURITY
-# ------------------------------------------------------------------------------
+environ.Env.read_env(BASE_DIR / ".env")
 
 SECRET_KEY = env(
     "SECRET_KEY",
@@ -35,10 +34,6 @@ ALLOWED_HOSTS = env.list(
 
 AUTH_USER_MODEL = "accounts.User"
 
-# ------------------------------------------------------------------------------
-# APPLICATIONS
-# ------------------------------------------------------------------------------
-
 DJANGO_APPS = [
    # "grappelli",
     'jazzmin',
@@ -57,8 +52,8 @@ THIRD_PARTY_APPS = [
     "crispy_bootstrap5",
     "import_export",
     "django_ckeditor_5",
-    "multiselectfield",      # ✅ Add
-    "embed_video",          # ✅ Add
+    "multiselectfield",
+    "embed_video",
 ]
 LOCAL_APPS = [
     "apps.accounts.apps.AccountsConfig",
@@ -82,16 +77,12 @@ LOCAL_APPS = [
     "apps.dashboard.apps.DashboardConfig",
    # "apps.business.apps.BusinessConfig",
    # "apps.business_utility.apps.BusinessUtilityConfig",
-   "apps.properties.apps.PropertiesConfig",   # ✅ Add this
+   "apps.properties.apps.PropertiesConfig",
    "apps.properties_utility.apps.PropertiesUtilityConfig",
    "apps.importer",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
-
-# ------------------------------------------------------------------------------
-# MIDDLEWARE
-# ------------------------------------------------------------------------------
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -106,10 +97,6 @@ MIDDLEWARE = [
 ROOT_URLCONF = "config.urls"
 
 WSGI_APPLICATION = "config.wsgi.application"
-
-# ------------------------------------------------------------------------------
-# TEMPLATES
-# ------------------------------------------------------------------------------
 
 TEMPLATES = [
     {
@@ -127,19 +114,15 @@ TEMPLATES = [
     },
 ]
 
-# ------------------------------------------------------------------------------
-# DATABASE
-# ------------------------------------------------------------------------------
-
 DATABASES = {
     "default": env.db(
         default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}"
     )
 }
 
-# ------------------------------------------------------------------------------
-# PASSWORDS
-# ------------------------------------------------------------------------------
+RECAPTCHA_SITE_KEY = "6LdePO8tAAAAAOKv9e5GRM5H6vm5hinmy9avgFKv"
+RECAPTCHA_SECRET_KEY = "6LdePO8tAAAAAKN750gm1ZBWgiDpgMrPe4KW7Lfe"
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -156,9 +139,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# ------------------------------------------------------------------------------
-# INTERNATIONALIZATION
-# ------------------------------------------------------------------------------
 
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "Asia/Kolkata"
@@ -166,24 +146,15 @@ TIME_ZONE = "Asia/Kolkata"
 USE_I18N = True
 USE_TZ = True
 
-# ------------------------------------------------------------------------------
-# STATIC
-# ------------------------------------------------------------------------------
 
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-# ------------------------------------------------------------------------------
-# MEDIA
-# ------------------------------------------------------------------------------
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
-# ------------------------------------------------------------------------------
-# STORAGES
-# ------------------------------------------------------------------------------
 
 STORAGES = {
     "default": {
@@ -194,16 +165,9 @@ STORAGES = {
     },
 }
 
-# ------------------------------------------------------------------------------
-# CRISPY
-# ------------------------------------------------------------------------------
-
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
-# ------------------------------------------------------------------------------
-# REST FRAMEWORK
-# ------------------------------------------------------------------------------
 
 REST_FRAMEWORK = {
     "DEFAULT_FILTER_BACKENDS": [
@@ -211,9 +175,6 @@ REST_FRAMEWORK = {
     ],
 }
 
-# ------------------------------------------------------------------------------
-# LOGIN
-# ------------------------------------------------------------------------------
 
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "/"

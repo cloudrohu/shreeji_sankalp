@@ -850,11 +850,15 @@
                         </p>
                     </div>
 
-                    <form action="" method="POST" class="space-y-3.5">
+                    <!-- Google reCAPTCHA v3 Script with your Site Key -->
+                    <script src="https://www.google.com/recaptcha/api.js?render=6LdePO8tAAAAAOKv9e5GRM5H6vm5hinmy9avgFKv"></script>
 
+                    <form id="costingForm" action="" method="POST" class="space-y-3.5">
+                        
                         {% csrf_token %}
 
                         <input type="hidden" name="inquiry_type" value="virtual_tour">
+                        <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
 
                         <div>
                             <label for="name" class="mb-1.5 block text-xs font-medium text-neutral-700">Name</label>
@@ -868,7 +872,8 @@
 
                         <div>
                             <label for="phone" class="mb-1.5 block text-xs font-medium text-neutral-700">Phone</label>
-                            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required class="w-full rounded-md border border-neutral-200 bg-white px-3.5 py-2.5 text-sm text-neutral-800 outline-none transition placeholder:text-neutral-400 focus:border-[#c7964a] focus:ring-1 focus:ring-[#c7964a]">
+                            <!-- 10-digit validation -->
+                            <input type="tel" id="phone" name="phone" placeholder="Enter 10-digit phone number" required maxlength="10" minlength="10" pattern="[0-9]{10}" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);" class="w-full rounded-md border border-neutral-200 bg-white px-3.5 py-2.5 text-sm text-neutral-800 outline-none transition placeholder:text-neutral-400 focus:border-[#c7964a] focus:ring-1 focus:ring-[#c7964a]">
                         </div>
 
                         <div>
@@ -881,6 +886,21 @@
                         </button>
                     </form>
                 </div>
+
+                <!-- reCAPTCHA v3 Execution Script with direct Site Key -->
+                <script>
+                    document.getElementById('costingForm').addEventListener('submit', function(event) {
+                        event.preventDefault();
+                        
+                        grecaptcha.ready(function() {
+                            grecaptcha.execute('6LdePO8tAAAAAOKv9e5GRM5H6vm5hinmy9avgFKv', {action: 'submit'}).then(function(token) {
+                                document.getElementById('g-recaptcha-response').value = token;
+                                document.getElementById('costingForm').submit();
+                            });
+                        });
+                    });
+                </script>
+
 
             </div>
 
