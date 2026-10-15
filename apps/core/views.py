@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-
+import requests
 from apps.core.models.website import Setting, About, FAQ, Inquiry, PriceBreakupInquiry, Why_Choose, USP, Slider
 from apps.properties.models import Project, Connectivity, ProjectAmenities, Gallery
 
@@ -107,16 +107,32 @@ def ContactView(request):
         email = request.POST.get("email")
         phone = request.POST.get("phone")
         message = request.POST.get("message")
+        recaptcha_response = request.POST.get("g-recaptcha-response")
 
-        if name and phone:
-            Inquiry.objects.create(
-                project=project_obj,
-                name=name,
-                email=email,
-                phone=phone,
-                message=message,
-            )
-            return redirect('thank_you')
+        verify_url = 'https://www.google.com/recaptcha/api/siteverify'
+        
+        secret_key = 'YOUR_RECAPTCHA_SECRET_KEY' # <--- Yahan apni secret key paste karein
+
+        payload = {
+            'secret': secret_key,
+            'response': recaptcha_response
+        }
+
+        result = requests.post(verify_url, data=payload)
+        result_json = result.json()
+
+        if result_json.get('success') and result_json.get('score', 0) >= 0.5:
+            if name and phone:
+                Inquiry.objects.create(
+                    project=project_obj,
+                    name=name,
+                    email=email,
+                    phone=phone,
+                    message=message,
+                )
+                return redirect('thank_you')
+        else:
+            pass
 
     return render(request, 'home/contact.html', context)
 

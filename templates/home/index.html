@@ -2780,10 +2780,6 @@
                 <!-- Row 2: Mobile with Country Flag -->
                 <div class="form-group">
                     <div class="phone-input-wrapper">
-                        <div class="country-code">
-                            <img src="https://flagcdn.com/w40/in.png" alt="IN">
-                            <span>▼</span>
-                        </div>
                         <input type="tel" id="phone" name="phone" required maxlength="10" inputmode="numeric" placeholder="Mobile *">
                     </div>
                 </div>
@@ -2801,7 +2797,7 @@
                     </label>
                     <label class="checkbox-label">
                         <input type="checkbox" checked required>
-                        <span>I consent to the processing of my personal data according to <a href="#" target="_blank">Privacy Policy</a>.</span>
+                        <span>I consent to the processing of my personal data according to <a href="{% url "privacy_policy" %}" target="_blank">Privacy Policy</a>.</span>
                     </label>
                 </div>
 
