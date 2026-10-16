@@ -32,7 +32,7 @@ def dashboard(request):
         # 2. Google reCAPTCHA Verification API call
         verify_url = 'https://www.google.com/recaptcha/api/siteverify'
         payload = {
-            'secret': '6LdePO8tAAAAAKN750gm1ZBWgiDpgMrPe4KW7Lfey',
+            'secret': '6LdePO8tAAAAAKN750gm1ZBWgiDpgMrPe4KW7Lfe',
             'response': recaptcha_response
         }
         
