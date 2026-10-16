@@ -2937,35 +2937,34 @@
                 <p>Fill in your details below and our team will connect shortly.</p>
             </div>
 
-            <form id="contactForm" method="POST" action="">
+            <form id="popupContactForm" method="POST" action="">
                 {% csrf_token %}
                 <input type="hidden" name="inquiry_type" value="virtual_tour">
-
-                <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
+                <input type="hidden" name="g-recaptcha-response" id="popup-g-recaptcha-response">
 
                 <!-- Row 1: Name & Email -->
                 <div class="form-row">
                     <div class="form-group">
-                        <input type="text" id="name" name="name" required placeholder="Name *">
+                        <input type="text" id="popupName" name="name" required placeholder="Name *">
                     </div>
                     <div class="form-group">
-                        <input type="email" id="email" name="email" required placeholder="Email *">
+                        <input type="email" id="popupEmail" name="email" required placeholder="Email *">
                     </div>
                 </div>
 
                 <!-- Row 2: Mobile with Country Flag -->
                 <div class="form-group">
                     <div class="phone-input-wrapper">
-                        <input type="tel" id="phone" name="phone" required maxlength="10" inputmode="numeric" placeholder="Mobile *">
+                        <input type="tel" id="popupPhone" name="phone" required maxlength="10" inputmode="numeric" placeholder="Mobile *">
                     </div>
                 </div>
 
                 <!-- Optional Message Box -->
                 <div class="form-group" style="margin-top: 12px;">
-                    <textarea id="message" name="message" placeholder="Message / Questions (Optional)"></textarea>
+                    <textarea id="popupMessage" name="message" placeholder="Message / Questions (Optional)"></textarea>
                 </div>
 
-                <!-- Checkboxes matching image layout -->
+                <!-- Checkboxes -->
                 <div class="checkbox-group">
                     <label class="checkbox-label">
                         <input type="checkbox" checked required>
@@ -2973,7 +2972,7 @@
                     </label>
                     <label class="checkbox-label">
                         <input type="checkbox" checked required>
-                        <span>I consent to the processing of my personal data according to <a href="{% url "privacy_policy" %}" target="_blank">Privacy Policy</a>.</span>
+                        <span>I consent to the processing of my personal data according to <a href="{% url 'privacy_policy' %}" target="_blank">Privacy Policy</a>.</span>
                     </label>
                 </div>
 
@@ -2982,6 +2981,7 @@
                     ENQUIRE NOW
                 </button>
             </form>
+
         </div>
 
     </div>
@@ -2992,37 +2992,37 @@
         const popup = document.getElementById('popupModal');
         const close = document.getElementById('closeBtn');
 
-        if (!popup || !close) return;
+        if (popup && close) {
+            // Open after 7 seconds
+            setTimeout(function () {
+                popup.classList.add('active');
+            }, 7000);
 
-        // Open after 7 seconds
-        setTimeout(function () {
-            popup.classList.add('active');
-        }, 7000);
-
-        // Close button action
-        close.addEventListener('click', function (e) {
-            e.preventDefault();
-            popup.classList.remove('active');
-        });
-
-        // Click outside popup
-        popup.addEventListener('click', function (e) {
-            if (e.target === popup) {
+            // Close button action
+            close.addEventListener('click', function (e) {
+                e.preventDefault();
                 popup.classList.remove('active');
-            }
-        });
+            });
 
-        // ESC key listener
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape') {
-                popup.classList.remove('active');
-            }
-        });
+            // Click outside popup
+            popup.addEventListener('click', function (e) {
+                if (e.target === popup) {
+                    popup.classList.remove('active');
+                }
+            });
 
-        // FIX: contactForm ke liye reCAPTCHA submission handling
-        const contactForm = document.getElementById('contactForm');
-        if (contactForm) {
-            contactForm.addEventListener('submit', function(event) {
+            // ESC key listener
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') {
+                    popup.classList.remove('active');
+                }
+            });
+        }
+
+        // Popup Contact Form reCAPTCHA & Submission Handler
+        const popupContactForm = document.getElementById('popupContactForm');
+        if (popupContactForm) {
+            popupContactForm.addEventListener('submit', function(event) {
                 event.preventDefault();
                 var form = this;
 
@@ -3032,9 +3032,8 @@
                 }
 
                 grecaptcha.ready(function() {
-                    // Apna site key yahan dalein (wahi jo aapne views.py me secret key ke sath use kiya hai)
                     grecaptcha.execute('6LdePO8tAAAAAOKv9e5GRM5H6vm5hinmy9avgFKv', {action: 'submit'}).then(function(token) {
-                        document.getElementById('g-recaptcha-response').value = token;
+                        document.getElementById('popup-g-recaptcha-response').value = token;
                         form.submit();
                     }).catch(function(error) {
                         form.submit();
