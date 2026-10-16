@@ -3018,6 +3018,30 @@
                 popup.classList.remove('active');
             }
         });
+
+        // FIX: contactForm ke liye reCAPTCHA submission handling
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                var form = this;
+
+                if (typeof grecaptcha === 'undefined') {
+                    form.submit();
+                    return;
+                }
+
+                grecaptcha.ready(function() {
+                    // Apna site key yahan dalein (wahi jo aapne views.py me secret key ke sath use kiya hai)
+                    grecaptcha.execute('6LdePO8tAAAAAOKv9e5GRM5H6vm5hinmy9avgFKv', {action: 'submit'}).then(function(token) {
+                        document.getElementById('g-recaptcha-response').value = token;
+                        form.submit();
+                    }).catch(function(error) {
+                        form.submit();
+                    });
+                });
+            });
+        }
     });
 </script>
 

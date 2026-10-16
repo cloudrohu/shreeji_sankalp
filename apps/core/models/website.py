@@ -326,6 +326,8 @@ class Inquiry(BaseModel):
     def __str__(self):
         return f"{self.name} - {self.phone}"
 
+
+
 class PriceBreakupInquiry(models.Model):
     project = models.ForeignKey(Project,on_delete=models.SET_NULL,null=True,blank=True,related_name="price_breakup_inquiries")
 
