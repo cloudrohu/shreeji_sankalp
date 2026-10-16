@@ -2409,35 +2409,23 @@
 </script>
 
 <style>
+    /* ================= POPUP OVERLAY ================= */
     .popup-overlay {
         position: fixed;
         inset: 0;
         z-index: 9999;
-
         display: flex;
         align-items: center;
         justify-content: center;
-
-        width: 100%;
-        height: 100%;
-
-        padding: 20px;
-        box-sizing: border-box;
-
-        background: rgba(0, 0, 0, 0.72);
+        padding: 15px;
+        background: rgba(0, 0, 0, 0.7);
         backdrop-filter: blur(6px);
 
         opacity: 0;
         visibility: hidden;
         pointer-events: none;
-
-        transition:
-            opacity 0.3s ease,
-            visibility 0.3s ease;
+        transition: opacity .3s ease, visibility .3s ease;
     }
-
-
-    /* ACTIVE POPUP */
 
     .popup-overlay.active {
         opacity: 1;
@@ -2445,1211 +2433,481 @@
         pointer-events: auto;
     }
 
-
-    /* =========================================================
-    POPUP CONTAINER
-    ========================================================= */
-
+    /* ================= POPUP CONTAINER (50/50 Split, No Radius) ================= */
     .popup-content {
         position: relative;
-
-        display: flex;
-
         width: 100%;
         max-width: 980px;
-
         max-height: 90vh;
-
         background: #ffffff;
-
         border-radius: 0;
-
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
+        animation: popupIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        display: flex;
         overflow: hidden;
-
-        box-shadow:
-            0 25px 50px -12px rgba(0, 0, 0, 0.35);
-
-        animation:
-            popupIn 0.3s
-            cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-
-    /* =========================================================
-    POPUP ANIMATION
-    ========================================================= */
-
     @keyframes popupIn {
-
         from {
             opacity: 0;
             transform: translateY(20px) scale(0.96);
         }
-
         to {
             opacity: 1;
             transform: translateY(0) scale(1);
         }
-
     }
 
-
-    /* =========================================================
-    CLOSE BUTTON
-    ========================================================= */
-
+    /* Close Button */
     .close-btn {
-
         position: absolute;
-
         top: 16px;
         right: 16px;
-
-        z-index: 50;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
         width: 36px;
         height: 36px;
-
-        padding: 0;
-
         border: 0;
         border-radius: 50%;
-
-        background: rgba(255, 255, 255, 0.92);
-
-        color: #333;
-
-        font-size: 21px;
+        background: rgba(0, 0, 0, 0.06);
+        color: #444;
+        font-size: 20px;
         line-height: 1;
-
         cursor: pointer;
-
-        box-shadow:
-            0 3px 12px rgba(0, 0, 0, 0.12);
-
-        transition:
-            background 0.2s ease,
-            color 0.2s ease,
-            transform 0.2s ease;
-    }
-
-
-    .close-btn:hover {
-
-        background: #000;
-
-        color: #fff;
-
-        transform: rotate(90deg);
-
-    }
-
-
-    /* =========================================================
-    LEFT SIDE / IMAGE
-    ========================================================= */
-
-    .popup-left {
-
-        position: relative;
-
-        flex: 0 0 50%;
-
-        width: 50%;
-        max-width: 50%;
-
-        min-height: 480px;
-
-        background: #111;
-
+        transition: all 0.2s ease;
+        z-index: 20;
         display: flex;
         align-items: center;
         justify-content: center;
-
-        overflow: hidden;
     }
 
+    .close-btn:hover {
+        background: #000;
+        color: #fff;
+    }
+
+    /* ================= LEFT COLUMN: IMAGE (50%) ================= */
+    .popup-left {
+        flex: 0 0 50%;
+        max-width: 50%;
+        position: relative;
+        background: #111;
+        min-height: 480px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
     .popup-left img {
-
-        display: block;
-
         width: 100%;
         height: 100%;
-
         object-fit: cover;
-
-        object-position: center;
+        display: block;
     }
-
-
-    /* =========================================================
-    OFFER BADGE
-    ========================================================= */
 
     .offer-overlay-badge {
-
         position: absolute;
-
+        bottom: 24px;
         left: 24px;
         right: 24px;
-        bottom: 24px;
-
-        padding: 16px;
-
-        color: #fff;
-
-        background: rgba(15, 15, 15, 0.76);
-
+        background: rgba(15, 15, 15, 0.75);
         border: 1px solid rgba(255, 255, 255, 0.1);
-
+        color: #fff;
+        padding: 16px;
         backdrop-filter: blur(8px);
-
-        box-sizing: border-box;
     }
 
-
     .offer-overlay-badge h3 {
-
         margin: 0 0 4px;
-
-        color: #f3c669;
-
         font-size: 15px;
         font-weight: 600;
-
-        line-height: 1.3;
-
+        color: #f3c669;
         letter-spacing: 0.5px;
     }
 
-
     .offer-overlay-badge p {
-
         margin: 0;
-
-        color: #c5c5c5;
-
         font-size: 12px;
-
-        line-height: 1.45;
+        color: #bbb;
     }
 
-
-    /* =========================================================
-    RIGHT SIDE / FORM
-    ========================================================= */
-
+    /* ================= RIGHT COLUMN: FORM (50%) ================= */
     .popup-right {
-
         flex: 0 0 50%;
-
-        width: 50%;
         max-width: 50%;
-
         padding: 35px 32px;
-
         display: flex;
         flex-direction: column;
         justify-content: center;
-
         box-sizing: border-box;
-
         overflow-y: auto;
-
-        background: #fff;
-
-        scrollbar-width: thin;
+        background: #ffffff;
     }
 
-
-    /* =========================================================
-    POPUP HEADER
-    ========================================================= */
-
     .popup-header {
-
+        margin-bottom: 18px;
+        text-align: center;
         display: flex;
         flex-direction: column;
         align-items: center;
-
-        margin-bottom: 20px;
-
-        text-align: center;
     }
 
-
     .popup-header img.brand-logo {
-
-        display: block;
-
-        width: auto;
         height: 36px;
-
-        max-width: 180px;
-
+        width: auto;
         margin-bottom: 10px;
-
         object-fit: contain;
     }
 
-
     .popup-header h2 {
-
-        margin: 0 0 5px;
-
-        color: #111;
-
+        margin: 0 0 4px;
+        color: #111111;
         font-size: 20px;
         font-weight: 700;
-
-        line-height: 1.3;
     }
-
 
     .popup-header p {
-
         margin: 0;
-
-        max-width: 420px;
-
-        color: #666;
-
+        color: #666666;
         font-size: 12px;
-
-        line-height: 1.45;
+        line-height: 1.4;
     }
 
-
-    /* =========================================================
-    FORM ROW
-    ========================================================= */
-
+    /* Form Layout as per Image */
     .form-row {
-
         display: flex;
-
-        width: 100%;
-
         gap: 12px;
-
         margin-bottom: 12px;
     }
 
+    .form-group {
+        position: relative;
+        width: 100%;
+        margin-bottom: 12px;
+    }
 
     .form-row .form-group {
-
-        flex: 1;
         margin-bottom: 0;
     }
 
-
-    /* =========================================================
-    FORM GROUP
-    ========================================================= */
-
-    .form-group {
-
-        position: relative;
-
-        width: 100%;
-
-        margin-bottom: 12px;
-    }
-
-
+    /* Floating / Minimal Input Style matching image */
     .form-group input,
     .form-group textarea {
-
-        display: block;
-
         width: 100%;
-
-        box-sizing: border-box;
-
-        outline: none;
-
-        color: #333;
-
-        font-family: inherit;
-
-        font-size: 14px;
-
-        transition:
-            border-color 0.2s ease,
-            background 0.2s ease,
-            box-shadow 0.2s ease;
-    }
-
-
-    /* =========================================================
-    INPUT
-    ========================================================= */
-
-    .form-group input {
-
-        min-height: 40px;
-
-        padding: 8px 0;
-
-        border: none;
-
-        border-bottom: 1px solid #ccc;
-
         background: transparent;
-
-        border-radius: 0;
+        border: none;
+        border-bottom: 1px solid #ccc;
+        padding: 8px 0;
+        color: #333;
+        font-size: 14px;
+        font-family: inherit;
+        outline: none;
+        transition: all 0.2s ease;
+        box-sizing: border-box;
     }
-
-
-    .form-group input::placeholder {
-
-        color: #888;
-
-        opacity: 1;
-    }
-
-
-    .form-group input:focus {
-
-        border-bottom-color: #2e6930;
-
-        box-shadow:
-            0 1px 0 #2e6930;
-    }
-
-
-    /* =========================================================
-    TEXTAREA
-    ========================================================= */
 
     .form-group textarea {
-
-        min-height: 70px;
-        max-height: 120px;
-
-        padding: 9px 10px;
-
-        border: 1px solid #ccc;
-
-        border-radius: 5px;
-
-        background: #fafafa;
-
+        min-height: 50px;
+        max-height: 80px;
         resize: vertical;
+        border: 1px solid #ccc;
+        padding: 8px 10px;
+        border-radius: 4px;
+        background: #fafafa;
     }
 
-
-    .form-group textarea::placeholder {
-
-        color: #888;
-
-        opacity: 1;
-    }
-
-
-    .form-group textarea:focus {
-
-        border-color: #2e6930;
-
-        background: #fff;
-
-        box-shadow:
-            0 0 0 2px rgba(46, 105, 48, 0.06);
-    }
-
-
-    /* =========================================================
-    PHONE INPUT
-    ========================================================= */
-
-    .phone-input-wrapper {
-
-        display: flex;
-        align-items: center;
-
-        width: 100%;
-
-        border-bottom: 1px solid #ccc;
-
-        padding-bottom: 2px;
-
-        box-sizing: border-box;
-
-        transition:
-            border-color 0.2s ease;
-    }
-
-
-    .phone-input-wrapper:focus-within {
-
+    .form-group input:focus {
         border-bottom-color: #2e6930;
     }
 
-
-    .phone-input-wrapper input {
-
-        flex: 1;
-
-        width: 100%;
-
-        min-width: 0;
-
-        border: none !important;
-
-        padding: 8px 0 !important;
-
-        box-shadow: none !important;
-
-        outline: none !important;
-
-        background: transparent;
+    .form-group textarea:focus {
+        border-color: #2e6930;
+        background: #fff;
     }
 
-
-    /* =========================================================
-    COUNTRY CODE
-    ========================================================= */
-
-    .country-code {
-
+    /* Phone Input with Country Code/Flag */
+    .phone-input-wrapper {
         display: flex;
         align-items: center;
-
-        gap: 4px;
-
-        padding-right: 8px;
-
-        margin-right: 8px;
-
-        color: #333;
-
-        font-size: 14px;
-
-        border-right: 1px solid #eee;
-
-        white-space: nowrap;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 2px;
     }
 
+    .country-code {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding-right: 8px;
+        font-size: 14px;
+        color: #333;
+        border-right: 1px solid #eee;
+        margin-right: 8px;
+    }
 
     .country-code img {
-
-        display: block;
-
         width: 20px;
         height: auto;
     }
 
+    .phone-input-wrapper input {
+        border: none !important;
+        padding: 8px 0 !important;
+    }
 
-    /* =========================================================
-    CHECKBOX AREA
-    ========================================================= */
-
+    /* Checkboxes */
     .checkbox-group {
-
         display: flex;
         flex-direction: column;
-
-        gap: 9px;
-
-        margin: 14px 0 16px;
+        gap: 8px;
+        margin: 14px 0;
     }
-
 
     .checkbox-label {
-
         display: flex;
         align-items: flex-start;
-
         gap: 8px;
-
-        color: #555;
-
         font-size: 11px;
-
-        line-height: 1.4;
-
+        color: #555;
+        line-height: 1.35;
         cursor: pointer;
     }
-
 
     .checkbox-label input[type="checkbox"] {
-
-        flex: 0 0 auto;
-
-        width: 14px;
-        height: 14px;
-
-        margin: 2px 0 0;
-
+        margin-top: 2px;
         accent-color: #2e6930;
-
-        cursor: pointer;
     }
-
-
-    .checkbox-label span {
-
-        flex: 1;
-    }
-
 
     .checkbox-label a {
-
         color: #2e6930;
-
         text-decoration: underline;
-
-        text-underline-offset: 2px;
     }
 
-
-    /* =========================================================
-    ENQUIRE BUTTON
-    ========================================================= */
-
+    /* Enquire Now Button matching image */
     .enquire-btn {
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
         width: 100%;
-
-        height: 46px;
-
-        padding: 0 15px;
-
+        height: 44px;
         border: 1px solid #d4af37;
-
-        border-radius: 0;
-
-        background:
-            linear-gradient(
-                135deg,
-                #7cb342 0%,
-                #2e6930 100%
-            );
-
-        color: #fff;
-
+        background: linear-gradient(135deg, #7cb342 0%, #2e6930 100%);
+        color: #ffffff;
         font-size: 14px;
         font-weight: 700;
-
         letter-spacing: 1px;
-
         text-transform: uppercase;
-
         cursor: pointer;
-
-        transition:
-            opacity 0.25s ease,
-            transform 0.25s ease,
-            box-shadow 0.25s ease;
-
-        box-shadow:
-            0 4px 15px rgba(46, 105, 48, 0.2);
+        transition: all 0.25s ease;
+        box-shadow: 0 4px 15px rgba(46, 105, 48, 0.2);
     }
-
 
     .enquire-btn:hover {
-
-        opacity: 0.96;
-
+        opacity: 0.95;
         transform: translateY(-1px);
+    }
 
-        box-shadow:
-            0 6px 18px rgba(46, 105, 48, 0.25);
+    /* ================= MOBILE RESPONSIVE ================= */
+    /* ================= MOBILE RESPONSIVE ================= */
+@media (max-width: 768px) {
+
+    .popup-overlay {
+        padding: 10px;
+        align-items: center;
+    }
+
+    .popup-content {
+        width: 100%;
+        max-width: 430px;
+        max-height: 94vh;
+        flex-direction: column;
+        overflow-y: auto;
+        overflow-x: hidden;
+        border-radius: 10px;
+    }
+
+    /* Close Button */
+    .close-btn {
+        top: 10px;
+        right: 10px;
+        width: 32px;
+        height: 32px;
+        font-size: 19px;
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    /* ================= IMAGE ================= */
+
+    .popup-left {
+        flex: 0 0 auto;
+        width: 100%;
+        max-width: 100%;
+        min-height: 150px;
+        height: 180px;
+        max-height: 180px;
+    }
+
+    .popup-left img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .offer-overlay-badge {
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+        padding: 10px 12px;
+    }
+
+    .offer-overlay-badge h3 {
+        font-size: 13px;
+        margin-bottom: 2px;
+    }
+
+    .offer-overlay-badge p {
+        font-size: 10px;
+        line-height: 1.35;
+    }
+
+    /* ================= FORM ================= */
+
+    .popup-right {
+        flex: 0 0 auto;
+        width: 100%;
+        max-width: 100%;
+        padding: 22px 18px 20px;
+        overflow: visible;
+        box-sizing: border-box;
+    }
+
+    .popup-header {
+        margin-bottom: 15px;
+    }
+
+    .popup-header img.brand-logo {
+        height: 30px;
+        max-width: 150px;
+        margin-bottom: 8px;
+    }
+
+    .popup-header h2 {
+        font-size: 18px;
+        line-height: 1.3;
+        margin-bottom: 5px;
+    }
+
+    .popup-header p {
+        font-size: 11px;
+        line-height: 1.45;
+        padding: 0 5px;
+    }
+
+    /* Stack Name + Email */
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+        margin-bottom: 0;
+    }
+
+    .form-row .form-group {
+        margin-bottom: 12px;
+    }
+
+    .form-group {
+        margin-bottom: 12px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        font-size: 14px;
+    }
+
+    .form-group input {
+        min-height: 40px;
+    }
+
+    .form-group textarea {
+        min-height: 70px;
+        max-height: 100px;
+        padding: 9px 10px;
+    }
+
+    /* Phone */
+    .phone-input-wrapper {
+        width: 100%;
+    }
+
+    .phone-input-wrapper input {
+        min-height: 40px;
+    }
+
+    /* Checkboxes */
+    .checkbox-group {
+        gap: 10px;
+        margin: 12px 0 16px;
+    }
+
+    .checkbox-label {
+        font-size: 10px;
+        line-height: 1.4;
+        gap: 7px;
+    }
+
+    .checkbox-label input[type="checkbox"] {
+        flex: 0 0 auto;
+        margin-top: 1px;
+    }
+
+    /* Button */
+    .enquire-btn {
+        height: 46px;
+        min-height: 46px;
+        font-size: 13px;
+        letter-spacing: 0.8px;
+        }
     }
 
 
-    .enquire-btn:active {
-
-        transform: translateY(0);
-
-    }
-
-
-    /* =========================================================
-    TABLET
-    ========================================================= */
-
-    @media (max-width: 900px) {
-
-        .popup-overlay {
-            padding: 15px;
-        }
-
-        .popup-content {
-            max-width: 760px;
-            max-height: 92vh;
-        }
-
-        .popup-left {
-            min-height: 430px;
-        }
-
-        .popup-right {
-            padding: 28px 24px;
-        }
-
-        .popup-header h2 {
-            font-size: 19px;
-        }
-
-    }
-
-
-    /* =========================================================
-    MOBILE
-    ========================================================= */
-
-    @media (max-width: 768px) {
-
-        .popup-overlay {
-
-            align-items: center;
-            justify-content: center;
-
-            padding: 10px;
-
-            overflow-y: auto;
-        }
-
-
-        .popup-content {
-
-            display: flex;
-            flex-direction: column;
-
-            width: 100%;
-            max-width: 430px;
-
-            max-height: 94vh;
-
-            border-radius: 10px;
-
-            overflow-y: auto;
-            overflow-x: hidden;
-
-            -webkit-overflow-scrolling: touch;
-        }
-
-
-        /* -------------------------
-        CLOSE BUTTON
-        ------------------------- */
-
-        .close-btn {
-
-            top: 10px;
-            right: 10px;
-
-            width: 32px;
-            height: 32px;
-
-            font-size: 19px;
-
-            background: rgba(255, 255, 255, 0.94);
-
-            box-shadow:
-                0 2px 10px rgba(0, 0, 0, 0.16);
-        }
-
-
-        /* -------------------------
-        IMAGE
-        ------------------------- */
-
-        .popup-left {
-
-            flex: 0 0 auto;
-
-            width: 100%;
-            max-width: 100%;
-
-            min-height: 0;
-
-            height: 180px;
-            max-height: 180px;
-        }
-
-
-        .popup-left img {
-
-            width: 100%;
-            height: 100%;
-
-            object-fit: cover;
-        }
-
-
-        /* -------------------------
-        OFFER BADGE
-        ------------------------- */
-
-        .offer-overlay-badge {
-
-            left: 12px;
-            right: 12px;
-            bottom: 12px;
-
-            padding: 10px 12px;
-        }
-
-
-        .offer-overlay-badge h3 {
-
-            margin-bottom: 2px;
-
-            font-size: 13px;
-        }
-
-
-        .offer-overlay-badge p {
-
-            font-size: 10px;
-
-            line-height: 1.35;
-        }
-
-
-        /* -------------------------
-        FORM SIDE
-        ------------------------- */
-
-        .popup-right {
-
-            flex: 0 0 auto;
-
-            width: 100%;
-            max-width: 100%;
-
-            padding: 22px 18px 20px;
-
-            overflow: visible;
-
-            box-sizing: border-box;
-        }
-
-
-        /* -------------------------
-        HEADER
-        ------------------------- */
-
-        .popup-header {
-
-            margin-bottom: 15px;
-        }
-
-
-        .popup-header img.brand-logo {
-
-            height: 30px;
-
-            max-width: 150px;
-
-            margin-bottom: 8px;
-        }
-
-
-        .popup-header h2 {
-
-            font-size: 18px;
-
-            line-height: 1.3;
-
-            margin-bottom: 5px;
-        }
-
-
-        .popup-header p {
-
-            padding: 0 5px;
-
-            font-size: 11px;
-
-            line-height: 1.45;
-        }
-
-
-        /* -------------------------
-        FORM ROW
-        ------------------------- */
-
-        .form-row {
-
-            flex-direction: column;
-
-            gap: 0;
-
-            margin-bottom: 0;
-        }
-
-
-        .form-row .form-group {
-
-            margin-bottom: 12px;
-        }
-
-
-        .form-group {
-
-            margin-bottom: 12px;
-        }
-
-
-        /* -------------------------
-        INPUTS
-        ------------------------- */
-
-        .form-group input,
-        .form-group textarea {
-
-            font-size: 14px;
-
-            -webkit-appearance: none;
-            appearance: none;
-        }
-
-
-        .form-group input {
-
-            min-height: 40px;
-        }
-
-
-        .form-group textarea {
-
-            min-height: 70px;
-
-            max-height: 100px;
-        }
-
-
-        /* -------------------------
-        PHONE
-        ------------------------- */
-
-        .phone-input-wrapper {
-
-            width: 100%;
-        }
-
-
-        .phone-input-wrapper input {
-
-            min-height: 40px;
-        }
-
-
-        /* -------------------------
-        CHECKBOX
-        ------------------------- */
-
-        .checkbox-group {
-
-            gap: 10px;
-
-            margin: 12px 0 16px;
-        }
-
-
-        .checkbox-label {
-
-            font-size: 10px;
-
-            line-height: 1.4;
-
-            gap: 7px;
-        }
-
-
-        .checkbox-label input[type="checkbox"] {
-
-            width: 14px;
-            height: 14px;
-
-            margin-top: 1px;
-        }
-
-
-        .enquire-btn {
-
-            height: 46px;
-
-            min-height: 46px;
-
-            font-size: 13px;
-
-            letter-spacing: 0.8px;
-        }
-
-    }
-
-
+    /* ================= SMALL MOBILE ================= */
     @media (max-width: 380px) {
 
         .popup-overlay {
-
             padding: 6px;
         }
 
-
         .popup-content {
-
-            max-width: 100%;
-
             max-height: 96vh;
-
             border-radius: 8px;
         }
 
-
-        /* IMAGE */
-
         .popup-left {
-
             height: 145px;
-
             min-height: 145px;
-
             max-height: 145px;
         }
 
-
-        /* FORM */
-
         .popup-right {
-
             padding: 18px 15px 16px;
         }
 
-
-        /* HEADER */
-
-        .popup-header {
-
-            margin-bottom: 13px;
-        }
-
-
-        .popup-header img.brand-logo {
-
-            height: 27px;
-
-            max-width: 135px;
-        }
-
-
         .popup-header h2 {
-
             font-size: 17px;
         }
 
-
         .popup-header p {
-
             font-size: 10px;
         }
 
-
-        /* INPUT */
-
         .form-group input,
         .form-group textarea {
-
             font-size: 13px;
         }
 
-
-        /* CHECKBOX */
-
         .checkbox-label {
-
             font-size: 9.5px;
-
-            line-height: 1.4;
         }
 
-
-        /* BUTTON */
-
         .enquire-btn {
-
             height: 44px;
-
             min-height: 44px;
-
             font-size: 12px;
         }
-
-    }
-
-
-    @media (max-width: 340px) {
-
-        .popup-overlay {
-
-            padding: 4px;
-        }
-
-
-        .popup-content {
-
-            max-height: 97vh;
-        }
-
-
-        .popup-left {
-
-            height: 125px;
-
-            min-height: 125px;
-
-            max-height: 125px;
-        }
-
-
-        .popup-right {
-
-            padding: 15px 13px;
-        }
-
-
-        .popup-header img.brand-logo {
-
-            height: 24px;
-
-            max-width: 120px;
-        }
-
-
-        .popup-header h2 {
-
-            font-size: 16px;
-        }
-
-
-        .popup-header p {
-
-            font-size: 9.5px;
-        }
-
-
-        .form-group {
-
-            margin-bottom: 9px;
-        }
-
-
-        .form-group input {
-
-            min-height: 37px;
-
-            padding: 6px 0;
-        }
-
-
-        .form-group textarea {
-
-            min-height: 60px;
-
-            padding: 7px 8px;
-        }
-
-
-        .checkbox-group {
-
-            margin: 10px 0 13px;
-
-            gap: 8px;
-        }
-
-
-        .checkbox-label {
-
-            font-size: 9px;
-        }
-
-
-        .enquire-btn {
-
-            height: 42px;
-
-            min-height: 42px;
-
-            font-size: 11px;
-        }
-
-    }
-
-
-    @media (max-width: 768px) and (orientation: landscape) {
-
-        .popup-content {
-
-            max-height: 96vh;
-
-            flex-direction: row;
-
-            max-width: 760px;
-        }
-
-
-        .popup-left {
-
-            width: 42%;
-
-            max-width: 42%;
-
-            height: auto;
-
-            min-height: 360px;
-
-            max-height: none;
-        }
-
-
-        .popup-right {
-
-            width: 58%;
-
-            max-width: 58%;
-
-            padding: 20px;
-        }
-
-
-        .form-row {
-
-            flex-direction: row;
-
-            gap: 10px;
-        }
-
-
-        .form-row .form-group {
-
-            margin-bottom: 0;
-        }
-
-
-        .popup-header {
-
-            margin-bottom: 12px;
-        }
-
-
-        .popup-header h2 {
-
-            font-size: 17px;
-        }
-
     }
 </style>
 
@@ -3760,4 +3018,7 @@
         });
     });
 </script>
+
+
+
 {% endblock %}
