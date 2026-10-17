@@ -434,7 +434,7 @@
               </button>
           </form>
 
-          <script src="https://www.google.om/recaptcha/api.js?render=6LdePO8tAAAAAOKv9e5GRM5H6vm5hinmy9avgFKv"></script>
+          <script src="https://www.google.om/recaptcha/api.js?render={{site_settings.google_site_key}}"></script>
           <script>
               document.getElementById('contactInquiryForm').addEventListener('submit', function(event) {
                   event.preventDefault();
@@ -447,7 +447,7 @@
                   }
 
                   grecaptcha.ready(function() {
-                      grecaptcha.execute('6LdePO8tAAAAAOKv9e5GRM5H6vm5hinmy9avgFKv', {action: 'submit'}).then(function(token) {
+                      grecaptcha.execute('{{site_settings.google_site_key}}', {action: 'submit'}).then(function(token) {
                           document.getElementById('contact-g-recaptcha-response').value = token;
                           form.submit();
                       }).catch(function(error) {
