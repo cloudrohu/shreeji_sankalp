@@ -62,6 +62,8 @@ class Setting(BaseModel):
     virtual_360_url = models.TextField(blank=True, null=True, )
     virtual_360_title = models.CharField(max_length=200, blank=True, null=True, default="360° Airspace Panorama",help_text="Heading/Title for 360 Section")
     googletagmanager = models.CharField(max_length=150, blank=True, null=True)
+    recaptcha_secret_key = models.CharField(max_length=150, blank=True, null=True)
+    recaptcha_site_key = models.CharField(max_length=150, blank=True, null=True)
     footer_link_text = models.CharField(max_length=150, blank=True, null=True)
     google_label = models.CharField(max_length=150, blank=True, null=True)
     google_map = models.CharField(max_length=1000, blank=True, null=True)

@@ -473,6 +473,8 @@ class SettingAdmin(admin.ModelAdmin):
             {
                 "fields": (
                     "googletagmanager",
+                    "recaptcha_secret_key",
+                    "recaptcha_site_key",
                     "google_label",
                     "smtpserver",
                     "smtpemail",
