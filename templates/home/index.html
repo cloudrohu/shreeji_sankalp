@@ -25,20 +25,35 @@
 
                         <div class="max-w-3xl text-white">
 
-                            <span class="inline-flex items-center gap-3 text-[11px] sm:text-xs tracking-[0.3em] uppercase text-white/80 mb-5">
-                                <span class="w-8 h-px bg-white/70"></span>
-                            {{slider.badge_title}}
-                            </span>
+                            {% if slider.badge_title %}
+                                <span class="inline-flex items-center gap-3 text-[11px] sm:text-xs tracking-[0.3em] uppercase text-white/80 mb-5">
+                                    <span class="w-8 h-px bg-white/70"></span>
+                                    {{slider.badge_title}}
+                                </span>
+                            {% else %}
 
+                            {% endif %}
+
+
+                            {% if slider.title1 %}
                             <h1 class="luxury-font text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.05]">
                                 {{slider.title1}}
                                 <br>
                                 <span class="italic font-normal">{{slider.title2}}</span>
                             </h1>
+                            {% else %}
 
+                            {% endif %}
+
+
+                            {% if slider.description %}
                             <p class="mt-6 max-w-xl text-sm sm:text-base leading-7 text-white/80">
                             {{slider.description}}
                             </p>
+                            {% else %}
+
+                            {% endif %}
+
 
                             <div class="mt-8 flex flex-wrap gap-3">
 
