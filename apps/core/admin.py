@@ -435,6 +435,7 @@ class SettingAdmin(admin.ModelAdmin):
             {
                 "fields": (
                     "rera_number",
+                    "rera_register",
                     "current_project_rera",
                 )
             },
